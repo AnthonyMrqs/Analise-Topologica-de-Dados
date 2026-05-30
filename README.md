@@ -3,12 +3,9 @@
 
 ## NOTA METODOLÓGICA
 
-
-NOTA METODOLÓGICA
-
 Este código implementa o pipeline do artigo de Kovacev-Nikolic et al. (2015):
 
-  Passo 1: D = 1 - |C|  (Equação 1 do artigo)
+  Passo 1: $D = 1 - |C|$  (Equação 1 do artigo)
   Passo 2: Complexo de Vietoris-Rips + homologia persistente (gudhi)
   Passo 3: Paisagem de persistência amostrada em 50 pontos × k camadas
   Passo 4: Concatenação → vetor de features
@@ -17,14 +14,14 @@ Este código implementa o pipeline do artigo de Kovacev-Nikolic et al. (2015):
 
 Diferenças em relação ao código original recebido:
   - Feature: paisagem de persistência (não curva de Betti)
-  - PCA com 3 componentes (artigo: ~52.5% da variância p/ grau 1)
+  - PCA com 3 componentes (artigo: $~52.5%$ da variância p/ grau 1)
   - StandardScaler e PCA ajustados apenas no fold de treino (sem leakage)
-  - max_edge_length = t_max (removido I = 2*J incorreto)
-  - Diagonal e simetria da matriz D verificadas explicitamente
+  - ``max_edge_length`` = ``t_max`` (removido $I = 2*J$ incorreto)
+  - Diagonal e simetria da matriz $D$ verificadas explicitamente
 
-Sua observação sobre a virada em t ≈ 0.19:
+Sua observação sobre a virada em $t \approx 0.19$:
   Esse sinal está coerente com o artigo (Fig. 7): o ciclo mais persistente
-  nasce em ~t=0.2 e morre antes de t=0.6. A paisagem captura exatamente
+  nasce em $\sim t=0.2$ e morre antes de $t=0.6$. A paisagem captura exatamente
   a altura e duração desse ciclo, enquanto a curva de Betti só conta
   quantos ciclos existem — perdendo a informação de persistência.
 
