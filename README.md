@@ -5,12 +5,12 @@
 
 Este código implementa o pipeline do artigo de Kovacev-Nikolic et al. (2015):
 
-  Passo 1: $D = 1 - |C|$  (Equação 1 do artigo)
-  Passo 2: Complexo de Vietoris-Rips + homologia persistente (gudhi)
-  Passo 3: Paisagem de persistência amostrada em 50 pontos × k camadas
-  Passo 4: Concatenação → vetor de features
-  Passo 5: Padronização + PCA (3 componentes) dentro do LOO
-  Passo 6: SVM com kernel linear
+  - Passo 1: $D = 1 - |C|$  (Equação 1 do artigo)
+  - Passo 2: Complexo de Vietoris-Rips + homologia persistente (gudhi)
+  - Passo 3: Paisagem de persistência amostrada em 50 pontos × k camadas
+  - Passo 4: Concatenação → vetor de features
+  - Passo 5: Padronização + PCA (3 componentes) dentro do LOO
+  - Passo 6: SVM com kernel linear
 
 Diferenças em relação ao código original recebido:
   - Feature: paisagem de persistência (não curva de Betti)
