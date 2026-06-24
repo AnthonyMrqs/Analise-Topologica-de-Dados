@@ -83,7 +83,10 @@
 \title{Monografia}
 \author{-}
 
+
 \begin{document}
+\tableofcontents
+\newpage
 
 \maketitle
 \section{Fundamentação Teórica}
@@ -249,10 +252,10 @@ Devido à invariância translacional e rotacional da molécula inteira como um c
 
 A conexão matemática entre este arcabouço biofísico e a metodologia estatística delineada por Kovacev-Nikolic et al.~\cite{kovacev2016} estabelece-se por meio do \textbf{truncamento espectral}. Autovalores de grande magnitude correspondem a movimentos rápidos, locais e de alta frequência (tais como estiramentos de ligações covalentes pontuais), que representam mero ruído termodinâmico na perspetiva da transição funcional da proteína.
 
-Para capturar exclusivamente a mecânica cooperativa global --- isto é, o movimento de dobradiça (\textit{hinge-bending}) essencial para a captura da maltose ---, opera-se uma restrição do espaço dimensional. Filtram-se as vibrações atómicas de alta frequência e retêm-se apenas os primeiros $M = 20$ modos não-triviais de menor autovalor ($k = 7, \ldots, 26$). A matriz pseudoinversa de Moore-Penrose truncada, $\mathbf{H}^+_{\text{trunc}}$, é reconstruída estritamente sobre este subespaço funcional de baixa frequência:
+Para capturar exclusivamente a mecânica cooperativa global --- isto é, o movimento de dobradiça essencial para a captura do ligante --- opera-se uma restrição dimensional. Retêm-se apenas os primeiros $M = 20$ modos não-triviais de menor autovalor (do índice $k=7$ ao $k=6+M$). A matriz pseudoinversa de Moore-Penrose truncada, $\mathbf{H}^+_{\text{trunc}}$, é reconstruída estritamente sobre este subespaço:
 
 \begin{equation}\label{eq:pseudoinversa_truncada}
-\mathbf{H}^+_{\text{trunc}} = \sum_{k=7}^{7+M-1} \frac{1}{\lambda_k} \mathbf{u}_k \mathbf{u}_k^T.
+\mathbf{H}^+_{\text{trunc}} = \sum_{k=7}^{6+M} \frac{1}{\lambda_k} \mathbf{u}_k \mathbf{u}_k^T.
 \end{equation}
 
 \subsubsection{Derivação da Matriz de Correlação Cruzada}
@@ -286,7 +289,7 @@ Para preparar os dados das flutuações para a construção do complexo de Vieto
 D_{ij} = 1 - |C_{ij}|.
 \end{equation}
 
-Esta conversão mapeia o domínio de $[-1, 1]$ da correlação para um espaço pseudométrico rigoroso $[0, 1]$, carregando implicações estatísticas e topológicas profundas.
+Esta conversão mapeia o domínio de $[-1, 1]$ da correlação para um espaço pseudométrico rigoroso $[0, 1]$, carregando implicações estatísticas e topológicas profundas. É crucial notar que $\mathbf{D}$ não é estritamente uma métrica, mas sim uma \textbf{pseudométrica}. Isto ocorre porque a identidade dos indiscerníveis não se verifica rigorosamente: dois resíduos distintos ($i \neq j$) podem oscilar de forma perfeitamente correlacionada ($|C_{ij}| = 1$), resultando numa distância $D_{ij} = 0$. A Topologia Algébrica, contudo, é perfeitamente bem definida sobre espaços pseudométricos, permitindo a construção de complexos simpliciais sem perda de generalidade teórica.
 
 \subsubsection{O Significado Probabilístico e a Pseudométrica}
 
@@ -359,6 +362,10 @@ Conforme evidenciado pelas matrizes dinâmicas da MBP estudadas por Kovacev-Niko
     \label{fig:grafico_scree} 
 \end{figure}
 
+\begin{remark}[Nota sobre o Fluxo Metodológico]
+Ressalta-se que a aplicação do ISOMAP possui um propósito estritamente exploratório e visual no contexto deste estudo, permitindo a inspeção gráfica da dimensionalidade intrínseca (Gráfico Scree). O fluxo computacional analítico de classificação (\textit{Machine Learning}) \textbf{não} transita por este subespaço tridimensional gerado pelo ISOMAP. A extração de características preditivas opera diretamente e independentemente sobre as paisagens de persistência através de Análise de Componentes Principais (PCA), conforme detalhado na secção do pipeline computacional.
+\end{remark}
+
 % -------------------------------------------------------------------
 \subsection{Definições Topológicas e a Geometria da Comunicação Dinâmica}
 \label{sec:topologia_dinamica}
@@ -411,15 +418,23 @@ H_n(K) = Z_n(K) / B_n(K).
 A dimensão deste espaço vetorial é o \textbf{$n$-ésimo número de Betti}, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de "buracos" ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
 \end{definition}
 
+\begin{definition}
+Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O \textbf{nervo} de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-símplices são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
+\end{definition}
+
+\begin{definition}[Complexo de \v{C}ech]
+Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de \textbf{complexo de \v{C}ech} de $X$ no instante $t$.
+
+Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos símplices são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
+\end{definition}
+
 \subsubsection{Filtração e Persistência no Espaço Dinâmico}
 
 Para que a topologia seja computável a partir da matriz de distâncias dinâmicas, constrói-se o complexo a partir de um parâmetro de limiar evolutivo:
 
-\begin{definition}[Complexo de Rips]
-Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O \textbf{complexo de Rips} de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
-\end{definition}
+ 
 
-No contexto deste estudo, substituímos o espaço euclidiano $\mathbb{R}^3$ pelo espaço probabilístico das interações dinâmicas da MBP. Assim, o complexo $\mathrm{Rips}^t(X)$ instanciará um $1$-simplexo (aresta) entre dois resíduos sse a distância dinâmica $D_{ij} \leq 2t$. Conforme demonstrado por Cang et al.~\cite{cang2015}, esta substituição dota os invariantes de uma ontologia puramente mecanicista:
+No contexto deste estudo, substituímos o espaço euclidiano $\mathbb{R}^3$ pelo espaço probabilístico das interações dinâmicas da MBP. Assim, o complexo $\mathrm{Rips}^t(X)$ instanciará um $1$-simplexo (aresta) entre dois resíduos se a distância dinâmica $D_{ij} \leq 2t$. Conforme demonstrado por Cang et al.~\cite{cang2015}, esta substituição dota os invariantes de uma ontologia puramente mecanicista:
 \begin{enumerate}
     \item \textbf{Arestas como Interação:} Se dois resíduos operam em uníssono termodinâmico para fechar a fenda, $D_{ij} \approx 0$, e uma aresta conectá-los-á nos primeiros instantes da filtração, mesmo que estejam fisicamente distantes na proteína.
     \item \textbf{Laços de Homologia ($\beta_1$) como Comunicação:} Os "buracos" abstraídos sobre a matriz $\mathbf{D}$ não são espaços vazios na matéria, mas sim \textit{circuitos elásticos fechados} e \textit{vias alostéricas} de propagação de força~\cite{kovacev2016}.
@@ -783,6 +798,21 @@ Quando o RMSD estrutural transpassa o limiar significativo de deformação basal
 A metodologia híbrida desenvolvida neste estudo, que amalgama Análise Topológica de Dados (TDA), Máquinas de Vetores de Suporte (SVM) e validação geométrica pelo Algoritmo de Kabsch, foi aplicada à Proteína de Ligação à Maltose (MBP). Os resultados obtidos validam a premissa de que a classificação termodinâmica das conformações proteicas transcende a mera presença ou ausência do ligante químico (\textit{apo} versus \textit{holo}).
 
 % -------------------------------------------------------------------
+\subsection{O Pipeline Computacional do Estudo}
+\label{sec:pipeline}
+% -------------------------------------------------------------------
+
+Para garantir a reprodutibilidade e a clareza da transição entre a fundamentação teórica e a experimentação empírica, o fluxo de processamento analítico foi estruturado nas seguintes etapas sequenciais:
+
+\begin{enumerate}
+    \item \textbf{Dinâmica e Pseudométrica:} A partir das coordenadas cristalográficas ($C_\alpha$), constrói-se o Modelo de Rede Anisotrópica (ANM) e deriva-se a matriz de correlação cruzada $\mathbf{C}$, mapeada na pseudométrica dinâmica $\mathbf{D}$.
+    \item \textbf{Homologia Persistente:} Aplica-se a filtração de Vietoris-Rips sobre $\mathbf{D}$, extraindo-se os diagramas de persistência referentes ao grupo de homologia $H_1$ (ciclos de comunicação alostérica).
+    \item \textbf{Vetorização via Paisagens de Persistência:} Os diagramas são mapeados no espaço funcional de Banach e convertidos em vetores. Empiricamente, o número de características topológicas detetadas ditou o hiperparâmetro estrutural de $k_{\max} = 73$ funções tenda (camadas). Discretizando cada camada em 50 pontos, cada proteína é representada por um vetor em $\mathbb{R}^{3650}$.
+    \item \textbf{Redução de Dimensionalidade Analítica (PCA):} O espaço $\mathbb{R}^{3650}$ é reduzido linearmente através de Análise de Componentes Principais (PCA). Os primeiros 3 componentes, retendo a maior variância do sistema, formam o novo espaço de características.
+    \item \textbf{Classificação (LOO-SVM):} Submete-se o espaço reduzido a um classificador de Máquinas de Vetores de Suporte (SVM) linear, validado estritamente por validação cruzada \textit{Leave-One-Out} devido ao tamanho da amostra ($n=14$).
+\end{enumerate}
+ 
+% -------------------------------------------------------------------
 \subsection{Pipeline Topológico e Aprendizado de Máquina}
 \label{subsec:res_svm}
 % -------------------------------------------------------------------
@@ -842,7 +872,7 @@ As 3 proteínas que divergiram merecem escrutínio biofísico. Quando a Topologi
 
 \begin{itemize}
     \item \textbf{A transição da 2N45:} O RMSD clássico enquadra-a matematicamente como Aberta ($2,32 < 3,51$). No entanto, a TDA classificou-a como Fechada. Como visto na Subsecção~\ref{subsec:res_novas}, ela reside em cima do hiperplano topológico ($d = 0,19$). A TDA capturou a "tensão da rede elástica" dos canais de comunicação da dobradiça que o raio-x estático não consegue mensurar plenamente. A proteína \texttt{2N45} está a fechar-se espontaneamente através de Seleção Conformacional, exibindo homologia funcional fechada antes de atingir o encaixe estrutural mínimo.
-    \item \textbf{O limite do RMSD rígido (7Z7H):} A estrutura \texttt{7Z7H} acusa um RMSD absurdo de $\sim 26$ \AA, um valor impraticável para sobreposição de corpo rígido. Tais desvios gigantescos mascaram completamente a função proteica aos olhos da geometria cartesiana do Algoritmo de Kabsch. O SVM, por basear-se na métrica intrínseca das flutuações relativas ($D_{ij}$), revelou-se imune à distorção espacial cartesiana e classificou a proteína adequadamente segundo os seus ciclos de comunicação $H_1$, ilustrando a robustez e superioridade da Topologia Algébrica na presença de perturbações massivas nas coordenadas.
+    \item \textbf{O limite prático do RMSD rígido (7Z7H):} A estrutura \texttt{7Z7H} acusou um RMSD divergente na ordem de $\sim 26$ \AA. Em biologia estrutural, um desvio desta magnitude não traduz uma mera mudança conformacional funcional, sugerindo antes problemas severos no alinhamento tridimensional (tais como ausência de cadeias homólogas, numeração de resíduos não padrão ou artefatos de resolução espacial profunda). Perante anomalias que inviabilizam o alinhamento de corpo rígido, o algoritmo de Kabsch perde a sua interpretabilidade física. O facto de o modelo SVM ter processado a proteína normalmente, gerando um vetor de distâncias dinâmicas válido baseado na conetividade interna relativa, ilustra uma vantagem mecânica da Topologia: por basear-se em distâncias intra-moleculares (matriz $\mathbf{D}$), a TDA mostra-se resiliente a distorções coordenadas extremas que corrompem fatalmente os descritores euclidianos absolutos.
 \end{itemize}
 
 Em suma, a experimentação analítica confirma o poder da matriz Hessiana aliada à Homologia Persistente. O "laço de vida mais longa" na dimensão 1 não representa apenas um espaço vazio; é a assinatura da via alostérica ativa da MBP. Comprovou-se empiricamente que o fechamento proteico é governado pelo equilíbrio dinâmico e pela seleção de paisagens termodinâmicas, rejeitando axiomas rígidos em que os estados conformacionais funcionam como meros recetáculos binários.

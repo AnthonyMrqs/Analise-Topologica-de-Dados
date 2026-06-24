@@ -1,0 +1,476 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Idioma, Fontes e Codificação ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{lmodern}
+% \usepackage{helvet}
+\usepackage{csquotes}
+\usepackage{booktabs}
+
+% --- Matemática e Física ---
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{physics}
+\usepackage{siunitx}
+
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+\ExplSyntaxOn
+\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
+\ExplSyntaxOff
+
+% --- Elementos Gráficos e Layout ---
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption} 
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{array}
+
+% --- Sumário, Índices e Organização ---
+\usepackage{verbatim}
+\usepackage{makeidx}
+\usepackage{sectsty}
+\usepackage{tocbibind}
+
+% --- Bibliografia (Configuração Correta) ---
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{refs.bib}
+
+% --- Teoremas e Definições ---
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{definition}{Definição}[section]
+\newtheorem{proposition}{Proposição}[section]
+\newtheorem{corollary}{Corolário}[section]
+\newtheorem*{remark}{Nota}
+
+% --- Customizações de Texto ---
+\newcommand{\ident}{\hspace{2em}}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\refname}{Referências}
+\renewcommand{\proofname}{\normalfont\textbf{Demonstração:}}
+% \renewcommand{\thedefinition}{\Roman{definition}} 
+\renewcommand{\contentsname}{Sumário}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\setlist[itemize]{leftmargin=2.5em, labelsep=0.5em}
+\setlist[enumerate]{leftmargin=2.5em, labelsep=0.5em}
+
+% --- Links e Sumário Customizado ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    urlcolor = cyan,
+    citecolor = black
+}
+
+\makeatletter
+\renewcommand\tableofcontents{
+    \noindent{\Large\bfseries\contentsname}\par\vspace{0.6em} % Força o alinhamento total à esquerda
+  \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}
+  \@starttoc{toc}
+}
+\makeatother
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+    
+    % Cabeçalho Institucional
+    \noindent
+    \begin{minipage}[c]{0.18\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{logo_ufs.png} 
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.60\textwidth}
+        \centering
+        \fontsize{11pt}{14pt}\selectfont
+        \textbf{UNIVERSIDADE FEDERAL DE SERGIPE} \\
+        \textbf{CENTRO DE CIÊNCIAS E TECNOLOGIA} \\
+        \textbf{DEPARTAMENTO DE MATEMÁTICA} \\
+        \fontsize{10pt}{12pt}\selectfont
+        \textbf{CURSO BACHARELADO EM MATEMÁTICA APLICADA E COMPUTACIONAL}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.18\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{logo_dma.png}
+    \end{minipage}
+
+    \vfill
+
+    % Título do Trabalho
+    \begin{center}
+        \fontsize{16pt}{20pt}\selectfont
+        \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+    \end{center}
+
+    \vfill
+
+    % Autor
+    \begin{center}
+        \fontsize{12pt}{14pt}\selectfont
+        \textbf{Autor: Anthony dos Anjos Marques}
+    \end{center}
+
+    \vfill
+
+    % Local e Data
+    \begin{center}
+        \fontsize{12pt}{14pt}\selectfont
+        \textbf{São Cristóvão - SE} \\
+        \vspace{0.2cm}
+        \textbf{Julho, 2026}
+    \end{center}
+\end{titlepage}
+
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+    
+    % Cabeçalho Institucional Repetido
+    \noindent
+    \begin{minipage}[c]{0.18\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{logo_ufs.png} 
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.60\textwidth}
+        \centering
+        \fontsize{11pt}{14pt}\selectfont
+        \textbf{UNIVERSIDADE FEDERAL DE SERGIPE} \\
+        \textbf{CENTRO DE CIÊNCIAS E TECNOLOGIA} \\
+        \textbf{DEPARTAMENTO DE MATEMÁTICA} \\
+        \fontsize{10pt}{12pt}\selectfont
+        \textbf{CURSO BACHARELADO EM MATEMÁTICA APLICADA E COMPUTACIONAL}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.18\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{logo_dma.png}
+    \end{minipage}
+
+    \vfill
+
+    % Título do Trabalho
+    \begin{center}
+        \fontsize{16pt}{20pt}\selectfont
+        \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+    \end{center}
+
+    \vfill
+
+    % Autor
+    \begin{center}
+        \fontsize{12pt}{14pt}\selectfont
+        \textbf{Autor: Anthony dos Anjos Marques}
+    \end{center}
+
+    \vspace{1cm}
+
+    % Orientador(es) - Deixei o campo aberto para você preencher
+    \begin{center}
+        \fontsize{11pt}{13pt}\selectfont
+        \textbf{Orientador:} Prof. Dr. Danilo Dias da Silva
+    \end{center}
+
+    \vspace{1cm}
+
+    % Bloco de Notas de Monografia II do DMAT/UFS
+    \noindent\hfill
+    \begin{minipage}{0.55\textwidth}
+        \fontsize{10pt}{13pt}\selectfont
+        Trabalho de Conclusão de Curso apresentado como requisito parcial de avaliação, da disciplina Monografia II, orientado pelo Prof. Dr. Danilo Dias da Silva, no Curso de Bacharelado em Matemática Aplicada e Computacional, da Universidade Federal de Sergipe - UFS, no segundo semestre letivo de 2026.
+    \end{minipage}
+
+    \vfill
+
+    % Local e Data
+    \begin{center}
+        \fontsize{12pt}{14pt}\selectfont
+        \textbf{São Cristóvão - SE} \\
+        \vspace{0.2cm}
+        \textbf{Julho, 2026}
+    \end{center}
+\end{titlepage}
+
+
+\newpage
+\thispagestyle{empty}
+
+\vspace*{1cm}
+
+\begin{center}
+    \fontsize{14pt}{18pt}\selectfont
+    \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+\end{center}
+
+\vspace{1.5cm}
+
+\begin{flushleft}
+    \fontsize{11pt}{14pt}\selectfont
+    Trabalho de Conclusão de Curso apresentado pelo aluno Anthony dos Anjos Marques ao curso de Bacharelado em Matemática Aplicada e Computacional/DMA/UFS em 24/07/2026, como requisito de avaliação final do Trabalho de Conclusão de Curso, sob a avaliação da Banca Examinadora constituída pelos seguintes professores:
+\end{flushleft}
+
+\vspace{2cm}
+
+% Assinaturas da Banca
+\begin{center}
+    \underline{\hspace{10cm}} \\
+    \fontsize{10pt}{12pt}\selectfont Nome completo com titulação (orientador/a)\\
+    \vspace{1.5cm}
+    \underline{\hspace{10cm}} \\
+    \fontsize{10pt}{12pt}\selectfont Nome completo com titulação (examinador/a convidado/a interno/a) \\
+    \vspace{1.5cm}
+    \underline{\hspace{10cm}} \\
+    \fontsize{10pt}{12pt}\selectfont Nome completo com titulação (examinador/a convidado/a externo/a) \\
+    \vspace{1.5cm}
+    \underline{\hspace{10cm}} \\
+    \fontsize{10pt}{12pt}\selectfont Nome completo com titulação (examinador/a suplente)
+\end{center}
+
+
+\newpage
+\thispagestyle{empty}
+
+
+\tableofcontents
+
+\newpage
+
+\setcounter{page}{1}
+
+\section{Introdução}
+
+\ident A biologia estrutural tem passado por uma revolução quantitativa nas últimas décadas, impulsionada pela necessidade de compreender não apenas a estrutura estática das macromoléculas, mas também a sua dinâmica e flexibilidade funcional. Proteínas não são entidades rígidas; elas operam como nanomáquinas complexas que transitam entre diferentes estados conformacionais para exercerem suas funções biológicas, como a catálise enzimática e o transporte de ligantes. A distinção entre as teorias clássicas de interação proteína-ligante — do modelo rígido de chave-fechadura aos modelos modernos de encaixe induzido (\textit{induced fit}) e seleção conformacional (\textit{conformational selection}) — evidencia a necessidade de ferramentas matemáticas capazes de capturar a essência da dinâmica molecular.
+
+\ident Neste contexto, a Proteína de Ligação à Maltose (MBP — \textit{Maltose-Binding Protein}), encontrada na bactéria \textit{Escherichia coli}, apresenta-se como um modelo de estudo ideal. A MBP atua no transporte de maltodextrinas e transita fundamentalmente entre duas conformações: o estado \textit{Apo} (aberto e livre de ligante) e o estado \textit{Holo} (fechado e associado ao ligante). A compreensão e a distinção exata desses estados desafiam as métricas geométricas tradicionais, como o Desvio Quadrático Médio (RMSD), que frequentemente falham em capturar correlações não-lineares sutis ou variações dinâmicas globais na estrutura da proteína.
+
+\ident Para contornar as limitações da análise puramente geométrica, modelos baseados na física estatística e em simulações de grão grosso (\textit{coarse-grained}), como o Modelo de Rede Anisotrópica (ANM — \textit{Anisotropic Network Model}), tornaram-se cruciais. Ao modelar a proteína como um sistema de massas e molas, o ANM permite a construção de uma Matriz Hessiana que, após decomposição espectral e foco nos modos normais de baixa frequência, gera uma Matriz de Correlação Cruzada. Essa matriz quantifica como as flutuações de diferentes resíduos de aminoácidos estão acopladas dinamicamente, fornecendo uma ``assinatura física'' do comportamento global da macromolécula.
+
+\ident O ponto central deste trabalho reside na transição do domínio da biofísica para o da matemática pura e aplicada, especificamente através da Análise Topológica de Dados (TDA — \textit{Topological Data Analysis}). A partir da matriz de correlação cruzada, define-se uma pseudométrica que transforma a dinâmica da proteína em um espaço métrico. Utilizando o ferramental da Homologia Persistente, filtrações de complexos simpliciais (como o Complexo de Vietoris-Rips) são construídas para acompanhar a evolução das características topológicas — componentes conexas e ciclos unidimensionais — ao longo de diferentes escalas de distância. 
+
+\ident Diferente das abordagens clássicas, a topologia se preocupa com a forma e a conectividade intrínseca dos dados, sendo invariante a deformações contínuas. Extraímos essas assinaturas topológicas por meio de Paisagens de Persistência (\textit{Persistence Landscapes}), que mapeiam os dados topológicos, originalmente discretos e de difícil manipulação algébrica, em um espaço de funções de Banach. Esta transformação garante a estabilidade dos dados e permite a integração direta com métodos de estatística clássica e algoritmos de \textit{Machine Learning}.
+
+\ident Por fim, com as representações topológicas traduzidas para o escopo numérico, aplica-se o Teste de Permutação para validação estatística da separabilidade das conformações, além do treinamento de um classificador supervisionado baseado em Máquinas de Vetores de Suporte (SVM — \textit{Support Vector Machines}). 
+
+\ident Portanto, o objetivo fundamental deste trabalho é investigar, fundamentar e aplicar a Análise Topológica de Dados e a Homologia Persistente na extração de características dinâmicas de estruturas biomoleculares, utilizando a MBP como caso prático. Busca-se demonstrar que a união entre a teoria de grafos físicos (ANM) e os invariantes topológicos fornece um arcabouço rigoroso e superior para a classificação de estados proteicos.
+
+\section{Contexto Biológico e Extração da Dinâmica Estrutural}
+
+\ident Para que as ferramentas da Análise Topológica de Dados (TDA) possam ser aplicadas com rigor, é necessário primeiramente traduzir o comportamento físico do objeto de estudo em um espaço métrico bem definido. Nesta seção, apresentamos o sistema biológico sob análise — a Proteína de Ligação à Maltose (MBP) — e descrevemos como o Modelo de Rede Anisotrópica (ANM) é utilizado para mapear suas flutuações dinâmicas, culminando na construção de uma matriz de distâncias que servirá como substrato para as filtrações topológicas subsequentes.
+
+\subsection{A Proteína de Ligação à Maltose (MBP)}
+
+\ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
+
+\ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}), onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
+
+\ident Independentemente do modelo biológico exato, o desafio matemático é claro: diferenciar essas duas classes (Aberta e Fechada) com base em suas propriedades estruturais e dinâmicas, superando métricas de alinhamento puramente rígidas e geométricas que não capturam as complexas correlações espaciais das macromoléculas em movimento.
+
+\subsection{O Modelo de Rede Anisotrópica (ANM)}
+
+\ident Para capturar a dinâmica intrínseca da MBP sem o custo computacional proibitivo das simulações completas de Dinâmica Molecular, adota-se uma abordagem de grão grosso (\textit{coarse-grained}) baseada em física estatística: o Modelo de Rede Anisotrópica (ANM). 
+
+\ident No ANM, a estrutura tridimensional da proteína é abstraída como um grafo espacial. Cada resíduo de aminoácido é representado unicamente por seu átomo de Carbono-alfa ($C_\alpha$), que atua como um nó neste grafo. Interações interatômicas são modeladas como um sistema de molas elásticas que conectam nós localizados dentro de um raio de corte predefinido. 
+
+\ident O comportamento deste sistema de massas e molas é governado por uma aproximação harmônica do potencial elástico da rede. A topologia física dessa rede é codificada na matriz de segundas derivadas do potencial, conhecida como Matriz Hessiana ($H$).
+
+\begin{remark}
+A dedução analítica detalhada da energia potencial, a formulação tridimensional da Matriz Hessiana $H$ e sua decomposição espectral (cálculo dos autovalores e autovetores associados aos modos normais de vibração) envolvem um forte arcabouço de física mecânica e estatística que foge ao escopo puramente topológico do texto principal. Portanto, toda a fundamentação física e algébrica do ANM encontra-se detalhada no \textbf{Apêndice A}.
+\end{remark}
+
+\ident Do ponto de vista matemático para a classificação estrutural, o resultado fundamental do modelo ANM repousa na inversa pseudogeneralizada da Matriz Hessiana. A partir dos modos de baixa frequência (geralmente os 20 primeiros modos não triviais, que ditam os movimentos globais da proteína), constrói-se a \textbf{Matriz de Correlação Cruzada} ($C$). 
+
+\ident Cada elemento $C_{ij}$ desta matriz quantifica a correlação entre as flutuações vetoriais do resíduo $i$ e do resíduo $j$. Valores de $C_{ij}$ próximos a $1$ indicam movimentos altamente correlacionados (na mesma direção), próximos a $-1$ indicam movimentos anticorrelações (direções opostas), e valores próximos a $0$ indicam ausência de correlação dinâmica.
+
+\subsection{Construção do Espaço Métrico}
+
+\ident A Análise Topológica de Dados opera sobre espaços de pontos equipados com uma noção formal de distância. A Matriz de Correlação Cruzada $C$ é rica em informação dinâmica, mas não satisfaz os axiomas de uma métrica geométrica. Para viabilizar a análise topológica, aplica-se uma transformação que mapeia correlações em distâncias.
+
+\ident Definimos a distância dinâmica $D_{ij}$ entre os resíduos $i$ e $j$ através da relação:
+\begin{equation}
+    D_{ij} = 1 - |C_{ij}|
+\end{equation}
+\ident Com esta formulação, resíduos que possuem comportamentos dinâmicos altamente acoplados ($|C_{ij}| \to 1$) apresentarão uma distância dinâmica próxima a zero ($D_{ij} \to 0$), indicando que, topologicamente e funcionalmente, eles estão ``próximos''. Inversamente, resíduos com dinâmicas independentes estarão distantes neste novo espaço métrico.
+
+\ident A matriz de distâncias dinâmicas $D$ constitui o ponto de partida matemático deste trabalho. Ela nos permite abandonar as coordenadas euclidianas estáticas $(x, y, z)$ da biologia clássica e passar a tratar a proteína como um espaço métrico discreto, sobre o qual definiremos complexos simpliciais e calcularemos grupos de homologia persistente nos próximos capítulos. É crucial notar que $\mathbf{D}$ não é estritamente uma métrica, mas sim uma pseudométrica. Isto ocorre porque a identidade dos indiscerníveis não se verifica rigorosamente: dois resíduos distintos ($i \neq j$) podem oscilar de forma perfeitamente correlacionada ($|C_{ij}| = 1$), resultando numa distância $D_{ij} = 0$. A Topologia Algébrica, contudo, é perfeitamente bem definida sobre espaços pseudométricos, permitindo a construção de complexos simpliciais sem perda de generalidade teórica.
+
+
+\section{Fundamentos de Topologia Algébrica e Homologia Persistente}
+
+\ident O estabelecimento de uma matriz de distâncias (ou pseudodistâncias) a partir de um sistema dinâmico fornece um espaço métrico discreto. Para extrair a arquitetura de comunicação global da biomolécula a partir desta pseudométrica, traduzimos este espaço num objeto combinatório contínuo. Nesta seção, fundamentamos o arcabouço matemático necessário para essa transição, introduzindo conceitos da Topologia Algébrica e da Homologia Persistente, usando como base o conteúdo de Tinarrage \cite{tinarrage2021}.
+
+\subsection{Complexos Simpliciais e Grupos de Homologia}
+
+\ident O bloco construtor fundamental na Análise Topológica de Dados é o complexo simplicial, uma generalização de grafos para dimensões superiores que permite a representação de espaços topológicos de forma combinatorial. 
+
+\ident Seja $K$ um complexo simplicial abstrato. Para $n \geq 0$, definimos os conjuntos:
+\begin{align*}
+    K_n &= \{\sigma \in K \mid \dim(\sigma) \leq n\}\\
+    K_{(n)} &= \{\sigma \in K \mid \dim(\sigma) = n\}. 
+\end{align*}
+O primeiro conjunto é um complexo simplicial, chamado de $n$-esqueleto de $K$. O segundo não é um complexo simplicial em geral.
+
+\begin{definition}[Complexo Simplicial]
+Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo simplicial} sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de \textbf{símplexos}) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
+\end{definition}
+
+\ident Para extrair invariantes topológicos de um complexo simplicial, é necessário dotá-lo de uma estrutura algébrica que nos permita operar formalmente sobre os seus símplexos.
+
+\begin{definition}[n-Cadeias]
+Seja $K$ um complexo simplicial e $n \geq 0$. O conjunto de \textbf{$n$-cadeias} de $K$, denotado $C_n(K)$, é o conjunto cujos elementos são as somas formais:
+\[
+\sum_{\sigma \in K_{(n)}} \epsilon_\sigma \cdot \sigma, \quad \text{onde } \forall \sigma \in K_{(n)},\; \epsilon_\sigma \in \mathbb{Z}/2\mathbb{Z}.
+\]
+Este conjunto possui estrutura de espaço vetorial sobre o corpo $\mathbb{Z}/2\mathbb{Z}$, com a adição a ocorrer componente a componente.
+\end{definition}
+
+\begin{definition}[Operador de Fronteira]
+Seja $n \geq 1$ e $\sigma = [x_0, \ldots, x_n] \in K_{(n)}$ um símplexo de dimensão $n$. A \textbf{fronteira} de $\sigma$ é o elemento de $C_{n-1}(K)$ definido por:
+\[
+\partial_n \sigma = \sum_{\substack{\tau \subset \sigma \\ |\tau| = |\sigma| - 1}} \tau.
+\]
+O operador $\partial_n$ estende-se por linearidade a uma aplicação linear $\partial_n: C_n(K) \to C_{n-1}(K)$. Para $n = 0$, define-se $\partial_0$ como a aplicação nula.
+\end{definition}
+
+\ident A aplicação linear de fronteira $\partial_n$ satisfaz a propriedade fundamental da topologia algébrica: $\partial_{n-1} \circ \partial_n = 0$. Esta identidade categórica permite-nos definir subespaços cruciais para o estudo das formas.
+
+\begin{definition}[Ciclos e Fronteiras]
+Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
+\begin{itemize}
+    \item Os \textbf{$n$-ciclos}: $Z_n(K) = \ker(\partial_n) \subset C_n(K)$,
+    \item As \textbf{$n$-fronteiras}: $B_n(K) = \mathrm{Im}(\partial_{n+1}) \subset C_n(K)$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Grupo de Homologia e Números de Betti]
+Seja $K$ um complexo simplicial. O \textbf{$n$-ésimo grupo de homologia} de $K$ é o quociente:
+\[
+H_n(K) = Z_n(K) / B_n(K).
+\]
+A dimensão deste espaço vetorial é o \textbf{$n$-ésimo número de Betti}, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de "buracos" ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
+\end{definition}
+
+\subsection{Inferência Topológica}
+
+\ident Na prática computacional, os dados raramente se apresentam nativamente como um complexo simplicial. Em vez disso, dispomos de nuvens de pontos em um espaço métrico. Para conectar a geometria dos dados com a topologia, utilizamos coberturas abertas e o Teorema do Nervo.
+
+\begin{definition}
+Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O \textbf{nervo} de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-símplices são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
+\end{definition}
+
+\begin{definition}[Complexo de \v{C}ech]
+Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de \textbf{complexo de \v{C}ech} de $X$ no instante $t$.
+
+Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos símplices são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
+\end{definition}
+
+\ident Embora o complexo de \v{C}ech capture perfeitamente a topologia da união das bolas de raio $t$, a verificação de interseções múltiplas é computacionalmente custosa. Como alternativa tratável, foca-se nas interações aos pares.
+
+\begin{definition}[Complexo de Rips]
+Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O \textbf{complexo de Rips} de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t = \left(\check{\mathrm{C}}\mathrm{ech}^t(X)\right)$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
+\end{definition}
+
+\subsection{Módulos de Persistência}
+
+\ident A fixação de um limiar único $t$ para a construção dos complexos impõe um viés metodológico forte, pois não há uma escala natural única para investigar dados do mundo real. A Homologia Persistente soluciona esse problema ao variar continuamente o parâmetro $t$, gerando uma filtração de complexos aninhados. Ao aplicarmos o functor de homologia a essa filtração, obtemos um \textit{módulo de persistência}.
+
+\begin{definition}[Decomponibilidade e Barcode]
+Um módulo de persistência $\mathbb{U}$ é \textbf{indecomponível} se, para todo o par de módulos $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos for nulo. Um módulo $\mathbb{V}$ é \textbf{decomponível em módulos intervalares} se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que $\mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I]$. O multiconjunto $\mathcal{I}$, garantido pelo Teorema de Azumaya, é denominado \textbf{código de barras de persistência} (\textit{Barcode}) de $\mathbb{V}$.
+\end{definition}
+
+\begin{definition}[Diagrama de Persistência]
+Seja $\mathrm{Barcode}(\mathbb{V})$ o barcode de um módulo decomponível. Para cada intervalo no formato $(a,b)$ no barcode, considere-se o ponto $(a,b) \in \mathbb{R}^2$. A coleção de todos estes pontos forma o multiconjunto chamado \textbf{diagrama de persistência}, denotado $\mathrm{Diagram}(\mathbb{V})$.
+\end{definition}
+
+\ident Embora os Diagramas de Persistência resumam o ciclo de vida das classes de homologia (nascimento $a$ e morte $b$), eles habitam um espaço métrico não-linear. Para que possamos calcular médias, variâncias e aplicar algoritmos de Machine Learning diretamente nestes invariantes, utilizamos a vetorização contínua idealizada por Bubenik \cite{Bubenik2015}.
+
+\begin{definition}[Paisagem de Persistência]
+Dado um diagrama de persistência com intervalos $\mathcal{B} = \{(a_i, b_i)\}_{i=1}^m$, define-se para cada ponto a função auxiliar:
+\[
+f_{(a,b)}(t) = \max(0, \min(t-a,\; b-t)).
+\]
+A \textbf{paisagem de persistência} é a sequência de funções $\lambda_k : \mathbb{R} \to \mathbb{R}$ definidas por:
+\[
+\lambda_k(t) = k\text{-ésimo maior valor do conjunto } \{f_{(a_i,b_i)}(t)\}_{i=1}^m,
+\]
+adotando $\lambda_k(t) = 0$ caso $k > m$.
+\end{definition}
+
+\begin{definition}[Distância $p$-Paisagem]
+A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pela norma em espaços de Banach $L^p$:
+\begin{equation}
+\Lambda_p(\lambda, \lambda') = \|\lambda - \lambda'\|_p = \left( \sum_{k=1}^\infty \int_{\mathbb{R}} |\lambda_k(t) - \lambda'_k(t)|^p \, dt \right)^{1/p}.
+\end{equation}
+\end{definition}
+
+
+\section{Inferência Estatística sobre Invariantes Topológicos}
+
+\ident O desenvolvimento da Homologia Persistente e, em particular, das Paisagens de Persistência, forneceu-nos um espaço funcional contínuo para representar os dados. No entanto, o objetivo fundamental deste trabalho exige que avaliemos, com significância estatística, se a dinâmica estrutural da proteína MBP no seu estado \textit{Apo} (aberta) diverge da sua dinâmica no estado \textit{Holo} (fechada). Para tal, é necessário traduzir o espaço de Banach num domínio probabilístico clássico \cite{devore2012}.
+
+\subsection{A Variável Aleatória Topológica}
+
+\ident A fim de aplicar os métodos de inferência estatística tradicional, precisamos de reduzir a representação funcional da topologia a um escalar real que capture a magnitude global da persistência \cite{kovacev2016}. 
+
+\ident Seja $\lambda_k(t)$ a $k$-ésima função da paisagem de persistência gerada a partir da matriz de distâncias dinâmicas de uma dada conformação proteica. Definimos uma variável aleatória contínua $X$ como a área total sob todas as curvas da paisagem de persistência:
+\begin{equation}
+    X = \sum_{k=1}^{\infty} \int_{\mathbb{R}} \lambda_k(t) \, dt
+\end{equation}
+
+\ident Ao integrarmos as funções de paisagem no domínio real, a variável $X$ corresponde à área total abrangida por todos os contornos $\lambda(k, t)$, $k \in \mathbb{N}$, de uma paisagem de persistência. \cite{Bubenik2015}. Como as flutuações atómicas oriundas do Modelo de Rede Anisotrópica (ANM) possuem natureza estocástica, a paisagem gerada por cada amostra proteica é, consequentemente, uma realização empírica de um processo estocástico. Assim, $X$ herda as propriedades de uma variável aleatória com uma distribuição de probabilidade subjacente (e desconhecida) com esperança matemática $\mu$ e variância $\sigma^2$ \cite{devore2012}.
+
+\subsection{Formulação das Hipóteses}
+
+\ident Consideremos duas populações teóricas independentes: a população das conformações fechadas da MBP, cuja variável aleatória topológica denotaremos por $X_1$ (com média $\mu_1$), e a população das conformações abertas, denotada por $X_2$ (com média $\mu_2$). 
+
+\ident O nosso objetivo é determinar se a diferença observada nas áreas das paisagens de persistência entre os dois grupos reflete uma verdadeira divergência na dinâmica biomolecular ou se resulta de mero ruído amostral. Formulamos, assim, o seguinte teste de hipóteses \cite{kovacev2016}:
+\begin{align*}
+    H_0 &: \mu_1 = \mu_2 \quad \left(\parbox{7.5cm}{A hipótese nula: as topologias médias são idênticas}\right) \\[0.5em]
+    H_a &: \mu_1 \neq \mu_2 \quad \left(\parbox{7.5cm}{A hipótese alternativa: as topologias médias diferem significativamente}\right)
+\end{align*}
+
+\ident Devido à estrutura do espaço de Banach, a variável $X$ satisfaz a Lei dos Grandes Números e o Teorema Central do Limite \cite{Bubenik2015}. Isso implica que, para uma amostra suficientemente grande ($n \to \infty$), a distribuição da média amostral $\overline{X}$ aproximar-se-ia de uma distribuição Normal. Contudo, em contextos biológicos e cristalográficos, o número de estruturas resolvidas com alta qualidade é frequentemente limitado. 
+
+\subsection{O Teste de Permutação Não-Paramétrico}
+
+\ident No estudo de Kovacev-Nikolic et al. (2016), a amostra disponível continha apenas $n = 14$ estruturas de MBP (sendo sete na forma aberta e sete na fechada) \cite{kovacev2016}. Com amostras tão diminutas, a suposição de normalidade exigida por testes paramétricos clássicos (como o teste $t$ de Student) não pode ser garantida com rigor \cite{devore2012}.
+
+\ident Para contornar esta limitação de forma matematicamente exata, emprega-se o \textbf{Teste de Permutação}. Este é um método de inferência não-paramétrico que não assume qualquer distribuição prévia (como a gaussiana) para os dados \cite{devore2012}. O procedimento lógico do teste baseia-se na combinatória dos rótulos das classes sob a validade da hipótese nula $H_0$.
+
+\ident O algoritmo estatístico prossegue da seguinte forma:
+\begin{enumerate}
+    \item \textbf{Estatística Observada:} Calcula-se a diferença absoluta entre as médias amostrais originais dos dois grupos: $T_{\text{obs}} = |\overline{X}_1 - \overline{X}_2|$.
+    \item \textbf{Permutação sob $H_0$:} Se a hipótese nula for verdadeira, o facto de uma proteína ser categorizada como "Apo" ou "Holo" é irrelevante para o valor de $X$. Portanto, agrupam-se todas as observações numa única amostra de tamanho $N = n_1 + n_2$.
+    \item \textbf{Distribuição Empírica:} Permutam-se (embaralham-se) os rótulos originais de todas as formas possíveis. Para cada permutação $i$, calcula-se a nova estatística de teste $T_i$. No caso de $N=14$ com grupos de $7$, existem $\binom{14}{7} = 3432$ permutações distintas (ou $1716$ combinações absolutas de divisão).
+    \item \textbf{Cálculo do Valor-$p$:} O valor-$p$ empírico é a proporção de permutações que produzem uma diferença de médias tão ou mais extrema do que a diferença originalmente observada:
+    \begin{equation}
+        \text{Valor-}p = \frac{1}{M} \sum_{i=1}^{M} I(T_i \geq T_{\text{obs}})
+    \end{equation}
+    onde $M$ é o número total de permutações e $I(\cdot)$ é a função indicadora, que assume o valor 1 se a condição for satisfeita e 0 caso contrário.
+\end{enumerate}
+
+\ident Se o valor-$p$ calculado for inferior ao nível de significância adotado (tradicionalmente $\alpha = 0,05$), rejeitamos $H_0$. No contexto do nosso problema biológico, uma rejeição de $H_0$ prova de forma cabal que a distinção topológica entre os estados da MBP é real e inerente à sua matriz de dinâmica \cite{kovacev2016}, validando assim a eficácia das Paisagens de Persistência como método discriminatório.
+
+\ident A fundamentação deste teste serve como o selo de validação estatística da nossa modelagem. No entanto, a análise não se esgota na inferência estática. Ao comprovar que as distribuições são separáveis, o próximo passo lógico é extrair as variáveis topológicas vetorizadas e introduzi-las num ambiente de Aprendizagem de Máquina (Machine Learning), com o intuito de construir fronteiras de decisão preditivas para classificar novas estruturas moleculares.
+
+
+\newpage
+
+\nocite{*} 
+\printbibliography[heading=bibintoc, title={Referências}]
+
+\end{document}
