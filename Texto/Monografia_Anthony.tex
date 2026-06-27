@@ -32,6 +32,10 @@
 \usepackage{enumitem}
 \usepackage{adjustbox}
 \usepackage{array}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\captionsetup{margin=1.5cm, labelfont=bf, font=small, justification=justified}
 
 % --- Sumário, Índices e Organização ---
 \usepackage{verbatim}
@@ -60,8 +64,20 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
-\setlist[itemize]{leftmargin=2.5em, labelsep=0.5em}
-\setlist[enumerate]{leftmargin=2.5em, labelsep=0.5em}
+\setlist[itemize]{leftmargin=3.0em, labelsep=0.5em}
+\setlist[enumerate]{leftmargin=3.0em, labelsep=0.5em}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+\renewcommand{\algorithmicensure}{\textbf{Saída:}}
+\renewcommand{\algorithmicend}{\textbf{fim}}
+\renewcommand{\algorithmicif}{\textbf{se}}
+\renewcommand{\algorithmicthen}{\textbf{então}}
+\renewcommand{\algorithmicelse}{\textbf{senão}}
+\renewcommand{\algorithmicfor}{\textbf{para}}
+\renewcommand{\algorithmicdo}{\textbf{faça}}
+\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+\renewcommand{\algorithmicreturn}{\textbf{retorne}}
 
 % --- Links e Sumário Customizado ---
 \usepackage{hyperref}
@@ -258,6 +274,14 @@
 
 \ident Neste contexto, a Proteína de Ligação à Maltose (MBP — \textit{Maltose-Binding Protein}), encontrada na bactéria \textit{Escherichia coli}, apresenta-se como um modelo de estudo ideal. A MBP atua no transporte de maltodextrinas e transita fundamentalmente entre duas conformações: o estado \textit{Apo} (aberto e livre de ligante) e o estado \textit{Holo} (fechado e associado ao ligante). A compreensão e a distinção exata desses estados desafiam as métricas geométricas tradicionais, como o Desvio Quadrático Médio (RMSD), que frequentemente falham em capturar correlações não-lineares sutis ou variações dinâmicas globais na estrutura da proteína.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{apresentacao_mbp.png}
+    \caption{Representação das conformidades da MBP. 
+    Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
+    
+\end{figure}
+
 \ident Para contornar as limitações da análise puramente geométrica, modelos baseados na física estatística e em simulações de grão grosso (\textit{coarse-grained}), como o Modelo de Rede Anisotrópica (ANM — \textit{Anisotropic Network Model}), tornaram-se cruciais. Ao modelar a proteína como um sistema de massas e molas, o ANM permite a construção de uma Matriz Hessiana que, após decomposição espectral e foco nos modos normais de baixa frequência, gera uma Matriz de Correlação Cruzada. Essa matriz quantifica como as flutuações de diferentes resíduos de aminoácidos estão acopladas dinamicamente, fornecendo uma ``assinatura física'' do comportamento global da macromolécula.
 
 \ident O ponto central deste trabalho reside na transição do domínio da biofísica para o da matemática pura e aplicada, especificamente através da Análise Topológica de Dados (TDA — \textit{Topological Data Analysis}). A partir da matriz de correlação cruzada, define-se uma pseudométrica que transforma a dinâmica da proteína em um espaço métrico. Utilizando o ferramental da Homologia Persistente, filtrações de complexos simpliciais (como o Complexo de Vietoris-Rips) são construídas para acompanhar a evolução das características topológicas — componentes conexas e ciclos unidimensionais — ao longo de diferentes escalas de distância. 
@@ -278,7 +302,20 @@
 
 \ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}), onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{conformidade_proteina.png} 
+    \caption{Representação das transições conformacionais da MBP. Da esquerda para a direita: Estado Aberto, Semi-fechado transiente e Fechado estabilizado pelo ligante (em vermelho). (A) A apoproteína é suficientemente flexível para exibir movimentos de abertura para fechamento, e o papel do ligante é estabilizar a forma fechada. (B) A proteína não ligada é incapaz de atingir a forma fechada, e a plasticidade estrutural é dependente do ligante. (C) Uma combinação das etapas A e B é necessária para atingir a conformação fechada.Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
+    \label{fig:mbp_conformations}
+\end{figure}
+
 \ident Independentemente do modelo biológico exato, o desafio matemático é claro: diferenciar essas duas classes (Aberta e Fechada) com base em suas propriedades estruturais e dinâmicas, superando métricas de alinhamento puramente rígidas e geométricas que não capturam as complexas correlações espaciais das macromoléculas em movimento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{estagios_mbp_3d.png}  
+    \caption{Vistas lateral e superior da MBP, mostrando o tamanho e a forma do sítio de ligação que é modulado pelo estado conformacional da proteína. A cor vermelha indica que os resíduos estão próximos ao centro de massa da proteína, onde o sítio de ligação está localizado. As estruturas de raios X são mostradas para o estado aberto não ligado (entrada PDB 1OMP) e para o estado fechado ligado (entrada PDB 3MBP). Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}  
+\end{figure}
 
 \subsection{O Modelo de Rede Anisotrópica (ANM)}
 
@@ -466,6 +503,224 @@ A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pel
 \ident Se o valor-$p$ calculado for inferior ao nível de significância adotado (tradicionalmente $\alpha = 0,05$), rejeitamos $H_0$. No contexto do nosso problema biológico, uma rejeição de $H_0$ prova de forma cabal que a distinção topológica entre os estados da MBP é real e inerente à sua matriz de dinâmica \cite{kovacev2016}, validando assim a eficácia das Paisagens de Persistência como método discriminatório.
 
 \ident A fundamentação deste teste serve como o selo de validação estatística da nossa modelagem. No entanto, a análise não se esgota na inferência estática. Ao comprovar que as distribuições são separáveis, o próximo passo lógico é extrair as variáveis topológicas vetorizadas e introduzi-las num ambiente de Aprendizagem de Máquina (Machine Learning), com o intuito de construir fronteiras de decisão preditivas para classificar novas estruturas moleculares.
+
+\section{Redução de dimensionalidade e Aprendizado de Máquina}
+
+\ident Após a comprovação estatística via Teste de Permutação de que as assinaturas topológicas dos estados \textit{Apo} e \textit{Holo} da proteína MBP são fundamentalmente distintas \cite{kovacev2016}, o objetivo final torna-se preditivo. Desejamos utilizar esse espaço de características para classificar novas estruturas moleculares. Contudo, as paisagens de persistência ou as próprias matrizes de distância habitam espaços de alta dimensionalidade, o que exige técnicas robustas de redução de dimensão para visualização e algoritmos de otimização convexa para classificação \cite{lorena2007}.
+
+\subsection{Visualização Não-Linear: ISOMAP e Gráfico Scree}
+
+\ident A matriz de distância dinâmica $D$, oriunda da correlação cruzada do ANM, codifica a arquitetura de comunicação da proteína. Tentar visualizar esse objeto matemático diretamente em $\mathbb{R}^2$ ou $\mathbb{R}^3$ através de métodos lineares clássicos, como a Análise de Componentes Principais (PCA) ou o Escalonamento Multidimensional (MDS) clássico, frequentemente distorce a geometria intrínseca dos dados. Isso ocorre porque tais métodos assumem que as distâncias entre os pontos são puramente euclidianas \cite{Tenenbaum2000}.
+
+\ident No caso de biomoléculas, os resíduos estão restritos a uma variedade diferenciável não-linear ditada por restrições estéricas e ligações covalentes. Para preservar essa geometria intrínseca, adotamos o algoritmo ISOMAP (\textit{Isometric Feature Mapping}) \cite{Tenenbaum2000}.
+
+\begin{algorithm}[H]
+\caption{Mapeamento Isométrico de Características (ISOMAP)}
+\label{alg:isomap}
+\linespread{1.3}\selectfont
+\begin{algorithmic}[1]
+\Require Matriz de distâncias dinâmicas locais $D$, parâmetro de vizinhança $k$, dimensão alvo $d$.
+\Ensure Matriz de coordenadas projetadas $Y \in \mathbb{R}^{N \times d}$.
+
+\Statex \textbf{Passo 1: Construção do Grafo de Vizinhança local}
+\State Defina um grafo $G$ sobre os $N$ resíduos da proteína.
+\For{cada resíduo $i \in \{1, \dots, N\}$}
+    \State Determine os $k$ vizinhos mais próximos de $i$ com base na matriz $D$.
+    \State Adicione arestas no grafo $G$ conectando $i$ aos seus $k$ vizinhos.
+    \State Atribua à aresta $(i,j)$ o peso $D_{ij}$.
+\EndFor
+
+\Statex \textbf{Passo 2: Estimativa da Matriz de Distâncias Geodésicas ($D_G$)}
+\State Inicialize $D_G(i,j) = D_{ij}$ se existir aresta, caso contrário $D_G(i,j) = \infty$.
+\State Aplique o algoritmo de \textit{Floyd-Warshall} ou \textit{Dijkstra} para encontrar o caminho mínimo entre todos os pares de nós em $G$.
+\State Atualize a matriz $D_G$ de forma que $D_G(i,j)$ contenha o comprimento geodésico mínimo entre $i$ e $j$.
+
+\Statex \textbf{Passo 3: Embutimento Métrico via Escalonamento Multidimensional}
+\State Aplique o MDS clássico não-métrico à matriz de distâncias geodésicas $D_G$.
+\State Construa a matriz de produto interno centrada $B = -\frac{1}{2} H (D_G^{(2)}) H$, onde $H$ é a matriz de centralização e $D_G^{(2)}$ contém o quadrado das distâncias geodésicas.
+\State Extraia os $d$ maiores autovalores e seus autovetores correspondentes da matriz $B$.
+\State \Return Coordenadas $Y$ geradas pelos $d$ autovetores escalonados.
+\end{algorithmic}
+\end{algorithm}
+
+\ident O sucesso algébrico do algoritmo depende da escolha correta do parâmetro de dimensão embutida $d$. Para determinar o valor ideal, ou seja, a dimensionalidade intrínseca que captura a maior parte da variância da proteína sem introduzir ruído, recorre-se ao \textbf{Gráfico Scree} (\textit{Scree plot}). Este gráfico plota o erro residual da projeção em função do número de dimensões. O ponto de inflexão da curva (frequentemente chamado de "cotovelo") indica a dimensão ótima. Estudos anteriores demonstram que, para os dados da MBP, a projeção tridimensional ($d=3$) atinge a estabilidade do erro, sendo considerada apropriada para a separação geométrica dos estados conformacionais \cite{kovacev2016}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{grafico_scree_isomap.png}
+    
+    \caption{ Redução de dimensão via Isomap para a estrutura 1OMP. A flexão abrupta no parâmetro $d=3$ indica a dimensionalidade intrínseca ideal para a representação das flutuações dinâmicas da MBP.}
+    \label{fig:grafico_scree} 
+\end{figure}
+
+\subsection{Classificação com SVM}
+
+\ident Com o espaço de dados modelado e visualmente compreensível, o problema de distinguir proteínas abertas de fechadas reduz-se a um problema clássico de reconhecimento de padrões supervisionado. Para essa tarefa, empregamos as Máquinas de Vetores de Suporte (SVM — \textit{Support Vector Machines}), fundamentadas na Teoria do Aprendizado Estatístico de Vapnik \cite{Cortes1995, lorena2007}.
+
+\ident Dado um conjunto de treinamento composto por pares $(x_i, y_i)$, onde $x_i \in \mathbb{R}^n$ é o vetor de características (seja derivado da matriz $D$ ou vetorizado da paisagem de persistência) e $y_i \in \{-1, 1\}$ é o rótulo da conformação (\textit{Apo} ou \textit{Holo}), o objetivo do SVM é encontrar o hiperplano de separação ótimo.
+
+\ident Matematicamente, a fronteira de decisão é modelada pela equação:
+\begin{equation}
+    w \cdot x + b = 0
+\end{equation}
+onde $w$ é o vetor peso normal ao hiperplano e $b$ é o viés. 
+
+\ident O diferencial do SVM reside na maximização da \textit{margem} de separação, definida como a distância geométrica entre o hiperplano e os exemplos de treinamento mais próximos (os vetores de suporte). Este problema de otimização é formulado como:
+\begin{align*}
+    \min_{w,b} \quad & \frac{1}{2} \|w\|^2 \\
+    \text{sujeito a} \quad & y_i(w \cdot x_i + b) \geq 1, \quad \forall i
+\end{align*}
+
+\ident Ao resolver o dual deste problema de programação quadrática através dos multiplicadores de Lagrange, garante-se uma solução ótima global. Para este estudo específico da MBP, como atestado pela análise de erro em trabalhos correlatos \cite{kovacev2016}, um \textit{kernel} linear é suficiente para separar os grupos com elevada acurácia, indicando que o pré-processamento topológico já transformou os dados em um espaço linearmente separável.
+
+\subsection{Validação Cruzada}
+
+\ident Devido à escassez de dados estruturais de alta qualidade disponíveis no Protein Data Bank (PDB) para um subconjunto estrito de análises, a divisão tradicional do \textit{dataset} em partições de treino e teste compromete a capacidade de aprendizado do modelo \cite{lorena2007}.
+
+\ident Para garantir a robustez estatística do classificador SVM sem desperdiçar dados, utiliza-se a estratégia de validação cruzada \textit{Leave-One-Out} (LOOCV). Neste método empírico iterativo, se possuímos $N$ amostras, o modelo é treinado $N$ vezes. Em cada iteração $i$, o modelo utiliza $N-1$ exemplos para ajustar os parâmetros do hiperplano e realiza a predição na única amostra excluída. 
+
+\ident A taxa de acerto final do modelo é obtida calculando a média das predições em todas as $N$ iterações. Esta técnica garante um estimador de erro de generalização quase não-enviesado, assegurando que o classificador topológico possa ser aplicado a novas conformações da MBP na prática com confiança e rigor.
+
+\begin{remark}
+Com todo o aparato biofísico, algébrico-topológico, estatístico e computacional formalmente definido nos capítulos anteriores, o terreno encontra-se plenamente preparado. O capítulo subsequente consolida esta base teórica através da aplicação empírica na proteína de Ligação à Maltose, demonstrando de forma prática a geração de matrizes, as projeções visuais de ISOMAP e os resultados analíticos da classificação pelo algoritmo de suporte de vetores.
+\end{remark}
+
+
+\section{O Desvio Quadrático Médio (RMSD)}
+
+\ident Na biofísica estrutural, a métrica canônica para quantificar a dissimilaridade geométrica entre duas conformações de uma mesma macromolécula é o Desvio Quadrático Médio, universalmente conhecido como RMSD (\textit{Root-Mean-Square Deviation}). No contexto deste trabalho, o RMSD atua como a métrica de base. Ele nos fornece uma medida puramente estática e euclidiana da diferença entre as proteínas abertas (\textit{Apo}) e fechadas (\textit{Holo}), estabelecendo o referencial de comparação para as métricas topológicas que serão exploradas nos resultados \cite{Seeliger2010}.
+
+\ident Do ponto de vista matemático, o cálculo do RMSD entre duas matrizes de coordenadas não é uma simples diferença euclidiana ponto a ponto. Como as proteínas podem estar representadas em referenciais arbitrários no espaço tridimensional $\mathbb{R}^3$, uma comparação direta das coordenadas resultaria em um erro gigantesco originado por rotações e translações rígidas aleatórias. Portanto, o cálculo exige a formulação de um problema de otimização: é necessário encontrar a isometria (translação e rotação) que minimiza a distância entre os conjuntos de pontos.
+
+\subsection{Formulações Algébricas e o Algoritmo de Kabsch}
+
+\ident Sejam $V$ e $W$ duas matrizes de dimensão $N \times 3$, representando as coordenadas tridimensionais de $N$ átomos (neste estudo, os $N=370$ carbonos-alfa da MBP) de duas conformações distintas. O RMSD ótimo é definido como:
+\begin{equation}
+    \text{RMSD}(V, W) = \min_{R, \vec{t}} \sqrt{\frac{1}{N} \sum_{i=1}^{N} \| R v_i + \vec{t} - w_i \|^2}
+\end{equation}
+onde $R$ é uma matriz de rotação ortogonal ($R^T R = I$ e $\det(R) = 1$) e $\vec{t}$ é um vetor de translação.
+
+\ident Para resolver este problema de otimização de forma exata e determinística, implementamos o Algoritmo de Kabsch. O primeiro passo do algoritmo anula a translação $\vec{t}$ ao centralizar ambos os conjuntos de dados em seus respectivos centros de massa. Dados os vetores centroides $\bar{v} = \frac{1}{N} \sum v_i$ e $\bar{w} = \frac{1}{N} \sum w_i$, definimos as novas coordenadas centralizadas como $v'_i = v_i - \bar{v}$ e $w'_i = w_i - \bar{w}$.
+
+\ident Com a translação resolvida, o problema reduz-se a encontrar a matriz de rotação ótima $R$. Para isso, computa-se a matriz de covariância cruzada $C$:
+\begin{equation}
+    C = (V')^T W'
+\end{equation}
+
+\ident O teorema de Kabsch demonstra que a rotação ótima é extraída aplicando-se a Decomposição em Valores Singulares (SVD) à matriz $C$. Seja a decomposição $C = U \Sigma \tilde{V}^T$, a matriz de rotação que minimiza a distância quadrática é dada por:
+\begin{equation}
+    R = \tilde{V} S U^T
+\end{equation}
+onde $S$ é uma matriz identidade, exceto pelo último elemento diagonal, que assume o valor do determinante de $\tilde{V} U^T$, garantindo que a transformação seja uma rotação pura e não uma reflexão.
+
+\ident Toda essa estrutura algébrica foi computacionalmente implementada para o pré-processamento das 14 amostras cristalográficas, conforme formalizado no Algoritmo \ref{alg:rmsd}.
+
+\begin{algorithm}[H]
+\caption{Cálculo do RMSD Ótimo (Algoritmo de Kabsch)}
+\label{alg:rmsd}
+\linespread{1.3}\selectfont
+\begin{algorithmic}[1]
+\Require Matrizes de coordenadas $V, W \in \mathbb{R}^{N \times 3}$.
+\Ensure Valor escalar do RMSD ótimo entre as estruturas.
+
+\Statex \textbf{Passo 1: Centralização}
+\State Calcule os centros de massa $\bar{v}$ e $\bar{w}$.
+\For{$i = 1$ \textbf{até} $N$}
+    \State $v'_i \leftarrow v_i - \bar{v}$
+    \State $w'_i \leftarrow w_i - \bar{w}$
+\EndFor
+
+\Statex \textbf{Passo 2: Matriz de Covariância e SVD}
+\State Construa a matriz de covariância $C = \sum_{i=1}^N (v'_i)(w'_i)^T$.
+\State Compute a SVD de $C$: $[U, \Sigma, \tilde{V}] = \text{SVD}(C)$.
+
+\Statex \textbf{Passo 3: Rotação Ótima}
+\State $d \leftarrow \text{sinal}(\det(\tilde{V} U^T))$
+\State Defina $S = \text{diag}(1, 1, d)$.
+\State $R \leftarrow \tilde{V} S U^T$
+
+\Statex \textbf{Passo 4: Cálculo da Distância}
+\State $\text{soma} \leftarrow 0$
+\For{$i = 1$ \textbf{até} $N$}
+    \State $\text{soma} \leftarrow \text{soma} + \|R v'_i - w'_i\|^2$
+\EndFor
+\State \Return $\sqrt{\text{soma} / N}$
+\end{algorithmic}
+\end{algorithm}
+
+\ident A obtenção da matriz de valores de RMSD cruzados entre todos os pares de proteínas MBP fornece o mapa estático da nossa amostra. Contudo, como será discutido nas seções subsequentes, o paradigma topológico propõe-se a ir além do alinhamento rígido, rastreando a correlação dinâmica intrínseca das flutuações estruturais que o RMSD, por definição, não consegue captar.
+
+\section{Metodologia}
+
+\ident Com a fundamentação teórica e biológica devidamente estabelecida nos capítulos anteriores, este capítulo destina-se a descrever o processo computacional aplicado à Proteína de Ligação à Maltose (MBP). O percurso metodológico detalha desde a mineração e filtragem dos dados estruturais brutos — destacando a expansão inédita da base amostral clássica — até a estruturação dos dados no formato exigido pelas métricas topológicas e algoritmos de classificação.
+
+\subsection{Aquisição e Preparação do Conjunto de Dados}
+
+\ident O estudo de Kovacev-Nikolic et al. (2016) \cite{kovacev2016} estabeleceu a prova de conceito da aplicação da homologia persistente à MBP utilizando uma amostra restrita de 14 estruturas tridimensionais (sendo 7 conformações abertas e 7 fechadas). Neste trabalho, essas 14 estruturas foram preservadas e processadas inicialmente para atuar como o nosso conjunto de calibração.
+
+\ident Contudo, para conferir ineditismo e robustez estatística à pesquisa, bem como testar a capacidade de generalização espacial dos algoritmos, a base de dados foi substancialmente expandida. Realizou-se a mineração computacional de 29 novas estruturas de alta resolução da MBP diretamente do repositório \textit{Protein Data Bank} (PDB) \cite{Bernstein1977}. A rotulação das classes para o aprendizado supervisionado seguiu rigorosamente os metadados cristalográficos de cada arquivo: conformações \textit{Apo} (abertas) correspondem às estruturas resolvidas sem ligantes acoplados, enquanto as conformações \textit{Holo} (fechadas) consistem naquelas cristalizadas ativamente com maltose ou oligossacarídeos derivados.
+
+\ident O processamento algorítmico desses arquivos brutos (em formato \texttt{.cif}) exigiu a implementação de rotinas de limpeza de dados. Estruturas cristalográficas frequentemente contêm ruídos tridimensionais para a modelagem elástica, como moléculas de solvente, íons metálicos soltos e múltiplas cadeias polipeptídicas idênticas na célula unitária. 
+
+\ident Por meio de \textit{scripts} automatizados desenvolvidos na linguagem Python (suportados pela biblioteca \texttt{ProDy}), cada estrutura foi filtrada. O código varreu os arquivos e isolou exclusivamente as coordenadas espaciais euclidianas $(x,y,z)$ dos átomos de carbono-alfa ($C_\alpha$) pertencentes à \textbf{Cadeia A}. 
+
+\ident Dado o grau de conservação da proteína da \textit{E. coli} avaliada, este isolamento algorítmico culminou na geração de representações uniformes de grão grosso. Como resultado de saída desta etapa preliminar, obtivemos matrizes de coordenadas de dimensão $370 \times 3$ para cada uma das proteínas amostradas, garantindo a isometria do número de nós (vértices) necessária para o processamento da matriz Correlação nas etapas seguintes.
+
+\subsection{Extração da Dinâmica Estrutural e Construção do Espaço Métrico}
+
+\ident De posse das coordenadas espaciais dos resíduos da MBP de cada conformação, o passo metodológico seguinte consistiu em extrair o comportamento dinâmico intrínseco da molécula. Para transcender a geometria estática puramente tridimensional, implementou-se o Modelo de Rede Anisotrópica (ANM). Do ponto de vista da modelagem computacional, a estrutura proteica foi convertida em um grafo não-direcionado, onde cada nó representa exclusivamente o átomo de carbono-alfa ($C_\alpha$) de um aminoácido da cadeia principal.
+
+\ident As interações físicas foram modeladas por molas harmônicas conectando pares de vértices cuja distância euclidiana inicial fosse inferior a um raio de corte predefinido \cite{atilgan2001}. A topologia elástica resultante do sistema foi então encapsulada na Matriz Hessiana $H$, um operador simétrico que dita a energia potencial do sistema.
+
+\ident A extração das características termodinâmicas procedeu-se mediante a decomposição espectral da matriz $H$. Uma vez que os seis primeiros autovalores nulos correspondem matematicamente a movimentos de corpo rígido (translações e rotações globais), a verdadeira mecânica interna da proteína é ditada pelos modos normais subsequentes. Selecionaram-se os 20 primeiros modos não-triviais de baixa frequência para a computação da matriz de covariância, pois a literatura biofísica consolida que esses modos lentos dominam as transições funcionais globais, como a transição aberta-fechada da MBP \cite{kovacev2016}.
+
+\ident A partir deste processamento, derivou-se a matriz de correlação cruzada de flutuações $C$. Nesta matriz, cada entrada $C_{ij} \in [-1, 1]$ quantifica o acoplamento direcional entre o resíduo $i$ e o resíduo $j$. Por fim, para submeter estes dados ao maquinário rigoroso da Topologia Algébrica, aplicou-se a transformação projetiva clássica:
+\begin{equation}
+    D_{ij} = 1 - |C_{ij}|
+\end{equation}
+
+\ident Esta equação métrica garante que flutuações perfeitamente acopladas ou puramente anticorrelações colapsem para uma distância nula ($D_{ij} = 0$), indicando proximidade dinâmica estrutural. Em contrapartida, resíduos com movimentos ortogonais assumem a distância máxima ($D_{ij} = 1$). 
+
+\ident Todo este \textit{pipeline} analítico foi traduzido em uma rotina computacional automatizada, elaborada com o suporte da biblioteca especializada em dinâmicas de grão grosso \texttt{ProDy}. A rotina processou os lotes de proteínas das classes aberta e fechada e exportou as matrizes de distância para persistência topológica, conforme formalizado no Algoritmo \ref{alg:anm_pipeline}.
+
+\begin{algorithm}[H]
+\caption{\textit{Pipeline} Computacional para Extração da Matriz de Distância Dinâmica}
+\label{alg:anm_pipeline}
+\begin{algorithmic}[1]
+\Require Lista de identificadores $\mathcal{L} = \{id_1, id_2, \dots, id_M\}$, Categoria da proteína $c$ (Apo/Holo).
+\Ensure Salvamento das matrizes de distância em formato binário \texttt{.npy}.
+
+\State \text{Criar diretórios} \texttt{dataset/c} \text{e} \texttt{matrizes/c}
+\For{cada identificador $id \in \mathcal{L}$}
+    \Statex \textbf{Etapa 1: Obtenção e Filtragem de Dados}
+    \State $\text{arquivo\_cif} \leftarrow \text{ObterEstruturaPDB}(id, \text{formato}=\text{cif})$
+    \State $\mathcal{E} \leftarrow \text{AnalisarEstrutura}(\text{arquivo\_cif})$
+    % \State $C_\alpha \leftarrow \text{Filtrar}(\mathcal{E}, \text{tipo}=\text{"calpha"}, \text{cadeia}=\text{"A"})$
+    \If{$C_\alpha \text{ é nulo}$}
+        \State \textbf{continue} \Comment{Descarta estruturas defeituosas}
+    \EndIf
+
+    \Statex \textbf{Etapa 2: Modelagem Física ANM}
+    \State $H \leftarrow \text{ConstruirMatrizHessiana}(C_\alpha)$
+    \State $[\Lambda, V] \leftarrow \text{CalcularModosNormais}(H)$
+    
+    \Statex \textbf{Etapa 3: Matriz de Correlação e Transformação Métrica}
+    \State $C \leftarrow \text{CalcularCorrelaçãoCruzada}(\Lambda, V)$ \Comment{Gera matriz $N \times N$}
+    \State Inicializar matriz de distância dinâmica $D$ de dimensão $N \times N$
+    \For{$i = 1$ \textbf{até} $N$}
+        \For{$j = 1$ \textbf{até} $N$}
+            \State $D_{ij} \leftarrow 1 - |C_{ij}|$
+        \EndFor
+    \EndFor
+    
+    \Statex \textbf{Etapa 4: Armazenamento Computacional}
+    \State $\text{caminho} \leftarrow \text{Concatenar}(\texttt{matrizes/c}, id + \texttt{\_matriz.npy})$
+    \State $\text{SalvarBinario}(\text{caminho}, D)$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\ident Com as matrizes dinâmicas tridimensionais colapsadas em espaços métricos bidimensionais de $370 \times 370$ entradas empíricas reais, o problema físico foi plenamente convertido em um problema matricial. O próximo passo do escopo metodológico dedica-se a aplicar as filtrações simpliciais sobre essas matrizes para a extração dos invariantes topológicos.
 
 
 \newpage
