@@ -270,7 +270,7 @@
 
 \section{Introdução}
 
-\ident A biologia estrutural tem passado por uma revolução quantitativa nas últimas décadas, impulsionada pela necessidade de compreender não apenas a estrutura estática das macromoléculas, mas também a sua dinâmica e flexibilidade funcional. Proteínas não são entidades rígidas; elas operam como nanomáquinas complexas que transitam entre diferentes estados conformacionais para exercerem suas funções biológicas, como a catálise enzimática e o transporte de ligantes. A distinção entre as teorias clássicas de interação proteína-ligante — do modelo rígido de chave-fechadura aos modelos modernos de encaixe induzido (\textit{induced fit}) e seleção conformacional (\textit{conformational selection}) — evidencia a necessidade de ferramentas matemáticas capazes de capturar a essência da dinâmica molecular.
+\ident A biologia estrutural tem passado por uma revolução quantitativa nas últimas décadas, impulsionada pela necessidade de compreender não apenas a estrutura estática das macromoléculas, mas também a sua dinâmica e flexibilidade funcional. Nesse contexto, proteínas não são entidades rígidas; elas operam como nanomáquinas complexas que transitam entre diferentes estados conformacionais para exercerem suas funções biológicas, como a catálise enzimática e o transporte de ligantes. A distinção entre as teorias clássicas de interação proteína-ligante — do modelo rígido de chave-fechadura aos modelos modernos de encaixe induzido (\textit{induced fit}) e seleção conformacional (\textit{conformational selection}) — evidencia a necessidade de ferramentas matemáticas capazes de capturar a essência da dinâmica molecular.
 
 \ident Neste contexto, a Proteína de Ligação à Maltose (MBP — \textit{Maltose-Binding Protein}), encontrada na bactéria \textit{Escherichia coli}, apresenta-se como um modelo de estudo ideal. A MBP atua no transporte de maltodextrinas e transita fundamentalmente entre duas conformações: o estado \textit{Apo} (aberto e livre de ligante) e o estado \textit{Holo} (fechado e associado ao ligante). A compreensão e a distinção exata desses estados desafiam as métricas geométricas tradicionais, como o Desvio Quadrático Médio (RMSD), que frequentemente falham em capturar correlações não-lineares sutis ou variações dinâmicas globais na estrutura da proteína.
 
@@ -298,9 +298,9 @@
 
 \subsection{A Proteína de Ligação à Maltose (MBP)}
 
-\ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
+\ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli \cite{Boos1998, spurlino1991}}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
 
-\ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}), onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
+\ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}) \cite{bucher2011}., onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
 
 \begin{figure}[H]
     \centering
@@ -319,9 +319,9 @@
 
 \subsection{O Modelo de Rede Anisotrópica (ANM)}
 
-\ident Para capturar a dinâmica intrínseca da MBP sem o custo computacional proibitivo das simulações completas de Dinâmica Molecular, adota-se uma abordagem de grão grosso (\textit{coarse-grained}) baseada em física estatística: o Modelo de Rede Anisotrópica (ANM). 
+\ident Para capturar a dinâmica intrínseca da MBP sem o custo computacional proibitivo das simulações completas de Dinâmica Molecular, adota-se uma abordagem de grão grosso (\textit{coarse-grained}) baseada em física estatística: o Modelo de Rede Anisotrópica (ANM) \cite{atilgan2001}. 
 
-\ident No ANM, a estrutura tridimensional da proteína é abstraída como um grafo espacial. Cada resíduo de aminoácido é representado unicamente por seu átomo de Carbono-alfa ($C_\alpha$), que atua como um nó neste grafo. Interações interatômicas são modeladas como um sistema de molas elásticas que conectam nós localizados dentro de um raio de corte predefinido. 
+\ident No ANM, a estrutura tridimensional da proteína é abstraída como um grafo espacial. Cada resíduo de aminoácido é representado unicamente por seu átomo de Carbono-alfa ($C_\alpha$), que atua como um nó neste grafo. Interações interatômicas são modeladas como um sistema de molas elásticas que conectam nós localizados dentro de um raio de corte predefinido \cite{atilgan2001}. 
 
 \ident O comportamento deste sistema de massas e molas é governado por uma aproximação harmônica do potencial elástico da rede. A topologia física dessa rede é codificada na matriz de segundas derivadas do potencial, conhecida como Matriz Hessiana ($H$).
 
@@ -329,9 +329,9 @@
 A dedução analítica detalhada da energia potencial, a formulação tridimensional da Matriz Hessiana $H$ e sua decomposição espectral (cálculo dos autovalores e autovetores associados aos modos normais de vibração) envolvem um forte arcabouço de física mecânica e estatística que foge ao escopo puramente topológico do texto principal. Portanto, toda a fundamentação física e algébrica do ANM encontra-se detalhada no \textbf{Apêndice A}.
 \end{remark}
 
-\ident Do ponto de vista matemático para a classificação estrutural, o resultado fundamental do modelo ANM repousa na inversa pseudogeneralizada da Matriz Hessiana. A partir dos modos de baixa frequência (geralmente os 20 primeiros modos não triviais, que ditam os movimentos globais da proteína), constrói-se a \textbf{Matriz de Correlação Cruzada} ($C$). 
+\ident Do ponto de vista matemático para a classificação estrutural, o resultado fundamental do modelo ANM repousa na inversa pseudogeneralizada da Matriz Hessiana. A partir dos modos de baixa frequência (geralmente os 20 primeiros modos não triviais, que ditam os movimentos globais da proteína \cite{atilgan2001, kovacev2016}), constrói-se a \textbf{Matriz de Correlação Cruzada} ($C$). 
 
-\ident Cada elemento $C_{ij}$ desta matriz quantifica a correlação entre as flutuações vetoriais do resíduo $i$ e do resíduo $j$. Valores de $C_{ij}$ próximos a $1$ indicam movimentos altamente correlacionados (na mesma direção), próximos a $-1$ indicam movimentos anticorrelações (direções opostas), e valores próximos a $0$ indicam ausência de correlação dinâmica.
+\ident Cada elemento $C_{ij}$ desta matriz quantifica a correlação entre as flutuações vetoriais do resíduo $i$ e do resíduo $j$. Valores de $C_{ij}$ próximos a $1$ indicam movimentos altamente correlacionados (na mesma direção), próximos a $-1$ indicam movimentos anticorrelações (direções opostas), e valores próximos a $0$ indicam ausência de correlação dinâmica \cite{kovacev2016}.
 
 \subsection{Construção do Espaço Métrico}
 
@@ -343,7 +343,7 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
 \end{equation}
 \ident Com esta formulação, resíduos que possuem comportamentos dinâmicos altamente acoplados ($|C_{ij}| \to 1$) apresentarão uma distância dinâmica próxima a zero ($D_{ij} \to 0$), indicando que, topologicamente e funcionalmente, eles estão ``próximos''. Inversamente, resíduos com dinâmicas independentes estarão distantes neste novo espaço métrico.
 
-\ident A matriz de distâncias dinâmicas $D$ constitui o ponto de partida matemático deste trabalho. Ela nos permite abandonar as coordenadas euclidianas estáticas $(x, y, z)$ da biologia clássica e passar a tratar a proteína como um espaço métrico discreto, sobre o qual definiremos complexos simpliciais e calcularemos grupos de homologia persistente nos próximos capítulos. É crucial notar que $\mathbf{D}$ não é estritamente uma métrica, mas sim uma pseudométrica. Isto ocorre porque a identidade dos indiscerníveis não se verifica rigorosamente: dois resíduos distintos ($i \neq j$) podem oscilar de forma perfeitamente correlacionada ($|C_{ij}| = 1$), resultando numa distância $D_{ij} = 0$. A Topologia Algébrica, contudo, é perfeitamente bem definida sobre espaços pseudométricos, permitindo a construção de complexos simpliciais sem perda de generalidade teórica.
+\ident A matriz de distâncias dinâmicas $D$ constitui o ponto de partida matemático deste trabalho. Ela nos permite abandonar as coordenadas euclidianas estáticas $(x, y, z)$ da biologia clássica e passar a tratar a proteína como um espaço métrico discreto, sobre o qual definiremos complexos simpliciais e calcularemos grupos de homologia persistente nos próximos capítulos. É crucial notar que $\mathbf{D}$ não é estritamente uma métrica, mas sim uma pseudométrica. Isto ocorre porque a identidade dos indiscerníveis não se verifica rigorosamente: dois resíduos distintos ($i \neq j$) podem oscilar de forma perfeitamente correlacionada ($|C_{ij}| = 1$), resultando numa distância $D_{ij} = 0$. Por outro lado, é possível demonstrar a desigualdade triangular é satisfeita, isto é, $D_{ij}\leq D_{ik} + D_{kj}$. A Topologia Algébrica, contudo, é perfeitamente bem definida sobre espaços pseudométricos, permitindo a construção de complexos simpliciais sem perda de generalidade teórica.
 
 
 \section{Fundamentos de Topologia Algébrica e Homologia Persistente}
