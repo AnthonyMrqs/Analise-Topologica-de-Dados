@@ -5,7 +5,6 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazilian]{babel}
 \usepackage{lmodern}
-% \usepackage{helvet}
 \usepackage{csquotes}
 \usepackage{booktabs}
 
@@ -52,6 +51,11 @@
 \newtheorem{definition}{Definição}[section]
 \newtheorem{proposition}{Proposição}[section]
 \newtheorem{corollary}{Corolário}[section]
+
+\theoremstyle{definition}
+\newtheorem{example}{Exemplo}[section]
+
+\theoremstyle{remark}
 \newtheorem*{remark}{Nota}
 
 % --- Customizações de Texto ---
@@ -350,9 +354,61 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
 
 \ident O estabelecimento de uma matriz de distâncias (ou pseudodistâncias) a partir de um sistema dinâmico fornece um espaço métrico discreto. Para extrair a arquitetura de comunicação global da biomolécula a partir desta pseudométrica, traduzimos este espaço num objeto combinatório contínuo. Nesta seção, fundamentamos o arcabouço matemático necessário para essa transição, introduzindo conceitos da Topologia Algébrica e da Homologia Persistente, usando como base o conteúdo de Tinarrage \cite{tinarrage2021}.
 
-\subsection{Complexos Simpliciais e Grupos de Homologia}
+\subsection{Complexos Simpliciais} 
 
-\ident O bloco construtor fundamental na Análise Topológica de Dados é o complexo simplicial, uma generalização de grafos para dimensões superiores que permite a representação de espaços topológicos de forma combinatorial. 
+\ident Espaços topológicos, como subconjuntos de $\mathbb{R}^n$, podem ser difíceis de manipular computacionalmente. Para descrevê-los de forma adequada, podemos tentar decompô-los em partes mais simples, uma generalização de grafos para dimensões superiores que permite a representação de espaços topológicos de forma combinatorial. As partes que consideraremos são os \textit{simplexos padrão}. Lembramos que o simplexo padrão de dimensão $n$ é o seguinte subconjunto de $\mathbb{R}^{n+1}$. 
+\begin{align*}
+    \Delta_n = \left\{x = \left(x_1, \dots\ x_{n+1}\right) \in \mathbb{R}^{n+1} \mid x \geq 0 \ \text{e} \ \sum_{i=1}^{n+1}x_i=1\right\}.
+\end{align*}
+
+\begin{definition}[Complexo Simplicial]
+Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo simplicial} sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de \textbf{simplexos}) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
+\end{definition}
+
+\ident Atualmente, um complexo simplicial não possui topologia. É um objeto puramente combinatório. No entanto, para representá-lo, podemos desenhá-lo da seguinte forma: coloque os pontos $V$ no plano ou no espaço e, para cada simplexo de $K$, preencha o casco convexo de seus vértices. Podemos visualizar os simplexos das seguintes formas geométricas:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{definicao_simplices.png}
+    \vspace{0.1em}
+    \caption{Representação dos simplexos: 0-Simplexo (Ponto ou vértice), 1-Simplexo (Segmento ou aresta), 2-Simplexo (Triângulo com face preenchida) e 3-Simplexo (Tetraedro preenchido).}
+\end{figure}
+
+Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter essa imagem geométrica em mente no que se segue.
+
+\ident Por convenção, ao falar de simplexos, usamos colchetes em vez de chaves. Por exemplo, o simplexo ${0, 1}$ será denotado por $[0, 1]$. 
+
+\ident Se $\sigma \in K$ é um simplexo, seus subconjuntos não vazios $\tau \subset \sigma$ são chamados de faces de $\sigma$, e $\sigma$ é chamado de coface de $\tau$. Por exemplo, $[0, 1]$ é uma face de $[0, 1, 2]$, e $[0, 1, 2]$ é uma coface de $[0, 1]$.
+
+\begin{example}
+    Seja $V = \{0, 1, 2\}$ e
+    \begin{align*}
+        K = \left\{ [0], [1], [2], [0, 1], [1, 2], [2, 0]\right\}.
+    \end{align*}
+    É um complexo simplicial de dimensão 1, onde todos os vértices se ligam. Pode ser representado dessa forma:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\textwidth]{exemplo_3_1.png}
+        \caption{Simplexo de dimensão 1}
+    \end{figure}
+\end{example}
+
+\begin{example}
+    Seja $V = \{0, 1, 2\}$ e 
+    \begin{align*}
+    K = \left\{[0], [1], [2], [0, 1], [1, 2], [0, 1, 2]\right\}.    
+    \end{align*}
+    Este não é um complexo simplicial. De fato, o simplexo $[0, 1, 2]$ admite uma face $[2, 0]$ que não está incluída em $V$.
+\end{example}
+
+\ident Se $\sigma$ é um simplexo, sua dimensão é definida como $|\sigma|-1$ (cardinalidade de $\sigma$ menos 1). Se $K$ é um complexo simplicial, sua dimensão é definida como a dimensão máxima de seus simplíces.
+
+\begin{remark}
+    Ao desenhar um complexo simplicial, os símplices não devem se cruzar. No entanto, nem sempre é possível desenhar um complexo simplicial no plano (ou espaço) dessa maneira. Como exemplo, o grafo bipartido $K_{3,3}$ é um complexo simplicial de dimensão 1 (um grafo) que não pode ser desenhado no plano sem se cruzar.
+\end{remark}
+
+\subsection{Grupos de Homologia}
 
 \ident Seja $K$ um complexo simplicial abstrato. Para $n \geq 0$, definimos os conjuntos:
 \begin{align*}
@@ -360,10 +416,6 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
     K_{(n)} &= \{\sigma \in K \mid \dim(\sigma) = n\}. 
 \end{align*}
 O primeiro conjunto é um complexo simplicial, chamado de $n$-esqueleto de $K$. O segundo não é um complexo simplicial em geral.
-
-\begin{definition}[Complexo Simplicial]
-Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo simplicial} sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de \textbf{símplexos}) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
-\end{definition}
 
 \ident Para extrair invariantes topológicos de um complexo simplicial, é necessário dotá-lo de uma estrutura algébrica que nos permita operar formalmente sobre os seus símplexos.
 
