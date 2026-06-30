@@ -15,6 +15,7 @@
 \usepackage{amsthm}
 \usepackage{physics}
 \usepackage{siunitx}
+\usepackage{stmaryrd}
 
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
 \ExplSyntaxOn
@@ -33,6 +34,7 @@
 \usepackage{array}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{xcolor}
 \usepackage{caption}
 \captionsetup{margin=1.5cm, labelfont=bf, font=small, justification=justified}
 
@@ -88,7 +90,7 @@
 \hypersetup{
     colorlinks = true,
     linkcolor = black,
-    urlcolor = cyan,
+    urlcolor = black,
     citecolor = black
 }
 
@@ -98,6 +100,19 @@
   \@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}
   \@starttoc{toc}
 }
+
+\def\algbackskip{\hskip-\ALG@thistlm}
+\def\algfromtop{\vskip-\base@skip}
+
+% Comando que desenha a linha vertical
+\newcommand{\algrule}[1][0.4pt]{\vrule height .75\baselineskip depth .25\baselineskip width #1}
+
+% Aplica a regra no início de cada linha de bloco
+\newcommand{\addalgrule}{\color{gray!60}\algrule\hskip\ALG@tlm\relax}
+
+% Intercepta os comandos do pacote para injetar as linhas
+\newcommand{\StateXWithRule}{\Statex\hskip\ALG@thistlm\addalgrule}
+
 \makeatother
 
 \begin{document}
@@ -110,7 +125,7 @@
     \noindent
     \begin{minipage}[c]{0.18\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{logo_ufs.png} 
+        \includegraphics[width=\textwidth]{Imagens/logo_ufs.png} 
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.60\textwidth}
@@ -125,7 +140,7 @@
     \hfill
     \begin{minipage}[c]{0.18\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{logo_dma.png}
+        \includegraphics[width=\textwidth]{Imagens/logo_dma.png}
     \end{minipage}
 
     \vfill
@@ -164,7 +179,7 @@
     \noindent
     \begin{minipage}[c]{0.18\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{logo_ufs.png} 
+        \includegraphics[width=\textwidth]{Imagens/logo_ufs.png} 
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.60\textwidth}
@@ -179,7 +194,7 @@
     \hfill
     \begin{minipage}[c]{0.18\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{logo_dma.png}
+        \includegraphics[width=\textwidth]{Imagens/logo_dma.png}
     \end{minipage}
 
     \vfill
@@ -280,7 +295,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{apresentacao_mbp.png}
+    \includegraphics[width=0.8\textwidth]{Imagens/apresentacao_mbp.png}
     \caption{Representação das conformidades da MBP. 
     Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
     
@@ -308,7 +323,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{conformidade_proteina.png} 
+    \includegraphics[width=0.8\textwidth]{Imagens/conformidade_proteina.png} 
     \caption{Representação das transições conformacionais da MBP. Da esquerda para a direita: Estado Aberto, Semi-fechado transiente e Fechado estabilizado pelo ligante (em vermelho). (A) A apoproteína é suficientemente flexível para exibir movimentos de abertura para fechamento, e o papel do ligante é estabilizar a forma fechada. (B) A proteína não ligada é incapaz de atingir a forma fechada, e a plasticidade estrutural é dependente do ligante. (C) Uma combinação das etapas A e B é necessária para atingir a conformação fechada.Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
     \label{fig:mbp_conformations}
 \end{figure}
@@ -317,7 +332,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{estagios_mbp_3d.png}  
+    \includegraphics[width=0.5\textwidth]{Imagens/estagios_mbp_3d.png}  
     \caption{Vistas lateral e superior da MBP, mostrando o tamanho e a forma do sítio de ligação que é modulado pelo estado conformacional da proteína. A cor vermelha indica que os resíduos estão próximos ao centro de massa da proteína, onde o sítio de ligação está localizado. As estruturas de raios X são mostradas para o estado aberto não ligado (entrada PDB 1OMP) e para o estado fechado ligado (entrada PDB 3MBP). Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}  
 \end{figure}
 
@@ -361,6 +376,17 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
     \Delta_n = \left\{x = \left(x_1, \dots\ x_{n+1}\right) \in \mathbb{R}^{n+1} \mid x \geq 0 \ \text{e} \ \sum_{i=1}^{n+1}x_i=1\right\}.
 \end{align*}
 
+\begin{definition}\label{fecho_convexo}
+    Para qualquer conjunto de pontos $a_1, \dots, a_k \in \mathbb{R}^n$, definimos seu \textbf{fecho convexo} como:
+    \begin{align*}
+        \textup{conv}({a_1, ..., a_k}) = \left\{\sum_{1\leq i \leq k} t_i a_i\mid \sum_{j = 1}^{k} t_j = 1, t_j \geq 0 \right\}.
+    \end{align*}
+    Portanto, podemos dizer que $\Delta_n$ é o fecho convexo dos vetores $e_1, \dots, e_{n+1} \in \mathbb{R}^{n+1}$, onde
+    \begin{align*}
+        e_i = (0, \dots, 1, 0, \dots, 0) \quad \textup{(i-ésima coordenada igual a 1, as demais iguais 0)}.
+    \end{align*}
+\end{definition}
+
 \begin{definition}[Complexo Simplicial]
 Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo simplicial} sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de \textbf{simplexos}) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
 \end{definition}
@@ -369,7 +395,7 @@ Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo sim
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{definicao_simplices.png}
+    \includegraphics[width=1\textwidth]{Imagens/definicao_simplices.png}
     \vspace{0.1em}
     \caption{Representação dos simplexos: 0-Simplexo (Ponto ou vértice), 1-Simplexo (Segmento ou aresta), 2-Simplexo (Triângulo com face preenchida) e 3-Simplexo (Tetraedro preenchido).}
 \end{figure}
@@ -378,9 +404,10 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
 
 \ident Por convenção, ao falar de simplexos, usamos colchetes em vez de chaves. Por exemplo, o simplexo ${0, 1}$ será denotado por $[0, 1]$. 
 
+
 \ident Se $\sigma \in K$ é um simplexo, seus subconjuntos não vazios $\tau \subset \sigma$ são chamados de faces de $\sigma$, e $\sigma$ é chamado de coface de $\tau$. Por exemplo, $[0, 1]$ é uma face de $[0, 1, 2]$, e $[0, 1, 2]$ é uma coface de $[0, 1]$.
 
-\begin{example}
+\begin{example}\label{ex_3_1}
     Seja $V = \{0, 1, 2\}$ e
     \begin{align*}
         K = \left\{ [0], [1], [2], [0, 1], [1, 2], [2, 0]\right\}.
@@ -389,7 +416,7 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.3\textwidth]{exemplo_3_1.png}
+        \includegraphics[width=0.3\textwidth]{Imagens/exemplo_3_1.png}
         \caption{Simplexo de dimensão 1}
     \end{figure}
 \end{example}
@@ -408,6 +435,32 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
     Ao desenhar um complexo simplicial, os símplices não devem se cruzar. No entanto, nem sempre é possível desenhar um complexo simplicial no plano (ou espaço) dessa maneira. Como exemplo, o grafo bipartido $K_{3,3}$ é um complexo simplicial de dimensão 1 (um grafo) que não pode ser desenhado no plano sem se cruzar.
 \end{remark}
 
+\begin{definition}
+    Seja $K$ um complexo simplicial com conjunto de vértices $V=\left\llbracket 1, \dots, n \right\rrbracket$. Em $\mathbb{R}^{n+1}$, considere, para cada $i \in \left\llbracket 0,n \right\rrbracket$, o vetor $e_i = (0, \dots, 1, 0, \dots, 0)$ (com a $i$-ésima coordenada igual a $1$ e as demais iguais a $0$). Seja $|K|$ o subconjunto de $\mathbb{R}^{n+1}$ definido por:
+    \begin{align*}
+        |K| = \bigcup_{\sigma \in K} \textup{conv}(\{e_j, j \in \sigma\})
+    \end{align*}
+    onde $\textup{conv}$ representa o fecho convexo (Definição \ref{fecho_convexo}).
+    Munido da topologia de subespaço, $(|K|, \tau_{|K|})$ é um espaço topológico, que denominamos realização topológica de $K$.
+    
+\end{definition}
+
+\begin{definition}
+    Seja $(X, \mathcal{T})$ um espaço topológico. Uma triangulação de $X$ é um complexo simplicial $K$ tal que sua realização topológica $(|K|, \mathcal{T}_{|K|})$ é homeomorfa a $(X, \mathcal{T})$.
+\end{definition}
+
+\begin{example}
+    Seguindo exemplo \ref{ex_3_1}, o complexo simplicial $K$ é a triangulação de um círculo.
+\end{example}
+
+\ident Dado um espaço topológico, nem sempre é possível obter sua triangulação No entanto, quando isso é possível, existem muitas triangulações diferentes. Por exemplo, todos os seguintes complexos simpliciais são triangulações equivalentes de um círculo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagens/triangulacao_circulo.png}
+    \caption{Triangulações de um círculo}
+\end{figure}
+
 \subsection{Grupos de Homologia}
 
 \ident Seja $K$ um complexo simplicial abstrato. Para $n \geq 0$, definimos os conjuntos:
@@ -417,7 +470,13 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
 \end{align*}
 O primeiro conjunto é um complexo simplicial, chamado de $n$-esqueleto de $K$. O segundo não é um complexo simplicial em geral.
 
-\ident Para extrair invariantes topológicos de um complexo simplicial, é necessário dotá-lo de uma estrutura algébrica que nos permita operar formalmente sobre os seus símplexos.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagens/esqueleto_simplexo.png}
+    \caption{Exemplo do complexo simplicial $K_n$ e o conjunto $K_{(n)}$}
+\end{figure}
+
+\ident Para extrair invariantes topológicos de um complexo simplicial, é necessário dotá-lo de uma estrutura algébrica que nos permita operar formalmente sobre os seus simplexos.
 
 \begin{definition}[n-Cadeias]
 Seja $K$ um complexo simplicial e $n \geq 0$. O conjunto de \textbf{$n$-cadeias} de $K$, denotado $C_n(K)$, é o conjunto cujos elementos são as somas formais:
@@ -427,6 +486,36 @@ Seja $K$ um complexo simplicial e $n \geq 0$. O conjunto de \textbf{$n$-cadeias}
 Este conjunto possui estrutura de espaço vetorial sobre o corpo $\mathbb{Z}/2\mathbb{Z}$, com a adição a ocorrer componente a componente.
 \end{definition}
 
+\begin{example}
+    Considere o complexo simplicial 
+    \begin{align*}
+        K = \left\{[0], [1], [2], [0, 1], [0, 2]\right\}.
+    \end{align*}
+    
+    As 0-cadeias $C_0(K)$ consistem em 8 elementos:
+    \begin{align*}
+        C_0(K) = \left\{0, [0], [1], [2], [0] + [1], [0] + [2], [1] + [2], [0] + [1] + [2]\right\}
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/fases_n_cadeias.png}
+    \end{figure}
+
+    Por exemplo, em $C_0(K)$, temos
+    \begin{align*}
+        ([0] + [1]) + ([0] + [2]) = [0] + [0] + [1] + [2] = [1] + [2].
+    \end{align*}
+    
+    Além disso, as 1-cadeias $C_1(K)$ consistem em 4 elementos:
+    \begin{align*}
+        C_1(K) = \left\{0, [0, 1], [0, 2], [0, 1] + [0, 2]\right\}.
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/fases_n_cadeias1.png}
+    \end{figure}
+\end{example}
+
 \begin{definition}[Operador de Fronteira]
 Seja $n \geq 1$ e $\sigma = [x_0, \ldots, x_n] \in K_{(n)}$ um símplexo de dimensão $n$. A \textbf{fronteira} de $\sigma$ é o elemento de $C_{n-1}(K)$ definido por:
 \[
@@ -435,43 +524,171 @@ Seja $n \geq 1$ e $\sigma = [x_0, \ldots, x_n] \in K_{(n)}$ um símplexo de dime
 O operador $\partial_n$ estende-se por linearidade a uma aplicação linear $\partial_n: C_n(K) \to C_{n-1}(K)$. Para $n = 0$, define-se $\partial_0$ como a aplicação nula.
 \end{definition}
 
+\begin{example}\label{exemplo_fronteira}
+    Considere o complexo simplicial
+    \begin{align*}
+        K = \{[0], [1], [2], [3], [0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [0, 1, 2]\}.
+    \end{align*}
+    O simplexo $[0, 1]$ tem as faces $[0]$ e $[1]$. Logo,
+    \begin{align*}
+        \partial_1 [0, 1] = [0] + [1].
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/fronteiras_ex1.png}
+    \end{figure}
+    De modo semelhante, a fronteira da 1-cadeia $ [0, 1] + [1, 2] + [2, 0]$ é
+    \begin{align*}
+        \partial_1\left([0, 1] + [1, 2] + [2, 0]\right) &= \partial_1[0, 1] + \partial_1[0, 2] + \partial_1[2, 0]\\
+        &= [0] + [1] + [0] + [2] + [2] + [0]\\
+        &= 0
+    \end{align*}
+    uma vez que $[0] + [0] = [1] + [1] = [2] + [2] = 0$ em $C_0(K)$.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/fronteiras_ex2.png}
+    \end{figure}
+    O simplexo $[0, 1, 2]$ possui as faces $[0, 1], [1, 2]$ e $[2, 0]$. Logo, 
+    \begin{align*}
+        \partial_2[0, 1, 2] = [0, 1] + [1, 2] + [2, 0].
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/fronteiras_ex3.png}
+    \end{figure}
+\end{example}
+
 \ident A aplicação linear de fronteira $\partial_n$ satisfaz a propriedade fundamental da topologia algébrica: $\partial_{n-1} \circ \partial_n = 0$. Esta identidade categórica permite-nos definir subespaços cruciais para o estudo das formas.
 
 \begin{definition}[Ciclos e Fronteiras]
 Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
+\vspace{-0.6em}
 \begin{itemize}
     \item Os \textbf{$n$-ciclos}: $Z_n(K) = \ker(\partial_n) \subset C_n(K)$,
     \item As \textbf{$n$-fronteiras}: $B_n(K) = \mathrm{Im}(\partial_{n+1}) \subset C_n(K)$.
 \end{itemize}
 \end{definition}
+\begin{example}
+    Considere o complexo simplicial do Exemplo \ref{exemplo_fronteira}. O conjunto de ciclos $Z_1(K)$ consiste nas cadeias
+    \begin{align*}
+        0, \quad [0, 1] + [1, 2] + [0, 2], \quad [0, 2] + [2, 3] + [0, 3] \quad \text{e} \quad [0, 1] + [1, 2] + [2, 3] + [0, 3].
+    \end{align*}
+    As únicas fronteiras $B_1(K)$ são dadas por
+    \begin{align*}
+        \partial_2(0) = 0 \quad \text{and}\quad \partial_2([0, 1, 2]) = [0, 1] + [0, 2] + [1, 2].
+    \end{align*}
+    Vemos que as cadeias $[0, 2] + [2, 3] + [0, 3]$ e $[0, 1] + [1, 2] + [2, 3] + [0, 3]$ são homólogas.
+    De fato,
+    \begin{align*}
+        [0, 2] + [2, 3] + [0, 3] = [0, 1] + [1, 2] + [2, 3] + [0, 3] + [0, 1] + [0, 2] + [1, 2].
+    \end{align*}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{Imagens/igualdade_cilcos_fronteiras.png}
+    \end{figure}
+\end{example}
+
+\begin{corollary}
+    Temos $B_n(K) \subset Z_n(K)$. Em outras palavras, toda fronteira é um ciclo.
+\end{corollary}
+\vspace{-0.6em}
+Demonstração em Tinarrage \cite{tinarrage2021}.
 
 \begin{definition}[Grupo de Homologia e Números de Betti]
-Seja $K$ um complexo simplicial. O \textbf{$n$-ésimo grupo de homologia} de $K$ é o quociente:
-\[
-H_n(K) = Z_n(K) / B_n(K).
-\]
-A dimensão deste espaço vetorial é o \textbf{$n$-ésimo número de Betti}, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de "buracos" ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
+    Seja $K$ um complexo simplicial. O \textbf{$n$-ésimo grupo de homologia} de $K$ é o quociente:
+    \begin{align*}
+        H_n(K) = Z_n(K) / B_n(K).
+    \end{align*}
+    A dimensão deste espaço vetorial é o \textbf{$n$-ésimo número de Betti}, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de "buracos" ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
 \end{definition}
 
 \subsection{Inferência Topológica}
 
-\ident Na prática computacional, os dados raramente se apresentam nativamente como um complexo simplicial. Em vez disso, dispomos de nuvens de pontos em um espaço métrico. Para conectar a geometria dos dados com a topologia, utilizamos coberturas abertas e o Teorema do Nervo.
+\ident Na prática computacional, os dados raramente se apresentam nativamente como um complexo simplicial. Em vez disso, dispomos de nuvens de pontos em um espaço métrico. Para conectar a geometria dos dados com a topologia, utilizamos coberturas abertas e o Teorema do Nervo. Pensemos em subconjunto euclidiano finito $X\subset \mathbb{R}^n$ como sendo uma amostra de um objeto contínuo, $\mathcal{M} \subset \mathbb{R}^n$. Compreender a topologia de $\mathcal{M}$ nos daria um conhecimento interessante sobre o conjunto de dados $X$.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{Imagens/nuvem_pontos_e_circulo.png}
+\end{figure}
+\ident Seja $\mathcal{M}\subset \mathbb{R}^n$ um subconjunto limitado, suponha que tenhamos uma amostra finita $X\subset\mathcal{M}$. Com a Homologia Persistente, pretendemos compreender a topologia de $\mathcal{M}$ através da sua homologia. Tentaremos estimar os grupos de homologia de $\mathcal{M}$ para $X$. Infelizmente, a homologia de $X$ está muito longe da homologia de $\mathcal{M}$. No entanto, se é amostrado perto o suficiente de $\mathcal{M}$, existe uma construção que permite recuperar o tipo de homotopia de $\mathcal{M}$ para $X$, daí também seus grupos de homologia. Esta construção consiste no espessamento de $X$.
+
+
+\begin{definition}[t-espessamento]
+    Seja $X \subset \mathbb{R}^n$ e $t \geq 0$. O \textbf{$t$-espessamento} de $X$, denotado $X^t$, é o conjunto de pontos do espaço ambiente com o máximo de distância $t$ de $X$:
+    \[
+    X^t = \{y \in \mathbb{R}^n \mid \exists x \in X,\, \|x - y\| \leq t\} = \bigcup_{x \in X} \overline{\mathcal{B}}(x, t).
+    \]
+    Lê-se que $X^t$ é uma união de bolas fechadas centradas em cada ponto de $X$.
+
+\end{definition}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{Imagens/epessamentos_x.png}
+\end{figure}
+Observe que a última figura é um espessamento que possui o tipo de homotopia de um círculo: $X^t \approx \mathcal{M}$. Se pudermos selecionar tal $t$, então teremos acesso aos grupos de homologia de $\mathcal{M}$:
+\[
+    \forall i \geq 0, H_i(\mathcal{M}) \simeq H_i(X).
+\]
+
+Se $X \in \mathbb{R}^n$ é um subconjunto finito e $t \geq 0$, queremos calcular o
+grupos de homologia $H_0(X^t), \dots ,H_n(X^t)$. Para fazer isso, temos que encontrar uma triangulação de $X^t$, isto é, um complexo simplicial $K$ homeomorfo a $X$. Na verdade, vamos procurar algo um pouco mais fraco: queremos um complexo simplicial $K$ que seja equivalente homotopicamente a $X$.
+
+\ident É fácil representar os espessamentos $X^t$ como complexos simpliciais,
+através da noção de coberturas.
 
 \begin{definition}
-Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O \textbf{nervo} de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-símplices são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
+    Seja $X$ um espçao topológico, uma cobertura de $X$ é a coleção $\mathcal{U} = \left\{U_i\right\}_{1\leq i \leq N}$ do subconjuntos $U_i \subset X$ tal que
+    \[
+        \bigcup_{1\leq i \leq N} U_i = X.
+    \]
 \end{definition}
+\begin{definition}
+    Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O \textbf{nervo} de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-símplices são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Imagens/cobertura_nervo.png}
+        \caption{Representação da cobertura $\mathcal{U}$ e do nervo $\mathcal{N}(\mathcal{U})$}.
+        \label{cobertura_nervo}
+    \end{figure}
+\end{definition}
+\ident Note que a coleção $\mathcal{V}^t=\left\{\overline{\mathcal{B}}(x, t)\mid x \in X\right\}$ é uma cobertura do espessamento $X^t$ e cada componente são bolas fechadas. Consequentemente, podemos considerar seu nervo $\mathcal{N}(\mathcal{V}^t)$. Com isso, segue-se o teorema:
+
+\begin{theorem}
+    Suponha que Y seja um subconjunto de $\mathbb{R}^n$. Considere uma cobertura $\mathcal{U} = \left\{U_i\right\}_{1\leq i \leq N}$ de $Y$ tal que cada um dos $U_i$ são bolas fechadas e convexas. Então $\mathcal{N}(\mathcal{U})$ é homotopia equivalente a Y. (Ver figura \ref{cobertura_nervo}).
+\end{theorem}
+\vspace{-0.6em}
+Demonstração em Tinarrage \cite{tinarrage2021}.
 
 \begin{definition}[Complexo de \v{C}ech]
-Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de \textbf{complexo de \v{C}ech} de $X$ no instante $t$.
-
-Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos símplices são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
+    Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de \textbf{complexo de \v{C}ech} de $X$ no instante $t$.
+    Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos símplices são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
 \end{definition}
+
+\ident Como o complexo $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é homotopicamente equivalente ao espessamento $X^t$, o Teorema do Nervo garante que os seus respectivos grupos de homologia, $H_i(\check{\mathrm{C}}\mathrm{ech}^t(X))$ e $H_i(X^t)$, são isomorfos. Consequentemente, torna-se viável calcular e acompanhar a evolução da homologia persistente do espessamento computacional $X^t$ por meio do seu equivalente simplicial estruturado.
 
 \ident Embora o complexo de \v{C}ech capture perfeitamente a topologia da união das bolas de raio $t$, a verificação de interseções múltiplas é computacionalmente custosa. Como alternativa tratável, foca-se nas interações aos pares.
 
 \begin{definition}[Complexo de Rips]
-Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O \textbf{complexo de Rips} de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t = \left(\check{\mathrm{C}}\mathrm{ech}^t(X)\right)$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
+    Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O \textbf{complexo de Rips} de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t = \left(\check{\mathrm{C}}\mathrm{ech}^t(X)\right)$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{Imagens/cech_vs_rips.png}
+        \caption{Representação da diferença entre o grafo $G^t$, o complexo de \v{C}ech e o de Rips. Note que o complexo de \v{C}ech só possui 1 simplexo de dimensão 2, pois só há uma interseção entre 3 bolas, já o complexo de Rips, há 2 simplexos de dimensão 2, pois basta que as bolas possuamas interseções dois a dois.}
+    \end{figure}
 \end{definition}
+
+\ident Observe que o complexo de Rips pode não ser homotopicamente equivalente ao correspondente
+Complexo \v{C}ech. No entanto, eles não estão ligados pela seguinte relação:
+
+\begin{proposition}
+    Let $X \subset \mathbb{R}^n$ um conjunto finito. Seja $X \subset \mathbb{R}^n$ um subconjunto finito. Para todo $t \geq 0$, temos
+    \[
+        \check{C}ech^t(X) \subset Rips^t(X) \subset \check{C}ech^{2t}(X).
+    \]
+\end{proposition}
+\vspace{-0.6em}
+Demonstração em Tinarrage \cite{tinarrage2021}.
 
 \subsection{Módulos de Persistência}
 
@@ -487,7 +704,7 @@ Seja $\mathrm{Barcode}(\mathbb{V})$ o barcode de um módulo decomponível. Para 
 
 \ident Embora os Diagramas de Persistência resumam o ciclo de vida das classes de homologia (nascimento $a$ e morte $b$), eles habitam um espaço métrico não-linear. Para que possamos calcular médias, variâncias e aplicar algoritmos de Machine Learning diretamente nestes invariantes, utilizamos a vetorização contínua idealizada por Bubenik \cite{Bubenik2015}.
 
-\begin{definition}[Paisagem de Persistência]
+\begin{definition}[Paisagem de Persistência]\label{paisagem_persistencia_def}
 Dado um diagrama de persistência com intervalos $\mathcal{B} = \{(a_i, b_i)\}_{i=1}^m$, define-se para cada ponto a função auxiliar:
 \[
 f_{(a,b)}(t) = \max(0, \min(t-a,\; b-t)).
@@ -599,7 +816,7 @@ A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pel
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{grafico_scree_isomap.png}
+    \includegraphics[width=0.8\textwidth]{Imagens/grafico_scree_isomap.png}
     
     \caption{ Redução de dimensão via Isomap para a estrutura 1OMP. A flexão abrupta no parâmetro $d=3$ indica a dimensionalidade intrínseca ideal para a representação das flutuações dinâmicas da MBP.}
     \label{fig:grafico_scree} 
@@ -708,35 +925,24 @@ onde $S$ é uma matriz identidade, exceto pelo último elemento diagonal, que as
 
 \subsection{Aquisição e Preparação do Conjunto de Dados}
 
-\ident O estudo de Kovacev-Nikolic et al. (2016) \cite{kovacev2016} estabeleceu a prova de conceito da aplicação da homologia persistente à MBP utilizando uma amostra restrita de 14 estruturas tridimensionais (sendo 7 conformações abertas e 7 fechadas). Neste trabalho, essas 14 estruturas foram preservadas e processadas inicialmente para atuar como o nosso conjunto de calibração.
+\ident O estudo de Kovacev-Nikolic et al. (2016) \cite{kovacev2016} estabeleceu a prova de conceito da aplicação da homologia persistente à MBP utilizando uma amostra restrita de 14 estruturas tridimensionais (sendo 7 conformações abertas e 7 fechadas). Neste trabalho, essas 14 estruturas foram preservadas e processadas inicialmente para atuar como o nosso conjunto de calibração. Os códigos das aplicações práticas discutidas nesta seção foram implementados em Python e estão disponíveis no GitHub: \url{https://github.com/AnthonyMrqs/Analise-Topologica-de-Dados.git}.
 
 \ident Contudo, para conferir ineditismo e robustez estatística à pesquisa, bem como testar a capacidade de generalização espacial dos algoritmos, a base de dados foi substancialmente expandida. Realizou-se a mineração computacional de 29 novas estruturas de alta resolução da MBP diretamente do repositório \textit{Protein Data Bank} (PDB) \cite{Bernstein1977}. A rotulação das classes para o aprendizado supervisionado seguiu rigorosamente os metadados cristalográficos de cada arquivo: conformações \textit{Apo} (abertas) correspondem às estruturas resolvidas sem ligantes acoplados, enquanto as conformações \textit{Holo} (fechadas) consistem naquelas cristalizadas ativamente com maltose ou oligossacarídeos derivados.
 
 \ident O processamento algorítmico desses arquivos brutos (em formato \texttt{.cif}) exigiu a implementação de rotinas de limpeza de dados. Estruturas cristalográficas frequentemente contêm ruídos tridimensionais para a modelagem elástica, como moléculas de solvente, íons metálicos soltos e múltiplas cadeias polipeptídicas idênticas na célula unitária. 
 
-\ident Por meio de \textit{scripts} automatizados desenvolvidos na linguagem Python (suportados pela biblioteca \texttt{ProDy}), cada estrutura foi filtrada. O código varreu os arquivos e isolou exclusivamente as coordenadas espaciais euclidianas $(x,y,z)$ dos átomos de carbono-alfa ($C_\alpha$) pertencentes à \textbf{Cadeia A}. 
+\ident Por meio de \textit{scripts} automatizados desenvolvidos na linguagem Python (suportados pela biblioteca \texttt{ProDy}), cada estrutura foi filtrada. O código varreu os arquivos e isolou exclusivamente as coordenadas espaciais euclidianas $(x,y,z)$ dos átomos de carbono-alfa ($C_\alpha$) pertencentes à \textbf{Cadeia A}.
 
 \ident Dado o grau de conservação da proteína da \textit{E. coli} avaliada, este isolamento algorítmico culminou na geração de representações uniformes de grão grosso. Como resultado de saída desta etapa preliminar, obtivemos matrizes de coordenadas de dimensão $370 \times 3$ para cada uma das proteínas amostradas, garantindo a isometria do número de nós (vértices) necessária para o processamento da matriz Correlação nas etapas seguintes.
 
 \subsection{Extração da Dinâmica Estrutural e Construção do Espaço Métrico}
 
-\ident De posse das coordenadas espaciais dos resíduos da MBP de cada conformação, o passo metodológico seguinte consistiu em extrair o comportamento dinâmico intrínseco da molécula. Para transcender a geometria estática puramente tridimensional, implementou-se o Modelo de Rede Anisotrópica (ANM). Do ponto de vista da modelagem computacional, a estrutura proteica foi convertida em um grafo não-direcionado, onde cada nó representa exclusivamente o átomo de carbono-alfa ($C_\alpha$) de um aminoácido da cadeia principal.
+\ident Após a padronização e o isolamento das coordenadas dos carbonos-alfa da cadeia A para todo o conjunto de dados (composto pelas structures de calibração e pelas 29 novas estruturas mineradas), procedeu-se à extração da dinâmica molecular elástica. Esse procedimento foi executado computacionalmente por meio da aplicação do Modelo de Rede Anisotrópica (ANM) \cite{atilgan2001}. Utilizando rotinas automatizadas baseadas no pacote \texttt{ProDy}, a matriz Hessiana de cada conformação da MBP foi construída e submetida à decomposição espectral. O comportamento mecânico global de flutuação foi obtido pelo truncamento nos 20 primeiros modos normais não-triviais de baixa frequência, resultando nas matrizes de correlação cruzada $C$ de dimensão $370 \times 370$ para cada uma das amostras proteicas \cite{kovacev2016}.
 
-\ident As interações físicas foram modeladas por molas harmônicas conectando pares de vértices cuja distância euclidiana inicial fosse inferior a um raio de corte predefinido \cite{atilgan2001}. A topologia elástica resultante do sistema foi então encapsulada na Matriz Hessiana $H$, um operador simétrico que dita a energia potencial do sistema.
-
-\ident A extração das características termodinâmicas procedeu-se mediante a decomposição espectral da matriz $H$. Uma vez que os seis primeiros autovalores nulos correspondem matematicamente a movimentos de corpo rígido (translações e rotações globais), a verdadeira mecânica interna da proteína é ditada pelos modos normais subsequentes. Selecionaram-se os 20 primeiros modos não-triviais de baixa frequência para a computação da matriz de covariância, pois a literatura biofísica consolida que esses modos lentos dominam as transições funcionais globais, como a transição aberta-fechada da MBP \cite{kovacev2016}.
-
-\ident A partir deste processamento, derivou-se a matriz de correlação cruzada de flutuações $C$. Nesta matriz, cada entrada $C_{ij} \in [-1, 1]$ quantifica o acoplamento direcional entre o resíduo $i$ e o resíduo $j$. Por fim, para submeter estes dados ao maquinário rigoroso da Topologia Algébrica, aplicou-se a transformação projetiva clássica:
-\begin{equation}
-    D_{ij} = 1 - |C_{ij}|
-\end{equation}
-
-\ident Esta equação métrica garante que flutuações perfeitamente acopladas ou puramente anticorrelações colapsem para uma distância nula ($D_{ij} = 0$), indicando proximidade dinâmica estrutural. Em contrapartida, resíduos com movimentos ortogonais assumem a distância máxima ($D_{ij} = 1$). 
-
-\ident Todo este \textit{pipeline} analítico foi traduzido em uma rotina computacional automatizada, elaborada com o suporte da biblioteca especializada em dinâmicas de grão grosso \texttt{ProDy}. A rotina processou os lotes de proteínas das classes aberta e fechada e exportou as matrizes de distância para persistência topológica, conforme formalizado no Algoritmo \ref{alg:anm_pipeline}.
+\ident Para converter o comportamento dinâmico elástico em um espaço pseudométrico apto para o cálculo da homologia persistente, aplicou-se a transformação projetiva sobre cada entrada das matrizes de correlação cruzada geradas, calculando-se $D_{ij} = 1 - |C_{ij}|$. Essa operação dita que resíduos com acoplamento mecânico perfeito ($|C_{ij}| = 1$) assumam distância dinâmica nula ($D_{ij} = 0$), enquanto resíduos com oscilações independentes ou ortogonais assumam a distância máxima ($D_{ij} = 1$). O fluxo computacional completo que automatiza o processamento elástico e o armazenamento dessas matrizes de distância funcional está formalizado no Algoritmo \ref{alg:anm_pipeline}.
 
 \begin{algorithm}[H]
-\caption{\textit{Pipeline} Computacional para Extração da Matriz de Distância Dinâmica}
+\caption{Fluxo Computacional para Extração da Matriz de Distância Dinâmica}
 \label{alg:anm_pipeline}
 \begin{algorithmic}[1]
 \Require Lista de identificadores $\mathcal{L} = \{id_1, id_2, \dots, id_M\}$, Categoria da proteína $c$ (Apo/Holo).
@@ -774,6 +980,103 @@ onde $S$ é uma matriz identidade, exceto pelo último elemento diagonal, que as
 
 \ident Com as matrizes dinâmicas tridimensionais colapsadas em espaços métricos bidimensionais de $370 \times 370$ entradas empíricas reais, o problema físico foi plenamente convertido em um problema matricial. O próximo passo do escopo metodológico dedica-se a aplicar as filtrações simpliciais sobre essas matrizes para a extração dos invariantes topológicos.
 
+\subsection{Filtração de Vietoris-Rips e Paisagens de Persistência}
+
+\ident Com os espaços pseudométricos estabelecidos pelas matrizes de distância dinâmica $D$, o tratamento de dados adentra o domínio da Análise Topológica de Dados. O objetivo desta fase é converter matrizes discretas de proximidade em invariantes topológicos contínuos, capazes de quantificar a conectividade global de cada estado da proteína.
+
+\ident Para reconstruir a forma contínua das flutuações, computou-se o complexo simplicial de Vietoris-Rips para cada matriz de distância. Em termos de implementação algorítmica, definiu-se um parâmetro de limiar máximo de conexão (frequentemente adotado como $t_{\max} = 0.7$, uma vez que a pseudométrica opera no intervalo $[0,1]$). A Figura \ref{fig:evolucao_rips} ilustra a progressão geométrica desta filtração computacional, demonstrando como os carbonos-alfa isolados conectam-se para formar arestas, triângulos e tetraedros à medida que o parâmetro de escala evolui, solidificando a arquitetura latente da macromolécula.
+
+% --- BLOCO RESERVADO PARA AS SUAS 8 IMAGENS ---
+\begin{figure}[H]
+    \centering
+    % Primeira linha (4 imagens)
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d1.png}
+        \caption{$d = 1.0$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d4.png}
+        \caption{$d = 4.0$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d55.png}
+        \caption{$d = 5.5$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d6.png}
+        \caption{$d = 6.0$Å}
+    \end{subfigure}
+    
+    \vspace{0.5cm} % Espaçamento entre as linhas
+    
+    % Segunda linha (4 imagens)
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d7.png}
+        \caption{$d = 7.0$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d8.png}
+        \caption{$d = 8.0$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d9.png}
+        \caption{$d = 9.0$Å}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/mbp_d12.png}
+        \caption{$d = 12.0$Å}
+    \end{subfigure}
+    \caption{Evolução geométrica do complexo de Vietoris-Rips ao longo da filtração, aplicada sobre uma amostra representativa de 100 carbonos-alfa da estrutura proteica 1OMP. Observa-se a formação progressiva de símplexos de dimensões superiores até a consolidação da topologia global da proteína. As faces de 3-Simplexo são mostradas em verde, os 2-Simplexo são mostrados em amarelo, os 1-Simplexos são mostrados como linhas e os 0-Simplexos são mostrados como pontos.}
+    \label{fig:evolucao_rips}
+\end{figure}
+% ----------------------------------------------
+
+\ident Após a construção da filtração, extraíram-se os intervalos de nascimento e morte para o primeiro grupo de homologia ($H_1$), que corresponde aos ciclos ou "túneis" unidimensionais. A escolha metodológica pelo grau $1$ decorre da constatação de que a cavidade do sítio de ligação da MBP — cuja dinâmica difere drasticamente entre as conformações aberta e fechada — é capturada com máxima expressividade por este invariante \cite{kovacev2016}.
+
+\ident Contudo, os intervalos de persistência obtidos habitam um espaço métrico não-linear, inviabilizando o uso direto em algoritmos estatísticos. Para contornar este obstáculo matemático, cada diagrama de persistência foi transformado na sua respectiva \textbf{Paisagem de Persistência} (Definição \ref{paisagem_persistencia_def}) \cite{Bubenik2015}.
+
+\ident A vetorização contínua das paisagens exigiu a fixação empírica de três parâmetros topológicos, baseados nas propriedades da amostra: o intervalo do limiar ($t \in [0.0, 0.7]$), a resolução da discretização em $50$ pontos equidistantes, e a extração estruturada de $73$ funções (camadas) de paisagem. Para garantir o rigor numérico, intervalos topológicos que sobreviveram até o fim da filtração (morte no infinito) tiveram seu ciclo de vida truncado no limiar máximo do experimento. 
+
+\ident O procedimento lógico exato responsável por transformar a pseudométrica biofísica no vetor final de características está delineado no Algoritmo \ref{alg:landscapes}. O vetor escalar resultante (de dimensão $73 \times 50 = 3650$) posiciona formalmente as flutuações da proteína em um espaço de Banach, configurando o dado de entrada otimizado para os modelos preditivos.
+
+\begin{algorithm}[H]
+\caption{Computação de Paisagens de Persistência em Espaço de Banach}
+\label{alg:landscapes}
+\begin{algorithmic}[1]
+\Require Matriz de distância $D \in \mathbb{R}^{N \times N}$, grau homológico $g=1$, resolução $R=50$, limiar de escala $t_{\max}=0.7$, número de camadas $K=73$.
+\Ensure Vetor descritor unidimensional $v \in \mathbb{R}^{K \times R}$ da paisagem de persistência.
+
+\Statex \textbf{Passo 1: Construção Simplicial e Extração de Homologia}
+\State $\mathcal{V} \leftarrow \text{ComplexoVietorisRips}(D, \text{distância máxima} = t_{\max})$
+\State $\mathcal{T} \leftarrow \text{CriarArvoreSimplicial}(\mathcal{V}, \text{dimensão máxima} = g+1)$
+\State $\mathcal{I} \leftarrow \text{CalcularIntervalosDePersistencia}(\mathcal{T}, \text{grau} = g)$
+
+\Statex \textbf{Passo 2: Tratamento e Truncamento de Singularidades}
+\State $\mathcal{I}_{\text{finito}} \leftarrow$ lista vazia
+\For{cada intervalo $(\text{nascimento}, \text{morte})$ em $\mathcal{I}$}
+    \If{$\text{morte} = \infty$}
+        \State $\text{morte} \leftarrow t_{\max}$
+    \EndIf
+    \State Adicionar $(\text{nascimento}, \text{morte})$ em $\mathcal{I}_{\text{finito}}$
+\EndFor
+
+\Statex \textbf{Passo 3: Mapeamento em Paisagem de Persistência}
+\If{$\mathcal{I}_{\text{finito}}$ está vazio}
+    \State \Return Vetor nulo de dimensão $(K \times R)$
+\EndIf
+\State $P \leftarrow \text{PaisagemPersistencia}(\text{camadas} = K, \text{resolução} = R, \text{domínio} = [0, t_{\max}])$
+\State Matriz funcional $M \leftarrow P.\text{transformar}(\mathcal{I}_{\text{finito}})$
+
+\Statex \textbf{Passo 4: Discretização e Vetorização}
+\State \Return $\text{Aplanar}(M)$ \Comment{Achata a matriz funcional em um único vetor}
+\end{algorithmic}
+\end{algorithm}
 
 \newpage
 
