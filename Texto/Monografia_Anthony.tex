@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{bbm}
 \usepackage{amsthm}
 \usepackage{physics}
 \usepackage{siunitx}
@@ -654,6 +655,7 @@ através da noção de coberturas.
 \ident Note que a coleção $\mathcal{V}^t=\left\{\overline{\mathcal{B}}(x, t)\mid x \in X\right\}$ é uma cobertura do espessamento $X^t$ e cada componente são bolas fechadas. Consequentemente, podemos considerar seu nervo $\mathcal{N}(\mathcal{V}^t)$. Com isso, segue-se o teorema:
 
 \begin{theorem}
+    \hypertarget{teorema_nervo}{}
     Suponha que Y seja um subconjunto de $\mathbb{R}^n$. Considere uma cobertura $\mathcal{U} = \left\{U_i\right\}_{1\leq i \leq N}$ de $Y$ tal que cada um dos $U_i$ são bolas fechadas e convexas. Então $\mathcal{N}(\mathcal{U})$ é homotopia equivalente a Y. (Ver figura \ref{cobertura_nervo}).
 \end{theorem}
 \vspace{-0.6em}
@@ -684,18 +686,185 @@ Complexo \v{C}ech. No entanto, eles não estão ligados pela seguinte relação:
 \begin{proposition}
     Let $X \subset \mathbb{R}^n$ um conjunto finito. Seja $X \subset \mathbb{R}^n$ um subconjunto finito. Para todo $t \geq 0$, temos
     \[
-        \check{C}ech^t(X) \subset Rips^t(X) \subset \check{C}ech^{2t}(X).
+        \textnormal{\v{C}ech}^t(X) \subset \textnormal{Rips}^t(X) \subset \textnormal{\v{C}ech}^{2t}(X).
     \]
 \end{proposition}
 \vspace{-0.6em}
 Demonstração em Tinarrage \cite{tinarrage2021}.
 
-\subsection{Módulos de Persistência}
+\begin{definition}
+    Seja $X \subset \mathbb{R}^n$ e $i\geq 0$. A $i$-ésima curva de Betti de $X$ é a aplicação
+    \begin{align*}
+        \beta_i(t): \mathbb{R}^+& \longrightarrow \mathbb{N}\\
+        &t \longmapsto \beta_i\left(X^t\right)
+    \end{align*} 
+\end{definition}
 
-\ident A fixação de um limiar único $t$ para a construção dos complexos impõe um viés metodológico forte, pois não há uma escala natural única para investigar dados do mundo real. A Homologia Persistente soluciona esse problema ao variar continuamente o parâmetro $t$, gerando uma filtração de complexos aninhados. Ao aplicarmos o functor de homologia a essa filtração, obtemos um \textit{módulo de persistência}.
+A curva de Betti é uma ferramenta ideal para compreender a evolução da homolgia dos complexos simpliciais à medida que $t$ aumenta. Como consequência do \hyperlink{teorema_nervo}{Teorema do Nervo}, a aplicação $t \mapsto \beta_i(t)$ é igual a $t \mapsto \beta_i(\text{\v{C}ech}^t(X))$. Na prática, podemos utilizar a seguinte aplicação, denominada $i$-ésima curva de Betti do complexo de Rips de $X$:
+\begin{align*}
+    \beta_i^{\textnormal{Rips}}(t): \mathbb{R}^+ \longrightarrow \mathbb{N}\\
+    &t \longmapsto \beta_i\left(\textnormal{Rips}^t(X)\right)
+\end{align*}
+
+\begin{example}
+    Vejamos uma amostra ruidosa de um circulo $X$
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.40\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/exemplo_curva_betti.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.40\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/espessamento_betti.png}
+        \end{subfigure}
+        \hfill
+    \end{figure}
+
+    Na figura a direita, podemos observar espessamento de $X$ com $t=0.2$ e disso obtemos que $\beta_0 = 3$, ou seja, 3 componentes conexas e $\beta_1 = 0$. Agora, calculamos as curvas de Betti de $X$.
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/betti0_exemplo.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/betti1_exemplo.png}
+        \end{subfigure}
+        \hfill
+    \end{figure}
+
+    
+\end{example}
+
+\subsection{Módulos de Persistência}
+% 
+\ident Seja $X \subset \mathbb{R}^n$ uma nuvem de pontos finita amostrada de um objeto topológico subjacente $\mathcal{M}$. Para inferir a forma de $\mathcal{M}$, construímos aproximações geométricas, como os complexos de \v{C}ech $\check{C}_t(X)$ ou de Rips $R_t(X)$, baseados em um parâmetro de escala (ou espessamento) $t \geq 0$. Na prática, a escolha de um limiar $t$ estático é extremamente crítica e instável: as curvas dos números de Betti $t \mapsto \beta_i(X_t)$ assumem apenas valores inteiros e são descontínuas. Além disso, as nuvens de pontos reais sofrem de ``ruído topológico'', caracterizado por pequenos ciclos geométricos que surgem e desaparecem abruptamente.
+
+\ident Para extrair a verdadeira homologia de $\mathcal{M}$ e ignorar o ruído, a Homologia Persistente adota uma mudança de paradigma: em vez de tentar adivinhar um único $t$ ótimo, analisamos todos os espessamentos simultaneamente. Observando a evolução de toda a família de complexos filtrados, conseguimos rastrear quais buracos são persistentes (a verdadeira forma) e quais são efêmeros (ruído). O rigor matemático que permite rastrear esses ciclos ao longo do tempo repousa sobre uma propriedade fundamental da homologia: a sua \textit{functorialidade}.
+
+\ident Na Teoria das Categorias, um \textit{functor} é essencialmente um ``dicionário'' que traduz de forma consistente objetos e morfismos de uma categoria matemática para outra, preservando a sua estrutura relacional. É esta aplicação linear induzida que nos diz a localização de um ciclo topológico quando o complexo cresceu. Para formalizarmos como a functorialidade opera computacionalmente, precisamos estudá-la sob uma perspectiva discreta. Introduzimos a seguir a definição de aplicação simplicial, que atua como a contraparte geométrica das aplicações contínuas.
+
+\begin{definition}
+    Sejam $K$ e $L$ dois complexos simpliciais, e $V_K, V_L$ seus conjuntos de vértices. Uma \textit{aplicação simplicial} entre $K$ e $L$ é uma aplicação $f: V_K \to V_L$ tal que
+    \[
+    \forall \sigma \in K, f(\sigma) \in L.
+    \] 
+    Quando não houver risco de confusão, podemos denotar uma aplicação simplicial como $f: K \to L$ em vez de $f: V_K \to V_L$.
+\end{definition}
+
+\begin{example}
+    Sejam $K = \{[0], [1], [0, 1]\}, L = \{[0], [1], [2], [0, 1], [0, 2], [1, 2]\}$ e $f : \{0, 1\} \to\{0, 1, 2\}$ definida por $f(0) = 0$ e $f(1) = 1$. Ela é uma aplicação simplicial, uma vez que $f([0, 1]) = [0, 1]$ é um
+    simplexo de $L$.
+\end{example}
+    
+\begin{example}
+    Sejam $K = \{[0], [1], [2], [0, 1], [0, 2], [1, 2]\}, L = \{[0], [1], [2], [0, 1], [0, 2]\}$ e $f : \{0, 1, 2\} \to\{0, 1, 2\}$ definida por $f(0) = 0$, $f(1) = 1$ e $f(2) = 2$. Ela não é uma aplicação simplicial, uma vez que $f([1, 2]) = [1, 2]$ não é um
+    simplexo de $L$.
+\end{example}
+
+\begin{definition}
+    Seja $f:K\to L$ uma aplicação simplicial. Seja $n\geq0$, e considerando os grupos de cadeias $K$ e $L$:
+    \begin{align*}
+        C_n(K) &= \left\{\sum_{\sigma \in K_{(n)}} \epsilon_\sigma \cdot \sigma \mid \forall\sigma \in  K_{(n)}, \, \epsilon_\sigma \in \mathbb{Z}/2/\mathbb{Z}  \right\}\\
+        C_n(L) &= \left\{\sum_{\sigma \in L_{(n)}} \epsilon_\sigma \cdot \sigma \mid \forall\sigma \in  K_{(n)}, \, \epsilon_\sigma \in \mathbb{Z}/2/\mathbb{Z}  \right\}
+    \end{align*}
+    Definimos uma aplicação linear $f_n: C_n(K) \to C_n(L)$ da seguinte forma:
+    \[
+    f_n (\sigma) =
+    \begin{cases}
+        f(\sigma) \quad, \textnormal{se} \,\, \dim (f(\sigma)) = n,\\
+        0 \quad\quad\,\,\,, \textnormal{caso contrário}.
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{proposition}
+    Para todo $c \in Z_n(K)$ e $b \in B_n(K)$, tem-se $f_n(c) \in Z_n(L)$ e $f_n(b) \in
+Bn(L)$.
+
+Esta proposição nos diz que, a imagem de um ciclo é um ciclo e a imagem de fronteira é uma fronteira.
+\end{proposition}
+\vspace{-0.6em}
+Demonstração em Tinarrage \cite{tinarrage2021}.
+
+Lembremos que $B_n(K) \subset Z_n(K)$ e $B_n(L) \subset Z_n(L)$. A proposição anterior mostra que a aplicação $f_n$ induz uma aplicação linear entre
+espaços vetoriais quociente:
+\begin{align*}
+    (f_n)_* : Z_n(K)/B_n(K) \longrightarrow Z_n(L)/B_n(L).
+\end{align*}
+Pela definição dos grupos de homologia, definimos uma aplicação linear
+\begin{align*}
+    (f_n)_* : H_n(K) \longrightarrow H_n(L).
+\end{align*}
+Ela é chamada de \textit{aplicação induzida na homologia}. Podemos denotá-lo, também, por $f_*$ em vez de $(f_n)_*$. Explicitamente, a aplicação $(f_n)_*$ pode ser descrito da seguinte forma:
+\[
+c = \sum_{\sigma \in K(n)} \epsilon_\sigma \cdot \sigma \longmapsto \sum_{\sigma \in K(n)} \epsilon_\sigma \cdot f_n(\sigma)
+\]
+
+\begin{definition}
+    Uma filtração de um complexo simplicial é uma família de subconjuntos $\mathbb{X} = (X^t)_{t \in \mathbb{R}^+}$ de $E$ é uma filtração se for não decrescente em relação à inclusão; isto é, para quaisquer $s, t \in \mathbb{R}^+$, se $s \leq t$, então $X_s \subseteq X_t$.
+\end{definition}
+
+\ident Seja $X \subset \mathbb{R}^n$. A coleção de seus espessamentos é uma sequência não decrescente de subconjuntos
+\[
+    \dots \subset X^{t_1} \subset X^{t_2} \subset X^{t_3} \subset \dots
+\]
+Ao considerar os complexos de Rips correspondentes, obtemos uma sequência não decrescente de complexos simpliciais
+\[
+    \dots \subset \textnormal{Rips}^{t_1}(X) \subset \textnormal{Rips}^{t_2}(X) \subset \textnormal{Rips}^{t_3}(X) \subset \dots
+\]
+Denotemos por $i_s^t$ a aplicação de inclusão correspondente a $\textnormal{Rips}^s(X) \subset \textnormal{Rips}^t(X)$. Podemos escrever
+\begin{align*}
+    \dots \longrightarrow \textnormal{Rips}^{t_1}(X) \xrightarrow{\quad i_{t1}^{t2} \quad} \textnormal{Rips}^{t_2}(X) \xrightarrow{\quad i_{t2}^{t3} \quad} \textnormal{Rips}^{t_3}(X) \longrightarrow \dots
+\end{align*}
+A aplicação do functor de homologia de ordem $i$ resulta em um diagrama de espaços vetoriais
+\begin{align*}
+    \dots \rightarrow H_i\left(\textnormal{Rips}^{t_1}(X)\right) \xrightarrow{\quad \left(i_{t1}^{t2}\right)_* \quad} H_i\left(\textnormal{Rips}^{t_2}(X)\right) \xrightarrow{\quad \left(i_{t2}^{t3}\right)_* \quad} H_i\left(\textnormal{Rips}^{t_3}(X)\right) \rightarrow \dots
+\end{align*}
+onde as aplicaçãoes $(i_s^t)_*$ são aquelas induzidas na homologia pelas inclusões $i_s^t$. Nessa sequência,podemos observar por quanto tempo um ciclo vive, ou persiste. Sejam $i \geq 0$, $t_0 \geq 0$ e considere um
+ciclo $c \in H_i(\textnormal{Rips}^{t_0}(X))$. Seu tempo de morte é
+\begin{align*}
+    \sup \{t \geq t_0, \left(i^t_{t0}\right)(c)\neq 0\}
+\end{align*}
+e seu tempo de nascimento é
+\begin{align*}
+    \inf \{t \geq t_0, \left(i^t_{t0}\right)^{-1}(\{c\})\neq \emptyset\}.
+\end{align*}
+
+Medimos a persistência de $c$ como a diferença entre seu instante de morte e seu instante de nascimento. Como regra geral, espera-se que ciclos com alta persistência correspondam a características topológicas importantes do conjunto de dados, e que ciclos com baixa persistência
+correspondam a ruído topológico.
+
+\begin{definition}
+    Um módulo de persistência $\mathbb{V}$ sobre $\mathbb{R}^+$ com coeficientes em $\mathbb{Z}/2\mathbb{Z}$ é um par $(\mathbb{V}, v)$ onde: $\mathbb{V} = (V^t)_{t \in \mathbb{R}^+}$ é uma família de $\mathbb{Z}/2\mathbb{Z}$-espaços vetoriais, $\mathbbm{v} = (v_s^t: V^s \to V^t)_{s \leq t \in \mathbb{R}^+}$ é uma família de aplicaçãoes lineares tais que:
+    \begin{itemize}
+        \item para todo $t \in \mathbb{R}^+$, a aplicação $v_t^t: V^t \to V^t$ é a identidade,
+        \item para todo $r,s,t \in \mathbb{R}^+$ tais que $r \leq s \leq t \in \mathbb{R}^+$, temos $v_s^t \circ v_r^s = v_r^t$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Um isomorfismo entre dois módulos de persistência $\mathbb{V}$ e $\mathbb{W}$ é uma família de isomorfismos de espaços vetoriais $\phi = (\phi_t: V^t \to W^t)_{t \in \mathbb{R}^+}$ tal que o seguinte diagrama comuta para todo $s \leq t \in \mathbb{R}^+$:
+    \[
+        \begin{array}{ccc}
+        V^s & \xrightarrow{v_s^t} & V^t \\
+        \downarrow_{\phi_s} & & \downarrow_{\phi_t} \\
+        W^s & \xrightarrow{w_s^t} & W^t
+        \end{array}
+    \]
+\end{definition}
+
+\begin{definition}
+    Um módulo de persistência $\mathbb{U}$ é indecomponível se, para todo par de módulos de persistência $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos é o módulo trivial (identicamente nulo). Caso contrário, $\mathbb{U}$ é decomponível.
+
+    Um módulo de persistência $\mathbb{V}$ é dito decomponível em módulos intervalares se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que:
+    \[
+        \mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I].
+    \]
+\end{definition}
 
 \begin{definition}[Decomponibilidade e Barcode]
-Um módulo de persistência $\mathbb{U}$ é \textbf{indecomponível} se, para todo o par de módulos $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos for nulo. Um módulo $\mathbb{V}$ é \textbf{decomponível em módulos intervalares} se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que $\mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I]$. O multiconjunto $\mathcal{I}$, garantido pelo Teorema de Azumaya, é denominado \textbf{código de barras de persistência} (\textit{Barcode}) de $\mathbb{V}$.
+    Um módulo de persistência $\mathbb{U}$ é \textbf{indecomponível} se, para todo o par de módulos $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos for nulo. Um módulo $\mathbb{V}$ é \textbf{decomponível em módulos intervalares} se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que $\mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I]$. O multiconjunto $\mathcal{I}$, garantido pelo Teorema de Azumaya, é denominado \textbf{código de barras de persistência} (\textit{Barcode}) de $\mathbb{V}$.
 \end{definition}
 
 \begin{definition}[Diagrama de Persistência]
