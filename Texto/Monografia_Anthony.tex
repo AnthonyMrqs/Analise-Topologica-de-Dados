@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[brazilian]{babel}
+\usepackage[autostyle=true]{csquotes}
 \usepackage{lmodern}
 \usepackage{csquotes}
 \usepackage{booktabs}
@@ -372,13 +373,13 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
 
 \subsection{Complexos Simpliciais} 
 
-\ident Espaços topológicos, como subconjuntos de $\mathbb{R}^n$, podem ser difíceis de manipular computacionalmente. Para descrevê-los de forma adequada, podemos tentar decompô-los em partes mais simples, uma generalização de grafos para dimensões superiores que permite a representação de espaços topológicos de forma combinatorial. As partes que consideraremos são os \textit{simplexos padrão}. Lembramos que o simplexo padrão de dimensão $n$ é o seguinte subconjunto de $\mathbb{R}^{n+1}$. 
+\ident Espaços topológicos, como subconjuntos de $\mathbb{R}^n$, podem ser difíceis de manipular computacionalmente. Para descrevê-los de forma adequada, podemos tentar decompô-los em partes mais simples, uma generalização de grafos para dimensões superiores que permite a representação de espaços topológicos de forma combinatorial. As partes que consideraremos são os simplexos padrão. Lembramos que o simplexo padrão de dimensão $n$ é o seguinte subconjunto de $\mathbb{R}^{n+1}$. 
 \begin{align*}
     \Delta_n = \left\{x = \left(x_1, \dots\ x_{n+1}\right) \in \mathbb{R}^{n+1} \mid x \geq 0 \ \text{e} \ \sum_{i=1}^{n+1}x_i=1\right\}.
 \end{align*}
 
 \begin{definition}\label{fecho_convexo}
-    Para qualquer conjunto de pontos $a_1, \dots, a_k \in \mathbb{R}^n$, definimos seu \textbf{fecho convexo} como:
+    Para qualquer conjunto de pontos $a_1, \dots, a_k \in \mathbb{R}^n$, definimos seu fecho convexo como:
     \begin{align*}
         \textup{conv}({a_1, ..., a_k}) = \left\{\sum_{1\leq i \leq k} t_i a_i\mid \sum_{j = 1}^{k} t_j = 1, t_j \geq 0 \right\}.
     \end{align*}
@@ -389,7 +390,7 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
 \end{definition}
 
 \begin{definition}[Complexo Simplicial]
-Seja $V$ um conjunto (chamado de conjunto de vértices). Um \textbf{complexo simplicial} sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de \textbf{simplexos}) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
+Seja $V$ um conjunto (chamado de conjunto de vértices). Um complexo simplicial sobre $V$ é um conjunto $K$ de subconjuntos de $V$ (chamados de simplexos) tal que, para todo $\sigma \in K$ e todo $\tau \subset \sigma$ não-vazio, temos $\tau \in K$.
 \end{definition}
 
 \ident Atualmente, um complexo simplicial não possui topologia. É um objeto puramente combinatório. No entanto, para representá-lo, podemos desenhá-lo da seguinte forma: coloque os pontos $V$ no plano ou no espaço e, para cada simplexo de $K$, preencha o casco convexo de seus vértices. Podemos visualizar os simplexos das seguintes formas geométricas:
@@ -430,14 +431,14 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
     Este não é um complexo simplicial. De fato, o simplexo $[0, 1, 2]$ admite uma face $[2, 0]$ que não está incluída em $V$.
 \end{example}
 
-\ident Se $\sigma$ é um simplexo, sua dimensão é definida como $|\sigma|-1$ (cardinalidade de $\sigma$ menos 1). Se $K$ é um complexo simplicial, sua dimensão é definida como a dimensão máxima de seus simplíces.
+\ident Se $\sigma$ é um simplexo, sua dimensão é definida como $|\sigma|-1$ (cardinalidade de $\sigma$ menos 1). Se $K$ é um complexo simplicial, sua dimensão é definida como a dimensão máxima de seus simplexo.
 
 \begin{remark}
-    Ao desenhar um complexo simplicial, os símplices não devem se cruzar. No entanto, nem sempre é possível desenhar um complexo simplicial no plano (ou espaço) dessa maneira. Como exemplo, o grafo bipartido $K_{3,3}$ é um complexo simplicial de dimensão 1 (um grafo) que não pode ser desenhado no plano sem se cruzar.
+    Ao desenhar um complexo simplicial, os simplexos não devem se cruzar. No entanto, nem sempre é possível desenhar um complexo simplicial no plano (ou espaço) dessa maneira. Como exemplo, o grafo bipartido $K_{3,3}$ é um complexo simplicial de dimensão 1 (um grafo) que não pode ser desenhado no plano sem se cruzar.
 \end{remark}
 
 \begin{definition}
-    Seja $K$ um complexo simplicial com conjunto de vértices $V=\left\llbracket 1, \dots, n \right\rrbracket$. Em $\mathbb{R}^{n+1}$, considere, para cada $i \in \left\llbracket 0,n \right\rrbracket$, o vetor $e_i = (0, \dots, 1, 0, \dots, 0)$ (com a $i$-ésima coordenada igual a $1$ e as demais iguais a $0$). Seja $|K|$ o subconjunto de $\mathbb{R}^{n+1}$ definido por:
+    Seja $K$ um complexo simplicial com conjunto de vértices $V=\left\{ 1, \dots, n \right\}$. Em $\mathbb{R}^{n+1}$, considere, para cada $i \in \left\{ 0, \cdots, n \right\}$, o vetor $e_i = (0, \dots, 1, 0, \\ \dots, 0)$ (com a $i$-ésima coordenada igual a $1$ e as demais iguais a $0$). Seja $|K|$ o subconjunto de $\mathbb{R}^{n+1}$ definido por:
     \begin{align*}
         |K| = \bigcup_{\sigma \in K} \textup{conv}(\{e_j, j \in \sigma\})
     \end{align*}
@@ -461,7 +462,12 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
     \includegraphics[width=0.8\textwidth]{Imagens/triangulacao_circulo.png}
     \caption{Triangulações de um círculo}
 \end{figure}
-
+Também podemos visualizar a triangulação de um Toro abaixo:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagens/triangulacao_toru.png}
+    \caption{A esquerda um Toro com dois cortes de identificação: o corte transversal (azul) que está em volta do eixo central e um corte sagital (vermelho) que está em torno do tubo. Cortar o toro nesses dois círculos, nessa ordem, reverte exatamente o processo de colagem: o corte azul primeiro abre o toro em um cilindro, e o corte vermelho em seguida abre o cilindro em um retângulo. A direita vemos a planificação do toro, as setas indicam a orientação das identificações: arestas azuis (topo/base) e vermelho (laterais) são percorridas no mesmo sentido em lados opostos, o que caracteriza a identificação de um toro.}
+\end{figure}
 \subsection{Grupos de Homologia}
 
 \ident Seja $K$ um complexo simplicial abstrato. Para $n \geq 0$, definimos os conjuntos:
@@ -480,7 +486,7 @@ O primeiro conjunto é um complexo simplicial, chamado de $n$-esqueleto de $K$. 
 \ident Para extrair invariantes topológicos de um complexo simplicial, é necessário dotá-lo de uma estrutura algébrica que nos permita operar formalmente sobre os seus simplexos.
 
 \begin{definition}[n-Cadeias]
-Seja $K$ um complexo simplicial e $n \geq 0$. O conjunto de \textbf{$n$-cadeias} de $K$, denotado $C_n(K)$, é o conjunto cujos elementos são as somas formais:
+Seja $K$ um complexo simplicial e $n \geq 0$. O conjunto de $n$-cadeias de $K$, denotado $C_n(K)$, é o conjunto cujos elementos são as somas formais:
 \[
 \sum_{\sigma \in K_{(n)}} \epsilon_\sigma \cdot \sigma, \quad \text{onde } \forall \sigma \in K_{(n)},\; \epsilon_\sigma \in \mathbb{Z}/2\mathbb{Z}.
 \]
@@ -518,7 +524,7 @@ Este conjunto possui estrutura de espaço vetorial sobre o corpo $\mathbb{Z}/2\m
 \end{example}
 
 \begin{definition}[Operador de Fronteira]
-Seja $n \geq 1$ e $\sigma = [x_0, \ldots, x_n] \in K_{(n)}$ um símplexo de dimensão $n$. A \textbf{fronteira} de $\sigma$ é o elemento de $C_{n-1}(K)$ definido por:
+Seja $n \geq 1$ e $\sigma = [x_0, \ldots, x_n] \in K_{(n)}$ um símplexo de dimensão $n$. A fronteira de $\sigma$ é o elemento de $C_{n-1}(K)$ definido por:
 \[
 \partial_n \sigma = \sum_{\substack{\tau \subset \sigma \\ |\tau| = |\sigma| - 1}} \tau.
 \]
@@ -565,8 +571,8 @@ O operador $\partial_n$ estende-se por linearidade a uma aplicação linear $\pa
 Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
 \vspace{-0.6em}
 \begin{itemize}
-    \item Os \textbf{$n$-ciclos}: $Z_n(K) = \ker(\partial_n) \subset C_n(K)$,
-    \item As \textbf{$n$-fronteiras}: $B_n(K) = \mathrm{Im}(\partial_{n+1}) \subset C_n(K)$.
+    \item Os $n$-ciclos: $Z_n(K) = \ker(\partial_n) \subset C_n(K)$,
+    \item As $n$-fronteiras: $B_n(K) = \mathrm{Im}(\partial_{n+1}) \subset C_n(K)$.
 \end{itemize}
 \end{definition}
 \begin{example}
@@ -596,12 +602,17 @@ Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
 Demonstração em Tinarrage \cite{tinarrage2021}.
 
 \begin{definition}[Grupo de Homologia e Números de Betti]
-    Seja $K$ um complexo simplicial. O \textbf{$n$-ésimo grupo de homologia} de $K$ é o quociente:
+    Seja $K$ um complexo simplicial. O $n$-ésimo grupo de homologia de $K$ é o quociente:
     \begin{align*}
         H_n(K) = Z_n(K) / B_n(K).
     \end{align*}
-    A dimensão deste espaço vetorial é o \textbf{$n$-ésimo número de Betti}, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de "buracos" ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
+    A dimensão deste espaço vetorial é o $n$-ésimo número de Betti, dado por $\beta_n(K) = \dim H_n(K) = \dim Z_n(K) - \dim B_n(K)$. Geometricamente, $\beta_0$ conta o número de componentes conexas, $\beta_1$ o número de \enquote{buracos} ou ciclos unidimensionais, e $\beta_2$ o número de cavidades fechadas.
 \end{definition}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Imagens/exemplo_n_betti.png}
+    \caption{Note que neste simplexo temos $\beta_0 = 1 $ (1 componente conexa), $\beta_1 = 2$ (2 buracos de dimensão 1 ou 2 triângulos não preenchidos) e $\beta_2 = 1$ (1 buracos de dimensão 2 ou 1 tetraedro não preenchido/oco).}
+\end{figure}
 
 \subsection{Inferência Topológica}
 
@@ -615,7 +626,7 @@ Demonstração em Tinarrage \cite{tinarrage2021}.
 
 
 \begin{definition}[t-espessamento]
-    Seja $X \subset \mathbb{R}^n$ e $t \geq 0$. O \textbf{$t$-espessamento} de $X$, denotado $X^t$, é o conjunto de pontos do espaço ambiente com o máximo de distância $t$ de $X$:
+    Seja $X \subset \mathbb{R}^n$ e $t \geq 0$. O $t$-espessamento de $X$, denotado $X^t$, é o conjunto de pontos do espaço ambiente com o máximo de distância $t$ de $X$:
     \[
     X^t = \{y \in \mathbb{R}^n \mid \exists x \in X,\, \|x - y\| \leq t\} = \bigcup_{x \in X} \overline{\mathcal{B}}(x, t).
     \]
@@ -644,7 +655,7 @@ através da noção de coberturas.
     \]
 \end{definition}
 \begin{definition}
-    Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O \textbf{nervo} de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-símplices são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
+    Seja $X$ um espaço topológico e $\mathcal{U} = \{U_i\}_{1 \leq i \leq N}$ uma cobertura de $X$. O nervo de $\mathcal{U}$ é o complexo simplicial com conjunto de vértices $\{1, \ldots, N\}$ cujos $m$-simplexos são os subconjuntos $\{i_1, \ldots, i_m\} \subset \{1, \ldots, N\}$ tais que $\bigcap_{k=0}^{m} U_{i_k} \neq \emptyset$. É denotado $\mathcal{N}(\mathcal{U})$.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{Imagens/cobertura_nervo.png}
@@ -662,16 +673,16 @@ através da noção de coberturas.
 Demonstração em Tinarrage \cite{tinarrage2021}.
 
 \begin{definition}[Complexo de \v{C}ech]
-    Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de \textbf{complexo de \v{C}ech} de $X$ no instante $t$.
-    Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos símplices são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
+    Sejam $X \subset \mathbb{R}^n$ finito e $t \geq 0$. Considere a coleção $\mathcal{V}^t = \{\overline{\mathcal{B}}(x,t) \mid x \in X\}$. O nervo desta coleção é denotado $\check{\mathrm{C}}\mathrm{ech}^t(X)$ e é chamado de complexo de \v{C}ech de $X$ no instante $t$.
+    Explicitamente, $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é o complexo simplicial sobre os vértices $X$ cujos simplexos são os subconjuntos $\{x_{i_1}, \ldots, x_{i_m}\}$ tais que $\bigcap_{k=1}^{m} \overline{\mathcal{B}}(x_{i_k}, t) \neq \emptyset$.
 \end{definition}
 
-\ident Como o complexo $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é homotopicamente equivalente ao espessamento $X^t$, o Teorema do Nervo garante que os seus respectivos grupos de homologia, $H_i(\check{\mathrm{C}}\mathrm{ech}^t(X))$ e $H_i(X^t)$, são isomorfos. Consequentemente, torna-se viável calcular e acompanhar a evolução da homologia persistente do espessamento computacional $X^t$ por meio do seu equivalente simplicial estruturado.
+\ident Como o complexo $\check{\mathrm{C}}\mathrm{ech}^t(X)$ é homotopicamente equivalente ao espessamento $X^t$, o \hyperlink{teorema_nervo}{Teorema do Nervo} garante que os seus respectivos grupos de homologia, $H_i(\check{\mathrm{C}}\mathrm{ech}^t(X))$ e $H_i(X^t)$, são isomorfos. Consequentemente, torna-se viável calcular e acompanhar a evolução da homologia persistente do espessamento computacional $X^t$ por meio do seu equivalente simplicial estruturado.
 
 \ident Embora o complexo de \v{C}ech capture perfeitamente a topologia da união das bolas de raio $t$, a verificação de interseções múltiplas é computacionalmente custosa. Como alternativa tratável, foca-se nas interações aos pares.
 
 \begin{definition}[Complexo de Rips]
-    Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O \textbf{complexo de Rips} de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t = \left(\check{\mathrm{C}}\mathrm{ech}^t(X)\right)$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
+    Sejam $X = \{x_1, \ldots, x_N\} \subset \mathbb{R}^n$ um conjunto finito e $t \geq 0$. O complexo de Rips de $X$ no instante $t$, denotado $\mathrm{Rips}^t(X)$, é o complexo do grafo $G^t = \left(\check{\mathrm{C}}\mathrm{ech}^t(X)\right)$ cujo conjunto de vértices é $\{1, \ldots, N\}$ e cujas arestas são os pares $(i,j)$ tais que a distância entre eles obedece a $\|x_i - x_j\| \leq 2t$.
 
     \begin{figure}[H]
         \centering
@@ -702,8 +713,8 @@ Demonstração em Tinarrage \cite{tinarrage2021}.
 
 A curva de Betti é uma ferramenta ideal para compreender a evolução da homolgia dos complexos simpliciais à medida que $t$ aumenta. Como consequência do \hyperlink{teorema_nervo}{Teorema do Nervo}, a aplicação $t \mapsto \beta_i(t)$ é igual a $t \mapsto \beta_i(\text{\v{C}ech}^t(X))$. Na prática, podemos utilizar a seguinte aplicação, denominada $i$-ésima curva de Betti do complexo de Rips de $X$:
 \begin{align*}
-    \beta_i^{\textnormal{Rips}}(t): \mathbb{R}^+ \longrightarrow \mathbb{N}\\
-    &t \longmapsto \beta_i\left(\textnormal{Rips}^t(X)\right)
+    \beta_i^{\textnormal{Rips}}(t): \mathbb{R}^+ &\longrightarrow \mathbb{N}\\
+    t &\longmapsto \beta_i\left(\textnormal{Rips}^t(X)\right)
 \end{align*}
 
 \begin{example}
@@ -741,12 +752,12 @@ A curva de Betti é uma ferramenta ideal para compreender a evolução da homolg
 % 
 \ident Seja $X \subset \mathbb{R}^n$ uma nuvem de pontos finita amostrada de um objeto topológico subjacente $\mathcal{M}$. Para inferir a forma de $\mathcal{M}$, construímos aproximações geométricas, como os complexos de \v{C}ech $\check{C}_t(X)$ ou de Rips $R_t(X)$, baseados em um parâmetro de escala (ou espessamento) $t \geq 0$. Na prática, a escolha de um limiar $t$ estático é extremamente crítica e instável: as curvas dos números de Betti $t \mapsto \beta_i(X_t)$ assumem apenas valores inteiros e são descontínuas. Além disso, as nuvens de pontos reais sofrem de ``ruído topológico'', caracterizado por pequenos ciclos geométricos que surgem e desaparecem abruptamente.
 
-\ident Para extrair a verdadeira homologia de $\mathcal{M}$ e ignorar o ruído, a Homologia Persistente adota uma mudança de paradigma: em vez de tentar adivinhar um único $t$ ótimo, analisamos todos os espessamentos simultaneamente. Observando a evolução de toda a família de complexos filtrados, conseguimos rastrear quais buracos são persistentes (a verdadeira forma) e quais são efêmeros (ruído). O rigor matemático que permite rastrear esses ciclos ao longo do tempo repousa sobre uma propriedade fundamental da homologia: a sua \textit{functorialidade}.
+\ident Para extrair a verdadeira homologia de $\mathcal{M}$ e ignorar o ruído, a Homologia Persistente adota uma mudança de paradigma: em vez de tentar adivinhar um único $t$ ótimo, analisamos todos os espessamentos simultaneamente. Observando a evolução de toda a família de complexos filtrados, conseguimos rastrear quais buracos são persistentes (a verdadeira forma) e quais são efêmeros (ruído). O rigor matemático que permite rastrear esses ciclos ao longo do tempo repousa sobre uma propriedade fundamental da homologia: a sua functorialidade.
 
-\ident Na Teoria das Categorias, um \textit{functor} é essencialmente um ``dicionário'' que traduz de forma consistente objetos e morfismos de uma categoria matemática para outra, preservando a sua estrutura relacional. É esta aplicação linear induzida que nos diz a localização de um ciclo topológico quando o complexo cresceu. Para formalizarmos como a functorialidade opera computacionalmente, precisamos estudá-la sob uma perspectiva discreta. Introduzimos a seguir a definição de aplicação simplicial, que atua como a contraparte geométrica das aplicações contínuas.
+\ident Na Teoria das Categorias, um functor é essencialmente um ``dicionário'' que traduz de forma consistente objetos e morfismos de uma categoria matemática para outra, preservando a sua estrutura relacional. É esta aplicação linear induzida que nos diz a localização de um ciclo topológico quando o complexo cresceu. Para formalizarmos como a functorialidade opera computacionalmente, precisamos estudá-la sob uma perspectiva discreta. Introduzimos a seguir a definição de aplicação simplicial, que atua como a contraparte geométrica das aplicações contínuas.
 
 \begin{definition}
-    Sejam $K$ e $L$ dois complexos simpliciais, e $V_K, V_L$ seus conjuntos de vértices. Uma \textit{aplicação simplicial} entre $K$ e $L$ é uma aplicação $f: V_K \to V_L$ tal que
+    Sejam $K$ e $L$ dois complexos simpliciais, e $V_K, V_L$ seus conjuntos de vértices. Uma aplicação simplicial entre $K$ e $L$ é uma aplicação $f: V_K \to V_L$ tal que
     \[
     \forall \sigma \in K, f(\sigma) \in L.
     \] 
@@ -797,7 +808,7 @@ Pela definição dos grupos de homologia, definimos uma aplicação linear
 \begin{align*}
     (f_n)_* : H_n(K) \longrightarrow H_n(L).
 \end{align*}
-Ela é chamada de \textit{aplicação induzida na homologia}. Podemos denotá-lo, também, por $f_*$ em vez de $(f_n)_*$. Explicitamente, a aplicação $(f_n)_*$ pode ser descrito da seguinte forma:
+Ela é chamada de aplicação induzida na homologia. Podemos denotá-lo, também, por $f_*$ em vez de $(f_n)_*$. Explicitamente, a aplicação $(f_n)_*$ pode ser descrito da seguinte forma:
 \[
 c = \sum_{\sigma \in K(n)} \epsilon_\sigma \cdot \sigma \longmapsto \sum_{\sigma \in K(n)} \epsilon_\sigma \cdot f_n(\sigma)
 \]
@@ -855,20 +866,71 @@ correspondam a ruído topológico.
 \end{definition}
 
 \begin{definition}
+    Seja $\mathbb{V}, \mathbbm{v}$ e $\mathbb{W}, \mathbbm{w}$ dois módulos de persistência. A soma de dois módulos de persistência $\mathbb{V} \oplus \mathbb{W}$ definidos pelos espaços vetoriais $\left(V \oplus W\right)^t=V^t\oplus W^t$ e as aplicações lineares
+    \begin{align*}
+        (v\oplus w)_s^t:(x,y) \in \left(V \oplus W\right)^s \longmapsto (v_s^t(x), w_s^t(y)) \in \left(V \oplus W\right)^t
+    \end{align*}
+
+\end{definition}
+
+\begin{definition}
+    Seja $I \subset \mathbb{R}^+$ um intervalo (conjunto convexo não-vazio). O módulo intervalar associado a $I$, denotado $\mathbb{B}[I]$, é o módulo de persistência com espaços vetoriais e aplicações lineares definidos por:
+    \[
+        \mathbb{B}^t[I] = \begin{cases} \mathbb{Z}/2\mathbb{Z} & \textnormal{se } t \in I, \\ 0 & \textnormal{caso contrário,} \end{cases}
+        \quad \textnormal{e} \quad
+        v_s^t = \begin{cases} \mathrm{id} & \textnormal{se } s, t \in I, \\ 0 & \textnormal{caso contrário.} \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}
     Um módulo de persistência $\mathbb{U}$ é indecomponível se, para todo par de módulos de persistência $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos é o módulo trivial (identicamente nulo). Caso contrário, $\mathbb{U}$ é decomponível.
 
     Um módulo de persistência $\mathbb{V}$ é dito decomponível em módulos intervalares se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que:
     \[
         \mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I].
     \]
+    O termo \enquote{multiconjunto} significa que $\mathcal{I}$ pode conter várias cópias do mesmo intervalo $I$. Diz-se que tal módulo é decomponível em módulos intervalares, ou simplesmente decomponível, quando o contexto estiver claro.
 \end{definition}
 
-\begin{definition}[Decomponibilidade e Barcode]
-    Um módulo de persistência $\mathbb{U}$ é \textbf{indecomponível} se, para todo o par de módulos $\mathbb{V}$ e $\mathbb{W}$ tais que $\mathbb{U} \simeq \mathbb{V} \oplus \mathbb{W}$, um dos somandos for nulo. Um módulo $\mathbb{V}$ é \textbf{decomponível em módulos intervalares} se existe um multiconjunto $\mathcal{I}$ de intervalos de $\mathbb{R}^+$ tal que $\mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I]$. O multiconjunto $\mathcal{I}$, garantido pelo Teorema de Azumaya, é denominado \textbf{código de barras de persistência} (\textit{Barcode}) de $\mathbb{V}$.
-\end{definition}
+\begin{theorem}
+    Se um módulo de persistência $\mathbb{V}$ se decompõe em módulos intervalares, então o multiconjunto $\mathcal{I}$ de intervalos é único. Além disso, se todos espaços vetoriais $V^t$ de $\mathbb{V}$ tiverem dimensão finita, entãao $V$ se decompõe em módulos intervalares.
+\end{theorem}
 
-\begin{definition}[Diagrama de Persistência]
-Seja $\mathrm{Barcode}(\mathbb{V})$ o barcode de um módulo decomponível. Para cada intervalo no formato $(a,b)$ no barcode, considere-se o ponto $(a,b) \in \mathbb{R}^2$. A coleção de todos estes pontos forma o multiconjunto chamado \textbf{diagrama de persistência}, denotado $\mathrm{Diagram}(\mathbb{V})$.
+Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\mathbb{V}$, ou simplesmente código de barras (\textit{barcode}). Escreve-se $\textnormal{Barcode}\left(\mathbb{V}\right)$.
+
+\begin{definition}
+    Seja $\mathrm{Barcode}(\mathbb{V})$ o barcode de um módulo decomponível. Para cada intervalo $[a,b]$, $(a,b]$, $[a,b)$ ou $(a,b)$ no $\mathrm{Barcode}(\mathbb{V})$, com pontencialmente $a = -\infty$ ou $b = \infty$, considere-se o ponto $(a,b) \in \mathbb{R}^2$. A coleção de todos estes pontos forma o multiconjunto chamado diagrama de persistência, denotado $\mathrm{Diagram}(\mathbb{V})$.
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.24\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/barcode_simplexo_0.5.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.24\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/barcode_simplexo_1.45.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.24\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/barcode_simplexo_1.62.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.24\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/barcode_simplexo_1.84.png}
+        \end{subfigure}
+
+        \vspace{0.5cm}
+
+        \begin{subfigure}[b]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/barocode_def.png}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.48\textwidth}
+            \includegraphics[width=\textwidth]{Imagens/diagrama_def.png}
+        \end{subfigure}
+
+    \caption{Acima vemos um complexo de Rips em 4 instantes: $d=0.5$, $d=1.45$, $d=1.62$ e $d=1.84$. Abaixo segue-se com o \textit{Persistence Barcode} gerado a partir da filtração de Vietoris-Rips. Cada linha horizontal representa a duração de uma característica homológica através das escalas de filtração, evidenciando as componentes conexas em dimensão 0 e a assinatura persistente do ciclo em dimensão 1. E Diagrama de Persistência mapeando os pares de nascimento e morte death das feições topológicas. O ponto vermelho afastado da diagonal principal indica o ciclo gerador persistente de dimensão 1. Podemos realizar a relação instante do complexo com o seu \textit{Barcode} e seu Diagrama de Persistência.}
+    \end{figure}
 \end{definition}
 
 \ident Embora os Diagramas de Persistência resumam o ciclo de vida das classes de homologia (nascimento $a$ e morte $b$), eles habitam um espaço métrico não-linear. Para que possamos calcular médias, variâncias e aplicar algoritmos de Machine Learning diretamente nestes invariantes, utilizamos a vetorização contínua idealizada por Bubenik \cite{Bubenik2015}.
@@ -929,7 +991,7 @@ A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pel
 \ident O algoritmo estatístico prossegue da seguinte forma:
 \begin{enumerate}
     \item \textbf{Estatística Observada:} Calcula-se a diferença absoluta entre as médias amostrais originais dos dois grupos: $T_{\text{obs}} = |\overline{X}_1 - \overline{X}_2|$.
-    \item \textbf{Permutação sob $H_0$:} Se a hipótese nula for verdadeira, o facto de uma proteína ser categorizada como "Apo" ou "Holo" é irrelevante para o valor de $X$. Portanto, agrupam-se todas as observações numa única amostra de tamanho $N = n_1 + n_2$.
+    \item \textbf{Permutação sob $H_0$:} Se a hipótese nula for verdadeira, o facto de uma proteína ser categorizada como \enquote{Apo} ou \enquote{Holo} é irrelevante para o valor de $X$. Portanto, agrupam-se todas as observações numa única amostra de tamanho $N = n_1 + n_2$.
     \item \textbf{Distribuição Empírica:} Permutam-se (embaralham-se) os rótulos originais de todas as formas possíveis. Para cada permutação $i$, calcula-se a nova estatística de teste $T_i$. No caso de $N=14$ com grupos de $7$, existem $\binom{14}{7} = 3432$ permutações distintas (ou $1716$ combinações absolutas de divisão).
     \item \textbf{Cálculo do Valor-$p$:} O valor-$p$ empírico é a proporção de permutações que produzem uma diferença de médias tão ou mais extrema do que a diferença originalmente observada:
     \begin{equation}
@@ -981,11 +1043,11 @@ A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pel
 \end{algorithmic}
 \end{algorithm}
 
-\ident O sucesso algébrico do algoritmo depende da escolha correta do parâmetro de dimensão embutida $d$. Para determinar o valor ideal, ou seja, a dimensionalidade intrínseca que captura a maior parte da variância da proteína sem introduzir ruído, recorre-se ao \textbf{Gráfico Scree} (\textit{Scree plot}). Este gráfico plota o erro residual da projeção em função do número de dimensões. O ponto de inflexão da curva (frequentemente chamado de "cotovelo") indica a dimensão ótima. Estudos anteriores demonstram que, para os dados da MBP, a projeção tridimensional ($d=3$) atinge a estabilidade do erro, sendo considerada apropriada para a separação geométrica dos estados conformacionais \cite{kovacev2016}.
+\ident O sucesso algébrico do algoritmo depende da escolha correta do parâmetro de dimensão embutida $d$. Para determinar o valor ideal, ou seja, a dimensionalidade intrínseca que captura a maior parte da variância da proteína sem introduzir ruído, recorre-se ao \textbf{Gráfico Scree} (\textit{Scree plot}). Este gráfico plota o erro residual da projeção em função do número de dimensões. O ponto de inflexão da curva (frequentemente chamado de \enquote{cotovelo}) indica a dimensão ótima. Estudos anteriores demonstram que, para os dados da MBP, a projeção tridimensional ($d=3$) atinge a estabilidade do erro, sendo considerada apropriada para a separação geométrica dos estados conformacionais \cite{kovacev2016}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Imagens/grafico_scree_isomap.png}
+    \includegraphics[width=0.6\textwidth]{Imagens/grafico_scree_isomap.png}
     
     \caption{ Redução de dimensão via Isomap para a estrutura 1OMP. A flexão abrupta no parâmetro $d=3$ indica a dimensionalidade intrínseca ideal para a representação das flutuações dinâmicas da MBP.}
     \label{fig:grafico_scree} 
@@ -1206,7 +1268,7 @@ onde $S$ é uma matriz identidade, exceto pelo último elemento diagonal, que as
 \end{figure}
 % ----------------------------------------------
 
-\ident Após a construção da filtração, extraíram-se os intervalos de nascimento e morte para o primeiro grupo de homologia ($H_1$), que corresponde aos ciclos ou "túneis" unidimensionais. A escolha metodológica pelo grau $1$ decorre da constatação de que a cavidade do sítio de ligação da MBP — cuja dinâmica difere drasticamente entre as conformações aberta e fechada — é capturada com máxima expressividade por este invariante \cite{kovacev2016}.
+\ident Após a construção da filtração, extraíram-se os intervalos de nascimento e morte para o primeiro grupo de homologia ($H_1$), que corresponde aos ciclos ou \enquote{túneis}. A escolha metodológica pelo grau $1$ decorre da constatação de que a cavidade do sítio de ligação da MBP — cuja dinâmica difere drasticamente entre as conformações aberta e fechada — é capturada com máxima expressividade por este invariante \cite{kovacev2016}.
 
 \ident Contudo, os intervalos de persistência obtidos habitam um espaço métrico não-linear, inviabilizando o uso direto em algoritmos estatísticos. Para contornar este obstáculo matemático, cada diagrama de persistência foi transformado na sua respectiva \textbf{Paisagem de Persistência} (Definição \ref{paisagem_persistencia_def}) \cite{Bubenik2015}.
 
