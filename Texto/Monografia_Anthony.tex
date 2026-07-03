@@ -933,25 +933,78 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     \end{figure}
 \end{definition}
 
-\ident Embora os Diagramas de Persistência resumam o ciclo de vida das classes de homologia (nascimento $a$ e morte $b$), eles habitam um espaço métrico não-linear. Para que possamos calcular médias, variâncias e aplicar algoritmos de Machine Learning diretamente nestes invariantes, utilizamos a vetorização contínua idealizada por Bubenik \cite{Bubenik2015}.
+\ident Embora os Diagramas de Persistência resumam o ciclo de vida das classes de homologia (nascimento $b$ e morte $d$), eles habitam um espaço métrico não-linear. Para que possamos calcular médias, variâncias e aplicar algoritmos de aprendizado de máquina diretamente nestes invariantes, utilizamos a vetorização contínua idealizada por Bubenik \cite{Bubenik2015}.
 
-\begin{definition}[Paisagem de Persistência]\label{paisagem_persistencia_def}
-Dado um diagrama de persistência com intervalos $\mathcal{B} = \{(a_i, b_i)\}_{i=1}^m$, define-se para cada ponto a função auxiliar:
-\[
-f_{(a,b)}(t) = \max(0, \min(t-a,\; b-t)).
-\]
-A \textbf{paisagem de persistência} é a sequência de funções $\lambda_k : \mathbb{R} \to \mathbb{R}$ definidas por:
-\[
-\lambda_k(t) = k\text{-ésimo maior valor do conjunto } \{f_{(a_i,b_i)}(t)\}_{i=1}^m,
-\]
-adotando $\lambda_k(t) = 0$ caso $k > m$.
+\begin{definition}\label{paisagem_persistencia_def}
+    Dado um diagrama de persistência com intervalos $\mathcal{B} = \{(b_i, d_i)\}_{i=1}^m$, define-se para cada ponto a função auxiliar:
+    \[
+        f_{(b,d)}(t) = \max(0, \min(t-b,\; d-t)).
+    \]
+    A paisagem de persistência é a sequência de funções $\lambda_k : \mathbb{R} \to \mathbb{R}$ definidas por:
+    \[
+        \lambda_k(t) = k\text{-ésimo maior valor do conjunto } \{f_{(b_i,d_i)}(t)\}_{i=1}^m,
+    \]
+    adotando $\lambda_k(t) = 0$ caso $k > m$.
 \end{definition}
 
-\begin{definition}[Distância $p$-Paisagem]
-A distância topológica entre duas paisagens $\lambda$ e $\lambda'$ é dada pela norma em espaços de Banach $L^p$:
-\begin{equation}
-\Lambda_p(\lambda, \lambda') = \|\lambda - \lambda'\|_p = \left( \sum_{k=1}^\infty \int_{\mathbb{R}} |\lambda_k(t) - \lambda'_k(t)|^p \, dt \right)^{1/p}.
-\end{equation}
+\begin{figure}[H]
+    \centering
+    % --- linha 1: barcode + diagrama ---
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/barcode_landscape.png}
+        \caption{Barcode ($H_1$)}
+        \label{fig:barcode}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/diagrama_landscape.png}
+        \caption{Diagrama de persistência}
+        \label{fig:diagrama}
+    \end{subfigure}
+    
+    
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/triangulacao_diagrama.png}
+        \caption{Diagrama triangulado}
+        \label{fig:diagrama_triangulado}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/landscapes_2d.png}
+        \caption{Landscape (2D)}
+        \label{fig:landscape2d}
+    \end{subfigure}
+
+    \vspace{0.5em}
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+
+    % --- linha 3: landscape 3D ---
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/landscapes_3d.png}
+        \caption{Landscape (3D)}
+        \label{fig:landscape3d}
+    \end{subfigure}
+
+    % Legenda completa e final com o rótulo principal
+    \caption{Construção da paisagem de persistência (continuação). 
+    (a)–(b) Barcode e diagrama de persistência padrão para $H_1$. (c) O mesmo diagrama com os triângulos de cada ponto $(b,d)$ explicitados: a perna vertical (nascimento) e a horizontal (morte) ligam o ponto à diagonal, com os pontos numerados por ordem decrescente de persistência. (d) Cada triângulo de (c) corresponde a uma \enquote{tenda} $f_i(t)=\max(0,\min(t-b_i,\,d_i-t))$; a landscape $\lambda_k(t)$ é o $k$-ésimo maior valor dessas tendas em cada $t$, plotada aqui camada a camada. (e) As mesmas camadas $\lambda_k$, agora dispostas como um relevo tridimensional $(t, k, \lambda_k(t))$, evidenciando a estrutura de múltiplas camadas da landscape do complexo.}
+    \label{fig:pipeline_landscape}
+\end{figure}
+
+\begin{definition}
+    Sejam $\lambda (k,t)$ e $\lambda '(k,t)$ duas paisagens paisagens de persistências. A distância topológica (distância $p$-Paisagem) entre duas paisagens $\lambda$ e $\lambda'$ é dada pela norma em espaços de Banach $L^p$:
+    \begin{equation*}
+        \Lambda_p(\lambda, \lambda') = \|\lambda - \lambda'\|_p = \left( \sum_{k=1}^\infty \int_{\mathbb{R}} |\lambda_k(t) - \lambda'_k(t)|^p \, dt \right)^{1/p}.
+    \end{equation*}
 \end{definition}
 
 
