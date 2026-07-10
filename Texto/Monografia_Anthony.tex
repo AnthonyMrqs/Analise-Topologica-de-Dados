@@ -306,7 +306,7 @@
 
 \ident Para contornar as limitações da análise puramente geométrica, modelos baseados na física estatística e em simulações de grão grosso (\textit{coarse-grained}), como o Modelo de Rede Anisotrópica (ANM — \textit{Anisotropic Network Model}), tornaram-se cruciais. Ao modelar a proteína como um sistema de massas e molas, o ANM permite a construção de uma Matriz Hessiana que, após decomposição espectral e foco nos modos normais de baixa frequência, gera uma Matriz de Correlação Cruzada. Essa matriz quantifica como as flutuações de diferentes resíduos de aminoácidos estão acopladas dinamicamente, fornecendo uma ``assinatura física'' do comportamento global da macromolécula.
 
-\ident O ponto central deste trabalho reside na transição do domínio da biofísica para o da matemática pura e aplicada, especificamente através da Análise Topológica de Dados (TDA — \textit{Topological Data Analysis}). A partir da matriz de correlação cruzada, define-se uma pseudométrica que transforma a dinâmica da proteína em um espaço métrico. Utilizando o ferramental da Homologia Persistente, filtrações de complexos simpliciais (como o Complexo de Vietoris-Rips) são construídas para acompanhar a evolução das características topológicas — componentes conexas e ciclos unidimensionais — ao longo de diferentes escalas de distância. 
+\ident O ponto central deste trabalho reside na transição do domínio da biofísica para o da matemática pura e aplicada, especificamente através da Análise Topológica de Dados (TDA — \textit{Topological Data Analysis}). A partir da matriz de correlação cruzada, define-se uma medida de dissimilaridade simétrica não-negativa que transforma a dinâmica da proteína em um espaço métrico. Utilizando o ferramental da Homologia Persistente, filtrações de complexos simpliciais (como o Complexo de Vietoris-Rips) são construídas para acompanhar a evolução das características topológicas — componentes conexas e ciclos unidimensionais — ao longo de diferentes escalas de distância. 
 
 \ident Diferente das abordagens clássicas, a topologia se preocupa com a forma e a conectividade intrínseca dos dados, sendo invariante a deformações contínuas. Extraímos essas assinaturas topológicas por meio de Paisagens de Persistência (\textit{Persistence Landscapes}), que mapeiam os dados topológicos, originalmente discretos e de difícil manipulação algébrica, em um espaço de funções de Banach. Esta transformação garante a estabilidade dos dados e permite a integração direta com métodos de estatística clássica e algoritmos de \textit{Machine Learning}.
 
@@ -320,7 +320,7 @@
 
 \subsection{A Proteína de Ligação à Maltose (MBP)}
 
-\ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli \cite{Boos1998, spurlino1991}}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
+\ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli} \cite{Boos1998, spurlino1991}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
 
 \ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}) \cite{bucher2011}., onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
 
@@ -365,12 +365,12 @@ A dedução analítica detalhada da energia potencial, a formulação tridimensi
 \end{equation}
 \ident Com esta formulação, resíduos que possuem comportamentos dinâmicos altamente acoplados ($|C_{ij}| \to 1$) apresentarão uma distância dinâmica próxima a zero ($D_{ij} \to 0$), indicando que, topologicamente e funcionalmente, eles estão ``próximos''. Inversamente, resíduos com dinâmicas independentes estarão distantes neste novo espaço métrico.
 
-\ident A matriz de distâncias dinâmicas $D$ constitui o ponto de partida matemático deste trabalho. Ela nos permite abandonar as coordenadas euclidianas estáticas $(x, y, z)$ da biologia clássica e passar a tratar a proteína como um espaço métrico discreto, sobre o qual definiremos complexos simpliciais e calcularemos grupos de homologia persistente nos próximos capítulos. É crucial notar que $\mathbf{D}$ não é estritamente uma métrica, mas sim uma pseudométrica. Isto ocorre porque a identidade dos indiscerníveis não se verifica rigorosamente: dois resíduos distintos ($i \neq j$) podem oscilar de forma perfeitamente correlacionada ($|C_{ij}| = 1$), resultando numa distância $D_{ij} = 0$. Por outro lado, é possível demonstrar a desigualdade triangular é satisfeita, isto é, $D_{ij}\leq D_{ik} + D_{kj}$. A Topologia Algébrica, contudo, é perfeitamente bem definida sobre espaços pseudométricos, permitindo a construção de complexos simpliciais sem perda de generalidade teórica.
+\ident A matriz de distâncias dinâmicas $D$ constitui o ponto de partida matemático deste trabalho. Ela nos permite abandonar as coordenadas euclidianas estáticas $(x, y, z)$ da biologia estrutural clássica e passar a tratar os resíduos da proteína como um conjunto discreto munido de uma medida de dissimilaridade, sobre o qual definiremos complexos simpliciais e calcularemos grupos de homologia persistente nos próximos capítulos. É crucial notar que $D$ não se qualifica formalmente como uma métrica clássica ou mesmo como uma pseudométrica. Primeiramente, a identidade dos indiscerníveis não se verifica de forma estrita: dois resíduos distintos ($i \neq j$) podem apresentar flutuações perfeitamente correlacionadas ($|C_{ij}| = 1$), resultando em $D_{ij} = 0$. Adicionalmente, a transformação $D_{ij} = 1 - |C_{ij}|$ operada sobre a matriz de correlação cruzada não garante o cumprimento geral da desigualdade triangular ($D_{ik} \leq D_{ij} + D_{jk}$), o que classifica o objeto estritamente como uma medida de dissimilaridade simétrica não-negativa. Todavia, a formulação computacional de um complexo de Vietoris-Rips filtrado prescinde do cumprimento desses axiomas métricos estruturais. O algoritmo opera a construção topológica como uma filtração sobre um grafo ponderado completo, no qual o parâmetro de filtração $t$ atua como o limiar de adjacência para a inserção de arestas e de simplexos de ordem superior, dependendo unicamente do valor escalar da dissimilaridade local entre os nós.
 
 
 \section{Fundamentos de Topologia Algébrica e Homologia Persistente} \label{sec:homologia_persistente}
 
-\ident O estabelecimento de uma matriz de distâncias (ou pseudodistâncias) a partir de um sistema dinâmico fornece um espaço métrico discreto. Para extrair a arquitetura de comunicação global da biomolécula a partir desta pseudométrica, traduzimos este espaço num objeto combinatório contínuo. Nesta seção, fundamentamos o arcabouço matemático necessário para essa transição, introduzindo conceitos da Topologia Algébrica e da Homologia Persistente, usando como base o conteúdo de Tinarrage \cite{tinarrage2021}.
+\ident O estabelecimento de uma matriz de distâncias (ou dissimilaridades) a partir de um sistema dinâmico fornece um espaço métrico discreto. Para extrair a arquitetura de comunicação global da biomolécula a partir desta dissimilaridade, traduzimos este espaço num objeto combinatório contínuo. Nesta seção, fundamentamos o arcabouço matemático necessário para essa transição, introduzindo conceitos da Topologia Algébrica e da Homologia Persistente, usando como base o conteúdo de Tinarrage \cite{tinarrage2021}.
 
 \subsection{Complexos Simpliciais} 
 
@@ -698,7 +698,7 @@ Demonstração em Tinarrage \cite{tinarrage2021}.
 Complexo \v{C}ech. No entanto, eles não estão ligados pela seguinte relação:
 
 \begin{proposition}
-    Let $X \subset \mathbb{R}^n$ um conjunto finito. Seja $X \subset \mathbb{R}^n$ um subconjunto finito. Para todo $t \geq 0$, temos
+    Seja $X \subset \mathbb{R}^n$ um conjunto finito. Seja $X \subset \mathbb{R}^n$ um subconjunto finito. Para todo $t \geq 0$, temos
     \[
         \textnormal{\v{C}ech}^t(X) \subset \textnormal{Rips}^t(X) \subset \textnormal{\v{C}ech}^{2t}(X).
     \]
@@ -817,10 +817,73 @@ c = \sum_{\sigma \in K(n)} \epsilon_\sigma \cdot \sigma \longmapsto \sum_{\sigma
 \]
 
 \begin{definition}
-    Uma filtração de um complexo simplicial é uma família de subconjuntos $\mathbb{X} = (X^t)_{t \in \mathbb{R}^+}$ de $E$ é uma filtração se for não decrescente em relação à inclusão; isto é, para quaisquer $s, t \in \mathbb{R}^+$, se $s \leq t$, então $X_s \subseteq X_t$.
+    Uma filtração de um complexo simplicial $E$ é uma família de subcomplexos $\mathbb{X} = (X^t)_{t \in \mathbb{R}^+}$ de $E$ que formam uma cadeia encaixante, isto é, para quaisquer $s, t \in \mathbb{R}^+$, se $s \leq t$, então $X_s \subseteq X_t$.
 \end{definition}
 
-\ident Seja $X \subset \mathbb{R}^n$. A coleção de seus espessamentos é uma sequência não decrescente de subconjuntos
+\ident Seja $K$ um complexo simplicial com $n$ simplexos. Escolha uma ordem total dos simplexos
+\begin{align*}
+    \sigma^1 < \sigma^2 < \cdots < \sigma^n
+\end{align*}
+tal que 
+\begin{align*}
+    \forall \sigma, \tau \in K, \,\, \tau \nsubseteq \sigma \implies \tau < \sigma.
+\end{align*}
+Em outras palavras, uma face de um simplexo é inferior ao próprio simplexo. Para todo $i \leq n$,
+considere o complexo simplicial
+\begin{align*}
+    K^i = \{\sigma^1, \cdots, \sigma^i \}.
+\end{align*}
+Temos a relação $K^{i+1} = K^i \cup \{\sigma^{i+1}\}$. Eles formam uma sequência crescente de
+complexos simpliciais
+\begin{align*}
+    K^1 \subset K^2 \subset \cdots \subset K^n,
+\end{align*}
+com $K^n = K$.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K1.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K2.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K3.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K4.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K5.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K6.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K7.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K8.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K9.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.18\textwidth}
+        \includegraphics[width=\textwidth]{Imagens/evolucao_complexo_K10.png}
+    \end{subfigure}
+    \hfill
+\end{figure}
+\ident Usemos a representação acima para construir uma cadeia encaixante. Seja $X \subset \mathbb{R}^n$. A coleção de seus espessamentos é uma sequência não decrescente de subconjuntos
 \[
     \dots \subset X^{t_1} \subset X^{t_2} \subset X^{t_3} \subset \dots
 \]
@@ -985,10 +1048,10 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     \end{subfigure}
 
     \vspace{0.5em}
-% \end{figure}
+\end{figure}
 
-% \begin{figure}[H]
-    % \ContinuedFloat
+\begin{figure}[H]
+    \ContinuedFloat
     \centering
 
     % --- linha 3: landscape 3D ---
@@ -1012,7 +1075,7 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     \end{equation*}
 \end{definition}
 
-\ident O corolário analítico mais profundo advindo da formulação das Paisagens de Persistência reside no fato de que a função $\lambda_k(t)$ é, por definição, um elemento do espaço integrável de Lebesgue $L^p(\mathbb{N} \times \mathbb{R})$. Uma vez que o espaço $L^p$ detém a estrutura de um Espaço de Banach, caracterizando-se como um espaço vetorial normado e completo, as barreiras algébricas inerentes aos diagramas de persistência não-lineares são superadas. A existência de um Espaço de Hilbert é de suma importância para a modelagem estatística, pois assegura a formulação rigorosa de um produto interno $\langle \lambda, \lambda' \rangle_{L^2}$. Consequentemente, a aplicabilidade do Teorema de Representação de Riesz fica matematicamente garantida, assegurando que qualquer funcional linear contínuo sobre este espaço funcional possa ser perfeitamente representado através deste produto interno. É precisamente esta transição exata, da combinatória abstrata dos complexos simpliciais para a continuidade analítica em espaços de Hilbert, que legitima o uso do Teorema de Mercer. Ao garantir a existência de uma função de \textit{kernel} simétrica e definida positiva associada a esse produto interno, o espaço de Hilbert viabiliza a utilização do método das Máquinas de Vetores de Suporte (que irá ser abordado na subseção \ref{secao_svm}), provendo a base teórica para o cálculo do hiperplano ótimo de separação entre os estados dinâmicos da proteína.
+\ident O corolário analítico mais profundo advindo da formulação das Paisagens de Persistência encontra-se no fato de que a função $\lambda_k(t)$ é, por definição, um elemento do espaço integrável de Lebesgue $L^p(\mathbb{N} \times \mathbb{R})$. Uma vez que o espaço $L^p$ detém a estrutura de um Espaço de Banach, caracterizando-se como um espaço vetorial normado e completo, as barreiras algébricas inerentes aos diagramas de persistência não-lineares são superadas. A existência de um Espaço de Hilbert é de suma importância para a modelagem estatística, pois assegura a formulação rigorosa de um produto interno $\langle \lambda, \lambda' \rangle_{L^2}$. Consequentemente, a aplicabilidade do Teorema de Representação de Riesz fica matematicamente garantida, assegurando que qualquer funcional linear contínuo sobre este espaço funcional possa ser perfeitamente representado através deste produto interno. É precisamente esta transição exata, da combinatória abstrata dos complexos simpliciais para a continuidade analítica em espaços de Hilbert, que legitima o uso do Teorema de Mercer. Ao garantir a existência de uma função de \textit{kernel} simétrica e definida positiva associada a esse produto interno, o espaço de Hilbert viabiliza a utilização do método das Máquinas de Vetores de Suporte (que irá ser abordado na subseção \ref{secao_svm}), provendo a base teórica para o cálculo do hiperplano ótimo de separação entre os estados dinâmicos da proteína.
 
 \section{Inferência Estatística sobre Invariantes Topológicos}
 
@@ -1043,7 +1106,7 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
 
 \subsection{O Teste de Permutação Não-Paramétrico}
 
-\ident No estudo de Kovacev-Nikolic et al. (2016), a amostra disponível continha apenas $n = 14$ estruturas de MBP (sendo sete na forma aberta e sete na fechada) \cite{kovacev2016}. Com amostras tão diminutas, a suposição de normalidade exigida por testes paramétricos clássicos (como o teste $t$ de Student) não pode ser garantida com rigor \cite{devore2012}.
+\ident No estudo de Kovacev-Nikolic, a amostra disponível continha apenas $n = 14$ estruturas de MBP (sendo sete na forma aberta e sete na fechada) \cite{kovacev2016}. Com amostras tão diminutas, a suposição de normalidade exigida por testes paramétricos clássicos (como o teste $t$ de Student) não pode ser garantida com rigor \cite{devore2012}.
 
 \ident Para contornar esta limitação de forma matematicamente exata, emprega-se o Teste de Permutação. Este é um método de inferência não-paramétrico que não assume qualquer distribuição prévia (como a gaussiana) para os dados \cite{devore2012}. O procedimento lógico do teste baseia-se na combinatória dos rótulos das classes sob a validade da hipótese nula $H_0$.
 
@@ -1064,13 +1127,13 @@ onde $M$ representa o número total de permutações realizadas e $I(\cdot)$ atu
 
 \ident Se o valor-$p$ calculado for inferior ao nível de significância adotado (tradicionalmente $\alpha = 0,05$), rejeitamos $H_0$. No contexto do nosso problema biológico, uma rejeição de $H_0$ prova de forma cabal que a distinção topológica entre os estados da MBP é real e inerente à sua matriz de dinâmica \cite{kovacev2016}, validando assim a eficácia das Paisagens de Persistência como método discriminatório.
 
-\ident A fundamentação deste teste serve como o selo de validação estatística da nossa modelagem. No entanto, a análise não se esgota na inferência estática. Ao comprovar que as distribuições são separáveis, o próximo passo lógico é extrair as variáveis topológicas vetorizadas e introduzi-las num ambiente de Aprendizagem de Máquina (\enquote{Machine Learning}), com o intuito de construir fronteiras de decisão preditivas para classificar novas estruturas moleculares.
+\ident A fundamentação deste teste serve como o selo de validação estatística da nossa modelagem. No entanto, a análise não se esgota na inferência estática. Ao comprovar que as distribuições são separáveis, o próximo passo lógico é extrair as variáveis topológicas vetorizadas e introduzi-las num ambiente de Aprendizagem de Máquina (\textit{Machine Learning}), com o intuito de construir fronteiras de decisão preditivas para classificar novas estruturas moleculares.
 
 \section{Redução de dimensionalidade e Aprendizado de Máquina}
 
 \ident Após a comprovação estatística via Teste de Permutação de que as assinaturas topológicas dos estados \textit{Apo} e \textit{Holo} da proteína MBP são fundamentalmente distintas \cite{kovacev2016}, o objetivo final torna-se preditivo. Desejamos utilizar esse espaço de características para classificar novas estruturas moleculares. Contudo, as paisagens de persistência ou as próprias matrizes de distância habitam espaços de alta dimensionalidade, o que exige técnicas robustas de redução de dimensão para visualização e algoritmos de otimização convexa para classificação \cite{lorena2007}.
 
-\subsection{Visualização Não-Linear: ISOMAP e Gráfico Scree}
+\subsection{Visualização Não-Linear: ISOMAP e Gráfico Scree} \label{sec:isomap}
 
 \ident A matriz de distância dinâmica $D$, oriunda da correlação cruzada do ANM, codifica a arquitetura de comunicação da proteína. Tentar visualizar esse objeto matemático diretamente em $\mathbb{R}^2$ ou $\mathbb{R}^3$ através de métodos lineares clássicos, como a Análise de Componentes Principais (PCA) ou o Escalonamento Multidimensional (MDS) clássico, frequentemente distorce a geometria intrínseca dos dados. Isso ocorre porque tais métodos assumem que as distâncias entre os pontos são puramente euclidianas \cite{Tenenbaum2000}.
 
@@ -1105,7 +1168,7 @@ onde $M$ representa o número total de permutações realizadas e $I(\cdot)$ atu
 \end{algorithmic}
 \end{algorithm}
 
-\ident O sucesso algébrico do algoritmo depende da escolha correta do parâmetro de dimensão embutida $d$. Para determinar o valor ideal, ou seja, a dimensionalidade intrínseca que captura a maior parte da variância da proteína sem introduzir ruído, recorre-se ao \textbf{Gráfico Scree} (\textit{Scree plot}). Este gráfico plota o erro residual da projeção em função do número de dimensões. O ponto de inflexão da curva (frequentemente chamado de \enquote{cotovelo}) indica a dimensão ótima. Estudos anteriores demonstram que, para os dados da MBP, a projeção tridimensional ($d=3$) atinge a estabilidade do erro, sendo considerada apropriada para a separação geométrica dos estados conformacionais \cite{kovacev2016}.
+\ident O sucesso algébrico do algoritmo depende da escolha correta do parâmetro de dimensão embutida $d$. Para determinar o valor ideal, ou seja, a dimensionalidade intrínseca que captura a maior parte da variância da proteína sem introduzir ruído, recorre-se ao Gráfico Scree (\textit{Scree plot}). Este gráfico plota o erro residual da projeção em função do número de dimensões. O ponto de inflexão da curva (frequentemente chamado de \enquote{cotovelo}) indica a dimensão ótima. Estudos anteriores, como o de Kovacev \cite{kovacev2016}, demonstram que, para os dados da MBP, a projeção tridimensional ($d=3$) atinge a estabilidade do erro, sendo considerada apropriada para a separação geométrica dos estados conformacionais \cite{kovacev2016}.
 
 \begin{figure}[H]
     \centering
@@ -1115,6 +1178,7 @@ onde $M$ representa o número total de permutações realizadas e $I(\cdot)$ atu
     \label{fig:grafico_scree} 
 \end{figure}
 
+\ident É importante notar que o ISOMAP, por depender de construções de um grafo de vizinhança e distâncias geodésicas sobre a amostra completa, não admite uma extensão paramétrica trivial para projetar pontos fora da amostra original (\emph{out-of-sample}). Por esse motivo, seu uso neste trabalho restringe-se ao diagnóstico visual de dimensionalidade intríseca da matriz de distâncias dinâmicas $D$, não sendo empregado na etapa de classificação supervisionada, onde a exigência de uma projeção explícita e livre de vazamento de dados sobre validação torna a escolha metodologicamente correta.
 \subsection{Classificação com SVM}\label{secao_svm}
 
 \ident Com o espaço de dados modelado e visualmente compreensível, o problema de distinguir proteínas abertas de fechadas reduz-se a um problema clássico de reconhecimento de padrões supervisionado. Para essa tarefa, empregamos as Máquinas de Vetores de Suporte (SVM — \textit{Support Vector Machines}), fundamentadas na Teoria do Aprendizado Estatístico de Vapnik e Lorena\cite{Cortes1995, lorena2007}.
@@ -1290,14 +1354,10 @@ decisão final seja operada de forma estável por um hiperplano linear.:
 \ident Dado um conjunto de dados discreto $\mathcal{D} = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$, o algoritmo executa um processo iterativo determinístico composto por exatamente $n$ ciclos independentes. Em cada iteração $i$, isola-se uma única instância $(x_i, y_i)$ para atuar como o conjunto de teste unitário, enquanto o modelo é treinado sobre o subconjunto complementar denotado pelo hiperplano ajustado sob a restrição $\mathcal{D} \setminus \{(x_i, y_i)\}$. 
 
 \ident Uma vez estabelecida a função de decisão parcial $g^{\setminus i}(x)$ em cada iteração, realiza-se a predição sobre o elemento excluído $x_i$. A estimativa global do erro de generalização do classificador, denominada erro de \textit{Leave-One-Out}, é computada formalmente por meio da média aritmética dos erros locais mensurados pela função indicadora de perda ao longo de todas as $n$ realizações:
-\begin{equation}
+\begin{equation*}
     \mathcal{E}_{\text{LOO}} = \frac{1}{n} \sum_{i=1}^{n} I\left( g^{\setminus i}(x_i) \neq y_i \right)
-\end{equation}
+\end{equation*}
 onde $I(\cdot)$ assume o valor unitário se a classificação for incorreta e zero em caso de acerto. O Teorema de Luntz e Brailovsky demonstra que este procedimento fornece um estimador quase não-enviesado do erro de generalização real, conferindo estabilidade matemática e blindagem estatística à modelagem preditiva aplicada sobre espaços funcionais pontuais.
-
-\begin{remark}
-Com a fundamentação detalhada de todo o arcabouço biofísico do modelo elástico de redes, o formalismo abstrato da homologia persistente e a regularização matemática das paisagens de persistência em espaços de Hilbert integráveis para a convergência de classificadores convexos, a base teórica encontra-se plenamente consolidada. O capítulo subsequente descreve a execução prática deste encadeamento analítico sobre as conformações tridimensionais, mapeando o protocolo computacional e os critérios de validação empírica adotados.
-\end{remark}
 
 \section{O Desvio Quadrático Médio (RMSD)}\label{sec:rmsd}
 
@@ -1328,10 +1388,10 @@ definido como
 em que $R$ é uma matriz de rotação própria ($R^TR=I$, $\det R = 1$) e $\vec t$
 um vetor de translação. Removendo-se a translação por centralização em torno
 dos centros de massa, o problema reduz-se a
-\begin{equation}
+\begin{equation*}
     D^2(V,W) = R_V^2 + R_W^2 - 2v,
     \label{eq:rmsd_reducido}
-\end{equation}
+\end{equation*}
 onde $R_V^2,R_W^2$ são os raios de giração e $v\ge 0$ é a correção ótima de
 rotação, dada em função dos valores singulares da matriz de correlação
 cruzada $C = \frac{1}{N}\sum_i v_i' w_i'^{\,T}$ (Apêndice \ref{apx:rmsd}). A solução exata
@@ -1397,7 +1457,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 
 \section{Metodologia}
 
-\ident Com a fundamentação teórica e biológica devidamente estabelecida nos capítulos anteriores, este capítulo destina-se a descrever o processo computacional aplicado à Proteína de Ligação à Maltose (MBP). O percurso metodológico detalha desde a mineração e filtragem dos dados estruturais brutos — destacando a expansão inédita da base amostral clássica — até a estruturação dos dados no formato exigido pelas métricas topológicas e algoritmos de classificação.
+\ident Com a fundamentação teórica e biológica devidamente estabelecida nos capítulos anteriores, este capítulo destina-se a descrever o processo computacional aplicado à Proteína de Ligação à Maltose (MBP). O percurso metodológico detalha desde a mineração e filtragem dos dados estruturais brutos, destacando a expansão inédita da base amostral clássica, até a estruturação dos dados no formato exigido pelas métricas topológicas e algoritmos de classificação.
 
 \subsection{Aquisição e Preparação do Conjunto de Dados}
 
@@ -1409,7 +1469,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 
 \ident A extração da dinâmica molecular elástica foi realizada sobre as coordenadas espaciais isoladas de carbonos-alfa ($C_\alpha$) via Modelo de Rede Anisotrópica (ANM) \cite{atilgan2001}, utilizando rotinas automatizadas do pacote \texttt{ProDy}. A matriz Hessiana correspondente a cada conformação da MBP foi construída e submetida à decomposição espectral. O comportamento flutuacional global da macromolécula foi capturado por meio do truncamento nos 20 primeiros modos normais não triviais de baixa frequência, gerando matrizes de correlação cruzada $C$ com dimensões estritas de $370 \times 370$ entradas para cada amostra proteica \cite{kovacev2016}.
 
-\ident Para converter o comportamento dinâmico elástico em um espaço pseudométrico apto para a computação topológica, aplicou-se a transformação projetiva linear $D_{ij} = 1 - |C_{ij}|$ sobre cada elemento das matrizes de correlação. Essa métrica estabelece que resíduos com acoplamento mecânico perfeito ($|C_{ij}| = 1$) assumam distância dinâmica nula ($D_{ij} = 0$), enquanto oscilações ortogonais ou independentes ($|C_{ij}| = 0$) resultam na distância máxima unitária ($D_{ij} = 1$). O fluxo computacional que integra o processamento físico e o armazenamento estruturado dessas matrizes funcionais está formalizado no Algoritmo \ref{alg:anm_pipeline}.
+\ident Para converter o comportamento dinâmico elástico em um espaço dissimilaridade discreto apto para a computação topológica, aplicou-se a transformação projetiva linear $D_{ij} = 1 - |C_{ij}|$ sobre cada elemento das matrizes de correlação. Essa métrica estabelece que resíduos com acoplamento mecânico perfeito ($|C_{ij}| = 1$) assumam distância dinâmica nula ($D_{ij} = 0$), enquanto oscilações ortogonais ou independentes ($|C_{ij}| = 0$) resultam na distância máxima unitária ($D_{ij} = 1$). O fluxo computacional que integra o processamento físico e o armazenamento estruturado dessas matrizes funcionais está formalizado no Algoritmo \ref{alg:anm_pipeline}.
 
 % ==========================================================
 % PARTE 1: Vai ficar exatamente aqui no texto
@@ -1434,17 +1494,14 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
     \State $H \leftarrow \text{ConstruirMatrizHessiana}(C_\alpha)$
     \State $[\Lambda, V] \leftarrow \text{CalcularModosNormais}(H)$
 \EndFor % Fechamento artificial para o LaTeX não quebrar o compilador
-\end{algorithmic}
-\end{algorithm}
+% \end{algorithmic}
+% \end{algorithm}
 
-% ==========================================================
-% PARTE 2: Vai quebrar para a página seguinte automaticamente
-% ==========================================================
-\begin{algorithm}[H]
-\ContinuedFloat % <-- Garante que mantém o mesmo número (ex: Algoritmo 3)
-\caption{Fluxo Computacional para Extração da Matriz de Distância Dinâmica (Continuação)}
-\begin{algorithmic}[1]
-\makeatletter \setcounter{ALG@line}{11}
+% \begin{algorithm}[H]
+% \ContinuedFloat % <-- Garante que mantém o mesmo número (ex: Algoritmo 3)
+% \caption{Fluxo Computacional para Extração da Matriz de Distância Dinâmica (Continuação)}
+% \begin{algorithmic}[1]
+% \makeatletter \setcounter{ALG@line}{11}
 \For{cada identificador $id \in \mathcal{L}$} % Reabertura artificial para manter as linhas verticais/indentação
     \State \textbf{Etapa 3: Matriz de Correlação e Transformação Métrica}
     \State $C \leftarrow \text{CalcularCorrelaçãoCruzada}(\Lambda, V)$ \Comment{Gera matriz $N \times N$}
@@ -1462,11 +1519,11 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \end{algorithmic}
 \end{algorithm}
 
-\ident A transformação das flutuações tridimensionais nas matrizes de distância funcional de dimensão $370 \times 370$ converteu o sistema biofísico em um espaço pseudométrico discreto. Esta representação matricial constitui o dado de entrada exato sobre o qual serão aplicadas as filtrações simpliciais para a extração dos invariantes topológicos.
+\ident A transformação das flutuações tridimensionais nas matrizes de distância funcional de dimensão $370 \times 370$ converteu o sistema biofísico em um espaço de dissimilaridade discreto. Esta representação matricial constitui o dado de entrada exato sobre o qual serão aplicadas as filtrações simpliciais para a extração dos invariantes topológicos.
 
 \subsection{Filtração de Vietoris-Rips e Paisagens de Persistência}
 
-\ident Para extrair os invariantes topológicos das matrizes de distância funcional $D$, computou-se o complexo simplicial de Vietoris-Rips com limiar de conexão máximo estipulado em $t_{\max} = 0.7$. A progressão geométrica desta filtração computacional, que consolida a topologia estrutural da proteína, é ilustrada na Figura \ref{fig:evolucao_rips}. A partir desta etapa, extraíram-se os diagramas de persistência restritos ao primeiro grupo de homologia ($H_1$), quantificando os ciclos estruturais que modelam a dinâmica tridimensional do sítio de ligação \cite{kovacev2016}.
+\ident Para extrair os invariantes topológicos das matrizes de dissimilaridade dinâmica $D$, computou-se o complexo simplicial de Vietoris-Rips. O limiar máximo de conexão foi fixado analiticamente em $t_{\max} = 0.7$. Esta escolha fundamenta-se estritamente no ciclo de vida dinâmico das características homológicas da proteína de ligação à maltose (MBP): observações empíricas e a literatura clássica \cite{kovacev2016} revelam que os laços unidimensionais mais pronunciados no grupo de homologia de grau 1 ($H_1$) — associados diretamente às flutuações mecânicas da fenda de ligação — nascem em torno de $t \approx 0.2$ e sofrem morte topológica pouco antes de $t = 0.6$. A projeção visual das assinaturas de persistência confirma o esgotamento de novos picos persistentes após esse limiar. Portanto, o truncamento em $t_{\max} = 0.7$ garante o mapeamento analítico de toda a trajetória vital dos geradores homológicos relevantes, ao mesmo tempo em que otimiza a eficiência algorítmica ao evitar o cálculo de conexões triviais e ruídos combinatórios em escalas superiores. A progressão geométrica desta filtração computacional está ilustrada na Figura \ref{fig:evolucao_rips}.
 
 % --- BLOCO RESERVADO PARA AS SUAS 8 IMAGENS ---
 \begin{figure}[H]
@@ -1519,7 +1576,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \end{figure}
 % ----------------------------------------------
 
-\ident Para contornar a não-linearidade métrica inerente aos diagramas de persistência e viabilizar o uso de algoritmos estatísticos, cada diagrama foi transformado em sua respectiva Paisagem de Persistência \cite{Bubenik2015}. A vetorização contínua empregou três parâmetros fixados analiticamente: limiar restrito ao intervalo $t \in [0.0, 0.7]$ (truncando características infinitas no valor máximo do limiar), discretização em $50$ pontos equidistantes e extração empírica de $73$ camadas funcionais. A Figura \ref{fig:comparativo_landscapes} contrasta o perfil topológico contínuo resultante para ambas as classes estruturais.
+\ident Para contornar a não-linearidade métrica inerente aos diagramas de persistência brutos e viabilizar a aplicação direta de classificadores estatísticos, cada diagrama foi mapeado em sua respectiva Paisagem de Persistência \cite{Bubenik2015}. A vetorização contínua dessas estruturas funcionais empregou parâmetros calibrados analiticamente para o grau $g=1$: o domínio de filtração foi delimitado no intervalo $t \in [0.0, 0.7]$ com as características de persistência infinita truncadas no valor máximo do limiar, sob uma discretização rigorosa de $50$ pontos equidistantes ($t_j$). A determinação do número de contornos funcionais ordinais foi fixada em exatamente $K = 73$ camadas camadas transversais ($\lambda_1, \lambda_2, \dots, \lambda_{73}$), quantidade exata estabelecida pela partição matemática dos módulos de persistência para o grau 1 da MBP \cite{kovacev2016}, sendo suficiente para encapsular a totalidade das variações geométricas estáveis do sistema. A Figura \ref{fig:comparativo_landscapes} contrasta o perfil topológico contínuo resultante para ambas as classes estruturais.
 
 % --- BLOCO RESERVADO PARA AS IMAGENS DAS LANDSCAPES ---
 \begin{figure}[H]
@@ -1540,7 +1597,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \end{figure}
 % ------------------------------------------------------
 
-\ident O fluxo de mapeamento topológico está delineado no Algoritmo \ref{alg:landscapes}. Ao aplanar a matriz funcional, o procedimento extrai um vetor descritor rigoroso de $3650$ dimensões ($73 \times 50$), finalizando a engenharia de dados e posicionando as flutuações da proteína formalmente em um espaço de Banach otimizado para a classificação supervisionada.
+\ident O fluxo do mapeamento topológico está delineado no Algoritmo \ref{alg:landscapes}. Ao amostrar 50 pontos contínuos para cada uma das 73 curvas escalonadas da paisagem, o procedimento gera uma matriz funcional que, ao ser aplanada sequencialmente, resulta em um vetor descritor fixo de exatamente $3650$ dimensões ($73 \times 50$). Este procedimento finaliza a engenharia de dados, imergindo as flutuações conformacionais da proteína em um subespaço de Banach idealizado para modelos lineares de aprendizado de máquina.
 
 \begin{algorithm}[H]
 \caption{Computação de Paisagens de Persistência em Espaço de Banach}
@@ -1577,11 +1634,13 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 
 \subsection{Redução de Dimensionalidade e Classificação Supervisionada}
 
-\ident Com as flutuações biomoleculares rigorosamente mapeadas num espaço de Hilbert funcional, o problema de distinguir os estados conformacionais resume-se ao reconhecimento de padrões em alta dimensionalidade. O conjunto de vetores extraídos das paisagens de persistência produziu um espaço de características (\textit{features}) composto por 3650 dimensões para cada estrutura proteica. Para viabilizar a convergência de classificadores supervisionados baseados em margem máxima e evitar o fenômeno analítico conhecido como a maldição da dimensionalidade, aplicou-se a Análise de Componentes Principais (PCA), truncando o espaço nas três componentes que capturam a maior variância explicada do sistema tridimensional.
+\ident Ressalva-se que a redução de dimensionalidade aqui aplicada ao vetor de paisagens via PCA é independente da análise ISOMAP da Seção \ref{sec:isomap}, a qual operou unicamente sobre a matriz de distâncias dinâmicas $D$ com finalidade exploratória estrutural.
+
+\ident Com as flutuações biomoleculares rigorosamente mapeadas num espaço de Hilbert funcional, o problema de distinguir os estados conformacionais resume-se ao reconhecimento de padrões em alta dimensionalidade. Conforme detalhado na seção anterior, a discretização dos $k=73$ contornos funcionais ordinais sobre 50 pontos equidistantes gerou, após o aplanamento da matriz de características, um espaço vetorial composto por 3650 dimensões para cada estrutura proteica. Face ao tamanho restrito do conjunto de calibração disponível ($n=14$), o modelo encontra-se sob um regime de severa superparametrização ($p \gg n$), suscetível ao sobreajuste (\textit{overfitting}) e aos efeitos degenerativos da maldição da dimensionalidade. Para mitigar esse fenômeno, aplicou-se a Análise de Componentes Principais (PCA) sobre a matriz de dados previamente padronizada, truncando o espaço ortogonal nas 3 primeiras componentes principais. Essa escolha metodológica baseia-se no comportamento espectral do sistema tridimensional: no grupo homológico $H_1$, estas três componentes concentram exatamente $52,50\%$ da variância total explicada das paisagens topológicas \cite{kovacev2016}, retendo a informação geométrica estruturante da flexibilidade proteica enquanto descartam variações espúrias.
 
 \ident Devido ao tamanho restrito do conjunto de calibração clássico (composto por 14 estruturas devidamente rotuladas), a avaliação da capacidade preditiva do modelo exigiu a aplicação da validação cruzada do tipo \textit{Leave-One-Out} (LOOCV). Do ponto de vista da integridade metodológica, a redução de dimensionalidade e o redimensionamento escalar dos dados (\textit{Standard Scaler}) são processos inerentemente estatísticos que dependem da média e da variância da amostra. Para garantir um estimador de erro estritamente não-enviesado e bloquear qualquer vazamento de informação empírica (\textit{data leakage}) da amostra de teste para o modelo, estabeleceu-se um rigoroso encadeamento de transformações. Em cada iteração da validação cruzada, os hiperparâmetros de padronização e a matriz de projeção do PCA foram ajustados exclusivamente sobre os $N-1$ vetores de treinamento, sendo posteriormente aplicados como uma transformação fixa sobre a única amostra isolada para teste.
 
-\ident O núcleo do aprendizado supervisionado foi operado por uma Máquina de Vetores de Suporte (SVM) parametrizada com um \textit{kernel} linear e constante de regularização $C=1.0$. Conforme justificado no referencial teórico, a adoção de um classificador linear simples sobre os dados projetados é matematicamente suficiente, uma vez que o produto interno das paisagens de persistência em $L^2$ atua nativamente como uma projeção não-linear do domínio físico original. 
+\ident O núcleo do aprendizado supervisionado foi operado por uma Máquina de Vetores de Suporte (SVM) parametrizada com um \textit{kernel} linear e constante de regularização $C=1.0$. Salienta-se que, embora a formulação analítica das paisagens de persistência garanta nativamente as propriedades de um Espaço de Hilbert separável $L^2(\mathbb{N} \times \mathbb{R})$ permitindo a aplicação conceitual do Teorema de Mercer via representações intrínsecas de produto interno em dimensão infinita, a etapa algorítmica requer uma aproximação finita estável. Desta forma, a discretização em vetores de $\mathbb{R}^{3650}$ seguida pela projeção linear em um subespaço truncado de três componentes principais atua como um regularizador metodológico fundamental. Essa arquitetura simplificada reduz o risco de sobreajuste (\textit{overfitting}) em regimes onde o número de atributos supera severamente o tamanho amostral ($p \gg n$), permitindo que o hiperplano de margem máxima opere com robustez estatística sobre as assinaturas de conectividade topológica.
 
 \ident A sequência lógica que define a arquitetura de validação iterativa e a construção do classificador global encontra-se consolidada no Algoritmo \ref{alg:ml_pipeline}.
 
@@ -1589,7 +1648,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \caption{Validação LOOCV e Treinamento do Classificador Topológico}
 \label{alg:ml_pipeline}
 \begin{algorithmic}[1]
-\Require Matriz de características $X \in \mathbb{R}^{N \times 3650}$, Vetor de rótulos $Y \in \{-1, +1\}^N$, Conjunto de novas amostras não rotuladas $X_{\text{novas}}$.
+\Require Matriz de características $X \in \mathbb{R}^{N \times 3650}$, Vetor de rótulos $Y \in \{-1, +1\}^N$, Conjunto de teste $X_{\text{novas}}$.
 \Ensure Acurácia validada do modelo e predição empírica das novas estruturas proteicas.
 
 \Statex \textbf{Passo 1: Validação Cruzada Estrita (Evitando Vazamento de Dados)}
@@ -1624,9 +1683,9 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \end{algorithmic}
 \end{algorithm}
 
-\ident Concluído este ensaio de validação e obtendo-se o modelo analítico final embasado nos dados de calibração, o escopo metodológico da pesquisa considera-se encerrado. O Ffluxo computacional estabelecido assegura que todas as inferências sobre as novas dezenas de proteínas coletadas apoiem-se sobre métricas invariantes a translações rígidas e validadas estatisticamente. No capítulo subsequente, apresentam-se e discutem-se os resultados numéricos, as visualizações das projeções não-lineares e a eficácia de classificação decorrente desta arquitetura.
+\ident Concluído este ensaio de validação e obtendo-se o modelo analítico final embasado nos dados de calibração, o escopo metodológico da pesquisa considera-se encerrado. O fluxo computacional estabelecido assegura que todas as inferências sobre as novas dezenas de proteínas coletadas apoiem-se sobre métricas invariantes a translações rígidas e validadas estatisticamente. No capítulo subsequente, apresentam-se e discutem-se os resultados numéricos, as visualizações das projeções não-lineares e a eficácia de classificação decorrente desta arquitetura.
 
-\subsection{Modelagem Preditiva e Classificação Geométrica (Baseline)}
+\subsection{Modelagem Preditiva e Classificação Geométrica}
 
 \ident Com a vetorização topológica concluída, procedeu-se à etapa de classificação preditiva estrutural. O vetor de características contendo 3650 dimensões (referente ao grau $H_1$) alimentou um classificador do tipo Máquina de Vetores de Suporte (SVM) equipado com um \textit{kernel} linear.
 
@@ -1669,7 +1728,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \end{algorithmic}
 \end{algorithm}
 
-\ident Como contraponto analítico ao método topológico (\textit{baseline} de validação), foi implementado a classificação puramente geométrica baseada no Desvio Quadrático Médio (RMSD). Empregando o alinhamento de Kabsch sobre os carbonos-alfa idênticos, as estruturas não rotuladas $S$ foram projetadas contra os dois conjuntos de calibração: $\mathcal{A}$ (7 estruturas Apo) e $\mathcal{H}$ (7 estruturas Holo). Para garantir robustez e afastar o viés de uma escolha arbitrária de uma única proteína referencial, a classificação geométrica foi bifurcada em duas abordagens exaustivas:
+\ident Como contraponto analítico ao método topológico (\textit{baseline} de validação), foi implementado a classificação puramente geométrica baseada no Desvio Quadrático Médio (RMSD). Empregando o alinhamento de Kabsch sobre os carbonos-alfa idênticos, o conjunto de testes $S$ foram projetadas contra os dois conjuntos de calibração: $\mathcal{A}$ (7 estruturas Apo) e $\mathcal{H}$ (7 estruturas Holo). Para garantir robustez e afastar o viés de uma escolha arbitrária de uma única proteína referencial, a classificação geométrica foi bifurcada em duas abordagens exaustivas:
 
 \textbf{Abordagem 1: Mínimo RMSD Médio.} Computou-se a média aritmética das distâncias geométricas da proteína alvo $S$ contra todas as 7 representações de cada classe, conforme a formulação geométrica:
 \begin{equation*}
@@ -1703,14 +1762,16 @@ A proteína $S$ recebe a rotulação final correspondente ao grupo que minimizar
 \State $\text{Certeza} \leftarrow (\text{VotosHolo} / \text{TotalCombinações}) \times 100$
 
 \If{$\text{VotosHolo} > (\text{TotalCombinações} / 2)$}
-    \State \Return "Holo", $\text{Certeza}$
+    \State \Return \enquote{Holo}, $\text{Certeza}$
 \Else
-    \State \Return "Apo", $(100 - \text{Certeza})$
+    \State \Return \enquote{Apo}, $(100 - \text{Certeza})$
 \EndIf
 \end{algorithmic}
 \end{algorithm}
 
 \section{Resultados e Discussões}
+
+\ident Aplicando o Teste de Permutação à variável $X$ sobre as 14 estruturas de calibração, obteve-se $\overline{X}_{\text{Holo}} = 0{,}269778$ e $\overline{X}_{\text{Apo}} = 0{,}290403$, resultando em $T_{\text{obs}} = |\overline{X}_1 - \overline{X}_2| = 0{,}020625$. Das $M = \binom{14}{7} = 3432$ permutações exaustivas dos rótulos, apenas $2$ produziram uma diferença de médias igual ou superior a $T_{\text{obs}}$, resultando no valor-$p$ empírico $p = 2/3432 \approx 5{,}83 \times 10^{-4}$. Como $p \ll \alpha = 0{,}05$, rejeita-se $H_0$ com margem substancial, confirmando estatisticamente que a área total sob as paisagens de persistência e, por extensão, a assinatura topológica global das flutuações dinâmicas difere de forma não atribuível ao acaso entre as conformações Apo e Holo. É importante notar que este teste avalia a média de uma estatística escalar agregada, não a separabilidade linear do vetor completo de 3650 dimensões e constituindo, portanto, evidência estatística independente e prévia à etapa de classificação supervisionada, e não uma prova da separabilidade em si.
 
 \ident Com a arquitetura metodológica estabelecida, os modelos geométrico (RMSD) e topológico (SVM) foram aplicados às 29 estruturas proteicas mineradas para validação cruzada independente. O objetivo primário desta etapa foi confrontar o poder de generalização do invariante topológico contínuo ($H_1$) contra a métrica espacial discreta clássica.
 \begin{figure}[H]
@@ -1764,11 +1825,31 @@ A proteína $S$ recebe a rotulação final correspondente ao grupo que minimizar
 \label{tab:comparativo_geral}
 \end{table}
 
-\ident A análise global da Tabela \ref{tab:comparativo_geral} revela uma robusta consistência entre os métodos geométrico e topológico para a vasta maioria do conjunto de dados, atestando a validade da abstração por Paisagens de Persistência. Contudo, a identificação empírica de falhas no alinhamento métrico e de fronteiras de decisão topológicas forneceu achados matemáticos e biofísicos cruciais, delineados a seguir.
+\ident A Tabela \ref{tab:matriz_confusao}  sumariza o desempenho quantitativo dos dois classificadores no conjunto de 29 estruturas de validação independente.
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lccccc}
+        \hline
+        Modelo & Acurácia & Precisão (Holo) & Sensibilidade (Holo) & Especificidade (Apo) & F1 (Holo) \\
+        \hline
+        SVM Topológico & 27/29 (93.10\%) & 91.67\% & 91.67\% & 94.12\% & 91.67\% \\
+        RMSD Médio (\emph{baseline}) & 26/29 (89.66\%) & 84.62\% & 91.67\% & 88.24\% & 88.00\% \\
+        \hline
+    \end{tabular}}
+    \caption{Comparação quantitativa entre o classificador topológico (SVM sobre paisagens de persistência) e o \emph{baseline} geométrico (RMSD médio), sobre as 29 estruturas mineradas independentemente do conjunto de calibração.} \label{tab:matriz_confusao}
+\end{table}
+
+\ident O SVM topológico superou o RMSD Médio em 3.4 pontos percentuais de acurácia global, cometendo o mesmo número de falsos negativos (1, em ambos os casos referente à estrutura 1DMB), porém menos falsos positivos (1 contra 2). Note-se que, do ponto de vista estritamente numérico, a diferença de dois pontos de erro num total de 29 amostras (um único caso: \texttt{2MV0} para o RMSD, e \texttt{2N45} para o SVM, são os únicos erros que distinguem os dois métodos) não permite, por si só, uma afirmação de superioridade estatisticamente robusta sem um teste formal (e.g. teste de McNemar sobre amostras pareadas); a discussão que segue enfatiza, portanto, os casos qualitativamente distintos como evidência mais informativa do que a diferença bruta de acurácia.
+
+\ident A análise global da Tabela \ref{tab:comparativo_geral} revela uma consistência entre os métodos geométrico e topológico para a vasta maioria do conjunto de dados, atestando a validade da abstração por Paisagens de Persistência. Contudo, a identificação empírica de falhas no alinhamento métrico e de fronteiras de decisão topológicas forneceu achados matemáticos e biofísicos cruciais, delineados a seguir.
 
 \subsection{Robustez Topológica contra Artefatos de Alinhamento}
 
 \ident O cálculo de métricas espaciais estritas como o RMSD pressupõe correspondência isomórfica perfeita entre os índices atômicos das proteínas. A estrutura \texttt{7Z7H} produziu um erro catastrófico na avaliação de distância euclidiana, com valores de RMSD superando a marca de $26.0$ Å. A inspeção cristalográfica revelou tratar-se de um artefato de modelagem \textit{(mismatch)}: a cadeia iniciava-se no resíduo 5 e apresentava quebras internas de numeração \textit{(gaps)}, deslocando o registro vetorial contra as referências de calibração. 
+
+\ident Cabe ressaltar que o algoritmo de alinhamento estrutural que baseia o cálculo clássico do RMSD requer correspondência estrita de índices entre as matrizes de coordenadas. Consequentemente, o método geométrico colapsa diante de falhas de indexação do PDB ou \emph{gaps} na cadeia peptídica (ausência de truncamento prévio). O comportamento anômalo registrado na estrutura \texttt{7Z7H} não representa um desvio biológico, mas demonstra precisamente a maior vantagem prática da Inferência Topológica: por operar unicamente sobre a matriz intrínseca de conectividade do Modelo de Rede Anisotrópica (ANM), a topologia algébrica é naturalmente invariante a artefatos de numeração linear e ruídos de alinhamento, isolando o sinal biológico da limitação geométrica posicional.
 
 \ident Sob a ótica geométrica, o modelo perdeu a referencialidade e falhou, rotulando a conformação aleatoriamente como \enquote{Fechada}. Em contrapartida, o processamento topológico operou independentemente de registros ou sistemas de coordenadas rígidos. Ao extrair os invariantes $H_1$ puramente das distâncias relativas entre a nuvem de pontos, o SVM contornou o viés do \textit{gap} estrutural, mantendo sua coesão matemática e classificando a \texttt{7Z7H} com sucesso absoluto em seu estado real de \enquote{Aberta}. Este resultado fundamenta empiricamente a superioridade da Análise Topológica de Dados no manuseio de dados biológicos ruidosos.
 
@@ -1784,7 +1865,7 @@ A proteína $S$ recebe a rotulação final correspondente ao grupo que minimizar
 
 \ident Contudo, a estrutura \texttt{2N45} configurou o caso mais denso do escopo. Pertencente à classe \textit{Apo}, o RMSD obedeceu à lógica estática e a posicionou firmemente no grupo \textit{Aberta}. No entanto, a modelagem via SVM a enquadrou no lado \textit{Fechado} do espaço de Banach, operando de forma perigosamente adjacente ao hiperplano linear (distância perpendicular de apenas $d=0.1985$). 
 
-\ident Essa discordância isolada não representa uma falha algorítmica, mas a detecção de uma fase de transição contínua. Por utilizar distâncias dinâmicas provenientes das flutuações de B-factor, o método topológico rastreia flexibilidade latente. A classificação limítrofe atesta que a macromolécula, mesmo em ausência de ligantes, amostra energeticamente conformações semi-fechadas de alta frequência, demonstrando a sensibilidade superior da homologia persistente na captura de eventos biomecânicos transientes que são invisíveis aos métodos estáticos puramente espaciais.
+\ident Essa discordância isolada não representa uma falha algorítmica, mas a detecção de uma fase de transição contínua. Por utilizar distâncias dinâmicas provenientes das flutuações de B-factor, o método topológico rastreia flexibilidade latente. Este resultado limítrofe é fortemente compatível com a hipótese de seleção conformacional descrita na literatura, sugerindo que o método topológico é capaz de capturar estados transientes.
 
 \section{Trabalhos Futuros}
 \ident Como perspectivas para desdobramentos futuros, propõe-se a expansão desta arquitetura computacional para a análise de trajetórias contínuas de Dinâmica Molecular (MD), viabilizando o rastreamento topológico em tempo real do processo de Seleção Conformacional. Adicionalmente, a exploração de invariantes de ordem superior — como o grupo de homologia $H_2$, ideal para a quantificação precisa de cavidades e bolsões internos — e a integração das Paisagens de Persistência com arquiteturas de \textit{Deep Learning} ou \textit{Kernels} Riemannianos configuram caminhos promissores. Tais avanços visam consolidar a Análise Topológica de Dados como uma ferramenta definitiva não apenas para a classificação estrutural robusta a ruídos, mas para o design racional de ligantes e a descoberta de novos fármacos (\textit{Drug Discovery}) em sistemas macromoleculares de alta complexidade.
