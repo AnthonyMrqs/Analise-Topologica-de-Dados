@@ -6,7 +6,6 @@
 \usepackage[brazilian]{babel}
 \usepackage[autostyle=true]{csquotes}
 \usepackage{lmodern}
-\usepackage{csquotes}
 \usepackage{booktabs}
 
 % --- Matemática e Física ---
@@ -38,7 +37,6 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{xcolor}
-\usepackage{caption}
 \captionsetup{margin=1.5cm, labelfont=bf, font=small, justification=justified}
 
 % --- Sumário, Índices e Organização ---
@@ -52,12 +50,13 @@
 \addbibresource{refs.bib}
 
 % --- Teoremas e Definições ---
+\theoremstyle{plain}
 \newtheorem{theorem}{Teorema}[section]
-\newtheorem{definition}{Definição}[section]
 \newtheorem{proposition}{Proposição}[section]
 \newtheorem{corollary}{Corolário}[section]
 
 \theoremstyle{definition}
+\newtheorem{definition}{Definição}[section]
 \newtheorem{example}{Exemplo}[section]
 
 \theoremstyle{remark}
@@ -151,7 +150,7 @@
     % Título do Trabalho
     \begin{center}
         \fontsize{16pt}{20pt}\selectfont
-        \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+        \textbf{Análise Topológica de Dados Aplicada a Biologia Molecular}
     \end{center}
 
     \vfill
@@ -205,7 +204,7 @@
     % Título do Trabalho
     \begin{center}
         \fontsize{16pt}{20pt}\selectfont
-        \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+        \textbf{Análise Topológica de Dados Aplicada a Biologia Molecular}
     \end{center}
 
     \vfill
@@ -252,7 +251,7 @@
 
 \begin{center}
     \fontsize{14pt}{18pt}\selectfont
-    \textbf{Análise Topológica de Dados Aplicada a dados de Biologia}
+    \textbf{Análise Topológica de Dados Aplicada a Biologia Molecular}
 \end{center}
 
 \vspace{1.5cm}
@@ -322,12 +321,12 @@
 
 \ident A \textit{Maltose-Binding Protein} (MBP) é uma macromolécula essencial no sistema de captação e transporte de maltodextrinas na bactéria \textit{Escherichia coli} \cite{Boos1998, spurlino1991}. Estruturalmente, a MBP é dividida em dois domínios globulares principais interconectados por uma região de dobradiça flexível (\textit{hinge}). 
 
-\ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}) \cite{bucher2011}., onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
+\ident A relevância da MBP para este estudo reside na sua mecânica funcional: ela atua transitando predominantemente entre dois estados conformacionais. Na ausência de um ligante, a proteína adota uma conformação \textit{Apo} (aberta). Quando há a presença e ligação do açúcar (como a maltose), ela transita para a conformação \textit{Holo} (fechada), aprisionando o substrato. Historicamente, a transição entre esses estados gerou debates entre modelos clássicos, como o Encaixe Induzido (\textit{Induced Fit}), onde o ligante força o fechamento, e a Seleção Conformacional (\textit{Conformational Selection}) \cite{bucher2011}, onde a proteína já oscila naturalmente para a forma fechada e o ligante apenas estabiliza essa forma.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Imagens/conformidade_proteina.png} 
-    \caption{Representação das transições conformacionais da MBP. Da esquerda para a direita: Estado Aberto, Semi-fechado transiente e Fechado estabilizado pelo ligante (em vermelho). (A) A apoproteína é suficientemente flexível para exibir movimentos de abertura para fechamento, e o papel do ligante é estabilizar a forma fechada. (B) A proteína não ligada é incapaz de atingir a forma fechada, e a plasticidade estrutural é dependente do ligante. (C) Uma combinação das etapas A e B é necessária para atingir a conformação fechada.Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
+    \caption{Representação das transições conformacionais da MBP. Da esquerda para a direita: Estado Aberto, Semi-fechado transiente e Fechado estabilizado pelo ligante (em vermelho). (A) A apoproteína é suficientemente flexível para exibir movimentos de abertura para fechamento, e o papel do ligante é estabilizar a forma fechada. (B) A proteína não ligada é incapaz de atingir a forma fechada, e a plasticidade estrutural é dependente do ligante. (C) Uma combinação das etapas A e B é necessária para atingir a conformação fechada. Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}
     \label{fig:mbp_conformations}
 \end{figure}
 
@@ -336,7 +335,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{Imagens/estagios_mbp_3d.png}  
-    \caption{Vistas lateral e superior da MBP, mostrando o tamanho e a forma do sítio de ligação que é modulado pelo estado conformacional da proteína. A cor vermelha indica que os resíduos estão próximos ao centro de massa da proteína, onde o sítio de ligação está localizado. As estruturas de raios X são mostradas para o estado aberto não ligado (entrada PDB 1OMP) e para o estado fechado ligado (entrada PDB 3MBP). Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}  
+    \caption{A esquerda, o mecanismo de transição conformacional da MBP visualizado através de diagramas de fitas. O modelo destaca a estrutura secundária da proteína, onde as molas coloridas indicam as hélices-$\alpha$ e os fios finos correspondem aos \textit{loops} de conexão. A variação espacial dessas estruturas entre as formas \textit{Open}, \textit{Semi-closed} e \textit{Closed} demonstra de forma clara o movimento de dobradiça (\textit{hinge-bending}) responsável pela captura do ligante na fenda central. A direita, a vista superior da MBP, mostrando o tamanho e a forma do sítio de ligação que é modulado pelo estado conformacional da proteína. A cor vermelha indica que os resíduos estão próximos ao centro de massa da proteína, onde o sítio de ligação está localizado. As estruturas de raios X são mostradas para o estado aberto não ligado (entrada PDB 1OMP) e para o estado fechado ligado (entrada PDB 3MBP). Fonte: Adaptado de Bucher et al.~\cite{bucher2011}.}  
 \end{figure}
 
 \subsection{O Modelo de Rede Anisotrópica (ANM)}
@@ -351,7 +350,7 @@
 A dedução analítica detalhada da energia potencial, a formulação tridimensional da Matriz Hessiana $H$ e sua decomposição espectral (cálculo dos autovalores e autovetores associados aos modos normais de vibração) envolvem um forte arcabouço de física mecânica e estatística que foge ao escopo puramente topológico do texto principal. Portanto, toda a fundamentação física e algébrica do ANM encontra-se detalhada no Apêndice \ref{apx:anm}.
 \end{remark}
 
-\ident Do ponto de vista matemático para a classificação estrutural, o resultado fundamental do modelo ANM repousa na inversa pseudogeneralizada da Matriz Hessiana. A partir dos modos de baixa frequência (geralmente os 20 primeiros modos não triviais, que ditam os movimentos globais da proteína \cite{atilgan2001, kovacev2016}), constrói-se a Matriz de Correlação Cruzada ($C$). 
+\ident Do ponto de vista matemático para a classificação estrutural, o resultado fundamental do modelo ANM repousa na inversa pseudogeneralizada da Matriz Hessiana (Ver apêndice \ref{apx:anm}). A partir dos modos de baixa frequência (geralmente os 20 primeiros modos não triviais, que ditam os movimentos globais da proteína \cite{atilgan2001, kovacev2016}), constrói-se a Matriz de Correlação Cruzada ($C$). 
 
 \ident Cada elemento $C_{ij}$ desta matriz quantifica a correlação entre as flutuações vetoriais do resíduo $i$ e do resíduo $j$. Valores de $C_{ij}$ próximos a $1$ indicam movimentos altamente correlacionados (na mesma direção), próximos a $-1$ indicam movimentos anticorrelações (direções opostas), e valores próximos a $0$ indicam ausência de correlação dinâmica \cite{kovacev2016}.
 
@@ -405,17 +404,19 @@ Seja $V$ um conjunto (chamado de conjunto de vértices). Um complexo simplicial 
 
 Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter essa imagem geométrica em mente no que se segue.
 
-\ident Por convenção, ao falar de simplexos, usamos colchetes em vez de chaves. Por exemplo, o simplexo ${0, 1}$ será denotado por $[0, 1]$. 
+\ident Por convenção, ao falar de simplexos, usamos colchetes em vez de chaves. Por exemplo, o simplexo $\{0, 1\}$ será denotado por $[0, 1]$, não confundir com a notação de índices. 
 
 
 \ident Se $\sigma \in K$ é um simplexo, seus subconjuntos não vazios $\tau \subset \sigma$ são chamados de faces de $\sigma$, e $\sigma$ é chamado de coface de $\tau$. Por exemplo, $[0, 1]$ é uma face de $[0, 1, 2]$, e $[0, 1, 2]$ é uma coface de $[0, 1]$.
+
+\ident Se $\sigma$ é um simplexo, sua dimensão é definida como $|\sigma|-1$ (cardinalidade de $\sigma$ menos 1). Se $K$ é um complexo simplicial, sua dimensão é definida como a dimensão máxima de seus simplexo.
 
 \begin{example}\label{ex_3_1}
     Seja $V = \{0, 1, 2\}$ e
     \begin{align*}
         K = \left\{ [0], [1], [2], [0, 1], [1, 2], [2, 0]\right\}.
     \end{align*}
-    É um complexo simplicial de dimensão 1, onde todos os vértices se ligam. Pode ser representado dessa forma:
+    É um complexo simplicial de dimensão 1 (1-simplexo), onde todos os vértices se ligam. Pode ser representado dessa forma:
 
     \begin{figure}[H]
         \centering
@@ -432,8 +433,6 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
     Este não é um complexo simplicial. De fato, o simplexo $[0, 1, 2]$ admite uma face $[2, 0]$ que não está incluída em $V$.
 \end{example}
 
-\ident Se $\sigma$ é um simplexo, sua dimensão é definida como $|\sigma|-1$ (cardinalidade de $\sigma$ menos 1). Se $K$ é um complexo simplicial, sua dimensão é definida como a dimensão máxima de seus simplexo.
-
 \begin{remark}
     Ao desenhar um complexo simplicial, os simplexos não devem se cruzar. No entanto, nem sempre é possível desenhar um complexo simplicial no plano (ou espaço) dessa maneira. Como exemplo, o grafo bipartido $K_{3,3}$ é um complexo simplicial de dimensão 1 (um grafo) que não pode ser desenhado no plano sem se cruzar.
 \end{remark}
@@ -444,7 +443,7 @@ Note que o simplexo $\Delta_n$ é descrito por $n + 1$ vértices. Vamos manter e
         |K| = \bigcup_{\sigma \in K} \textup{conv}(\{e_j, j \in \sigma\})
     \end{align*}
     onde $\textup{conv}$ representa o fecho convexo (Definição \ref{fecho_convexo}).
-    Munido da topologia de subespaço, $(|K|, \tau_{|K|})$ é um espaço topológico, que denominamos realização topológica de $K$.
+    Munido da topologia de subespaço, $(|K|, \tau_{|K|})$ é um espaço topológico (Ver apêndice \ref{apx:topologia}), que denominamos realização topológica de $K$.
     
 \end{definition}
 
@@ -547,8 +546,8 @@ O operador $\partial_n$ estende-se por linearidade a uma aplicação linear $\pa
     \end{figure}
     De modo semelhante, a fronteira da 1-cadeia $ [0, 1] + [1, 2] + [2, 0]$ é
     \begin{align*}
-        \partial_1\left([0, 1] + [1, 2] + [2, 0]\right) &= \partial_1[0, 1] + \partial_1[0, 2] + \partial_1[2, 0]\\
-        &= [0] + [1] + [0] + [2] + [2] + [0]\\
+        \partial_1\left([0, 1] + [1, 2] + [2, 0]\right) &= \partial_1[0, 1] + \partial_1[1, 2] + \partial_1[2, 0]\\
+        &= [0] + [1] + [1] + [2] + [2] + [0]\\
         &= 0
     \end{align*}
     uma vez que $[0] + [0] = [1] + [1] = [2] + [2] = 0$ em $C_0(K)$.
@@ -566,7 +565,11 @@ O operador $\partial_n$ estende-se por linearidade a uma aplicação linear $\pa
     \end{figure}
 \end{example}
 
-\ident A aplicação linear de fronteira $\partial_n$ satisfaz a propriedade fundamental da topologia algébrica: $\partial_{n-1} \circ \partial_n = 0$. Esta identidade categórica permite-nos definir subespaços cruciais para o estudo das formas.
+\ident A aplicação linear de fronteira $\partial_n$ satisfaz a propriedade fundamental da topologia algébrica: 
+\[
+\partial_{n-1} \circ \partial_n = 0.
+\]
+Esta identidade categórica permite-nos definir subespaços cruciais para o estudo das formas.
 
 \begin{definition}[Ciclos e Fronteiras]
 Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
@@ -585,7 +588,7 @@ Sejam $K$ um complexo simplicial e $n \geq 0$. Definimos:
     \begin{align*}
         \partial_2(0) = 0 \quad \text{and}\quad \partial_2([0, 1, 2]) = [0, 1] + [0, 2] + [1, 2].
     \end{align*}
-    Vemos que as cadeias $[0, 2] + [2, 3] + [0, 3]$ e $[0, 1] + [1, 2] + [2, 3] + [0, 3]$ são homólogas.
+    Vemos que as cadeias $[0, 2] + [2, 3] + [0, 3]$ e $[0, 1] + [1, 2] + [2, 3] + [0, 3]$ são homólogas, isto é, as estrturas das cadeias se correspondem.
     De fato,
     \begin{align*}
         [0, 2] + [2, 3] + [0, 3] = [0, 1] + [1, 2] + [2, 3] + [0, 3] + [0, 1] + [0, 2] + [1, 2].
@@ -612,7 +615,7 @@ Demonstração em Tinarrage \cite{tinarrage2021}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Imagens/exemplo_n_betti.png}
-    \caption{Note que neste simplexo temos $\beta_0 = 1 $ (1 componente conexa), $\beta_1 = 2$ (2 buracos de dimensão 1 ou 2 triângulos não preenchidos) e $\beta_2 = 1$ (1 buracos de dimensão 2 ou 1 tetraedro não preenchido/oco).}
+    \caption{Note que neste complexo temos $\beta_0 = 1 $ (1 componente conexa), $\beta_1 = 2$ (2 buracos de dimensão 1 ou 2 triângulos não preenchidos) e $\beta_2 = 1$ (1 buracos de dimensão 2 ou 1 tetraedro não preenchido/oco).}
 \end{figure}
 
 \subsection{Inferência Topológica}
@@ -668,7 +671,7 @@ através da noção de coberturas.
 
 \begin{theorem}
     \hypertarget{teorema_nervo}{}
-    Suponha que Y seja um subconjunto de $\mathbb{R}^n$. Considere uma cobertura $\mathcal{U} = \left\{U_i\right\}_{1\leq i \leq N}$ de $Y$ tal que cada um dos $U_i$ são bolas fechadas e convexas. Então $\mathcal{N}(\mathcal{U})$ é homotopia equivalente a Y. (Ver figura \ref{cobertura_nervo}).
+    Suponha que X seja um subconjunto de $\mathbb{R}^n$. Considere uma cobertura $\mathcal{U} = \left\{U_i\right\}_{1\leq i \leq N}$ de $X$ tal que cada um dos $U_i$ são bolas fechadas e convexas. Então $\mathcal{N}(\mathcal{U})$ é homotopia equivalente a X. (Ver figura \ref{cobertura_nervo}).
 \end{theorem}
 \vspace{-0.6em}
 Demonstração em Tinarrage \cite{tinarrage2021}.
@@ -732,9 +735,10 @@ A curva de Betti é uma ferramenta ideal para compreender a evolução da homolg
             \includegraphics[width=\textwidth]{Imagens/espessamento_betti.png}
         \end{subfigure}
         \hfill
+        \caption{Na figura a direita, podemos observar espessamento de $X$ com $t=0.2$ e disso obtemos que $\beta_0 = 3$, ou seja, 3 componentes conexas e $\beta_1 = 0$.}
     \end{figure}
 
-    Na figura a direita, podemos observar espessamento de $X$ com $t=0.2$ e disso obtemos que $\beta_0 = 3$, ou seja, 3 componentes conexas e $\beta_1 = 0$. Agora, calculamos as curvas de Betti de $X$.
+    Agora, calculamos as curvas de Betti de $X$.
 
     \begin{figure}[H]
         \centering
@@ -899,7 +903,7 @@ A aplicação do functor de homologia de ordem $i$ resulta em um diagrama de esp
 \begin{align*}
     \dots \rightarrow H_i\left(\textnormal{Rips}^{t_1}(X)\right) \xrightarrow{\quad \left(i_{t1}^{t2}\right)_* \quad} H_i\left(\textnormal{Rips}^{t_2}(X)\right) \xrightarrow{\quad \left(i_{t2}^{t3}\right)_* \quad} H_i\left(\textnormal{Rips}^{t_3}(X)\right) \rightarrow \dots
 \end{align*}
-onde as aplicaçãoes $(i_s^t)_*$ são aquelas induzidas na homologia pelas inclusões $i_s^t$. Nessa sequência,podemos observar por quanto tempo um ciclo vive, ou persiste. Sejam $i \geq 0$, $t_0 \geq 0$ e considere um
+onde as aplicaçôes $(i_s^t)_*$ são aquelas induzidas na homologia pelas inclusões $i_s^t$. Nessa sequência,podemos observar por quanto tempo um ciclo vive, ou persiste. Sejam $i \geq 0$, $t_0 \geq 0$ e considere um
 ciclo $c \in H_i(\textnormal{Rips}^{t_0}(X))$. Seu tempo de morte é
 \begin{align*}
     \sup \{t \geq t_0, \left(i^t_{t0}\right)(c)\neq 0\}
@@ -955,11 +959,11 @@ correspondam a ruído topológico.
     \[
         \mathbb{V} \simeq \bigoplus_{I \in \mathcal{I}} \mathbb{B}[I].
     \]
-    O termo \enquote{multiconjunto} significa que $\mathcal{I}$ pode conter várias cópias do mesmo intervalo $I$. Diz-se que tal módulo é decomponível em módulos intervalares, ou simplesmente decomponível, quando o contexto estiver claro.
+    O termo \enquote{multiconjunto} significa que $\mathcal{I}$ pode conter várias cópias do mesmo intervalo $I$. Diz-se que tal módulo é decomponível em módulos intervalares, ou simplesmente decomponível.
 \end{definition}
 
 \begin{theorem}
-    Se um módulo de persistência $\mathbb{V}$ se decompõe em módulos intervalares, então o multiconjunto $\mathcal{I}$ de intervalos é único. Além disso, se todos espaços vetoriais $V^t$ de $\mathbb{V}$ tiverem dimensão finita, entãao $V$ se decompõe em módulos intervalares.
+    Se um módulo de persistência $\mathbb{V}$ se decompõe em módulos intervalares, então o multiconjunto $\mathcal{I}$ de intervalos é único. Além disso, se todos espaços vetoriais $V^t$ de $\mathbb{V}$ tiverem dimensão finita, então $V$ se decompõe em módulos intervalares.
 \end{theorem}
 
 Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\mathbb{V}$, ou simplesmente código de barras (\textit{barcode}). Escreve-se $\textnormal{Barcode}\left(\mathbb{V}\right)$.
@@ -1016,6 +1020,16 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
 
 \begin{figure}[H]
     \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Imagens/simplexo_diagrama.png}
+        \caption{Complexo Simplicial}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
     % --- linha 1: barcode + diagrama ---
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
@@ -1063,10 +1077,41 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     \end{subfigure}
 
     % Legenda completa e final com o rótulo principal
-    \caption{Construção da paisagem de persistência (continuação). 
-    (a)–(b) Barcode e diagrama de persistência padrão para $H_1$. (c) O mesmo diagrama com os triângulos de cada ponto $(b,d)$ explicitados: a perna vertical (nascimento) e a horizontal (morte) ligam o ponto à diagonal. (d) Cada triângulo de (c) corresponde a uma \enquote{tenda} $f_i(t)=\max(0,\min(t-b_i,\,d_i-t))$; a landscape $\lambda_k(t)$ é o $k$-ésimo maior valor dessas tendas em cada $t$, plotada aqui camada a camada. (e) As mesmas camadas $\lambda_k$, agora dispostas como um relevo tridimensional $(t, k, \lambda_k(t))$, evidenciando a estrutura de múltiplas camadas da landscape do complexo.}
+    \caption{Construção da paisagem de persistência do Complexo (a). 
+    (b)–(c) Barcode e diagrama de persistência padrão para $H_1$. (d) O mesmo diagrama com os triângulos de cada ponto $(b,d)$ explicitados: a perna vertical (nascimento) e a horizontal (morte) ligam o ponto à diagonal. (e) Cada triângulo de (d) corresponde a uma \enquote{tenda} $f_i(t)=\max(0,\min(t-b_i,\,d_i-t))$; a landscape $\lambda_k(t)$ é o $k$-ésimo maior valor dessas tendas em cada $t$, plotada aqui camada a camada. (f) As mesmas camadas $\lambda_k$, agora dispostas como um relevo tridimensional $(t, k, \lambda_k(t))$, evidenciando a estrutura de múltiplas camadas da landscape do complexo.}
     \label{fig:pipeline_landscape}
 \end{figure}
+
+\begin{definition}
+Seja $(\Omega, \mathcal{A}, \mu)$ um espaço de medida. Para $1 \le p < \infty$, o espaço de Lebesgue $L^p(\Omega)$ é definido como a coleção de todas as funções mensuráveis $f: \Omega \to \mathbb{R}$ cujas potências $p$-ésimas são integráveis segundo Lebesgue:
+\begin{equation*}
+L^p(\Omega) = \left\{ f: \Omega \to \mathbb{R} \;\middle|\; \|f\|_p = \left( \int_{\Omega} |f(x)|^p \, d\mu(x) \right)^{1/p} < \infty \right\}.
+\end{equation*}
+Para o caso limite $p = \infty$, o espaço $L^\infty(\Omega)$ consiste em funções essencialmente limitadas munidas da norma $\|f\|_\infty = \text{ess\,sup}_{x \in \Omega} |f(x)|$.
+\end{definition}
+
+\begin{definition}
+Um espaço vetorial normado $(V, \|\cdot\|)$ é denominado Espaço de Banach se ele é completo com respeito à métrica induzida por sua norma, isto é, se toda sequência de Cauchy em $V$ converge para um elemento pertencente a $V$.
+\end{definition}
+
+\begin{definition}
+Um Espaço de Hilbert $\mathcal{H}$ é um espaço vetorial dotado de um produto interno $\langle \cdot, \cdot \rangle_{\mathcal{H}}$ que é completo com respeito à norma induzida $\|f\|_{\mathcal{H}} = \sqrt{\langle f, f \rangle_{\mathcal{H}}}$.
+\end{definition}
+
+Ao fixar $p = 2$, o espaço de Lebesgue $L^2(\mathbb{N} \times \mathbb{R})$ torna-se um Espaço de Hilbert, em que o produto interno entre duas paisagens de persistência $\lambda_A$ e $\lambda_B$ é estipulado por:
+\begin{equation*}
+\langle \lambda_A, \lambda_B \rangle_{L^2} = \sum_{k=1}^{\infty} \int_{\mathbb{R}} \lambda_A(k, t) \, \lambda_B(k, t) \, dt.
+\end{equation*}
+
+A existência do produto interno em $L^2$ aciona diretamente o Teorema de Representação de Riesz:
+
+\begin{theorem}
+Seja $\mathcal{H}$ um Espaço de Hilbert e seja $\mathcal{H}^*$ seu espaço dual topológico. Para todo funcional linear contínuo $\phi \in \mathcal{H}^*$, existe um único elemento $y_{\phi} \in \mathcal{H}$ tal que:
+\begin{equation*}
+\phi(x) = \langle x, y_{\phi} \rangle_{\mathcal{H}}, \quad \forall x \in \mathcal{H}.
+\end{equation*}
+Além disso, a norma do funcional coincide com a norma do vetor representante: $\|\phi\|_{\mathcal{H}^*} = \|y_{\phi}\|_{\mathcal{H}}$.
+\end{theorem}
 
 \begin{definition}
     Sejam $\lambda (k,t)$ e $\lambda '(k,t)$ duas paisagens paisagens de persistências. A distância topológica (distância $p$-Paisagem) entre duas paisagens $\lambda$ e $\lambda'$ é dada pela norma em espaços de Banach $L^p$:
@@ -1075,7 +1120,7 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     \end{equation*}
 \end{definition}
 
-\ident O corolário analítico mais profundo advindo da formulação das Paisagens de Persistência encontra-se no fato de que a função $\lambda_k(t)$ é, por definição, um elemento do espaço integrável de Lebesgue $L^p(\mathbb{N} \times \mathbb{R})$. Uma vez que o espaço $L^p$ detém a estrutura de um Espaço de Banach, caracterizando-se como um espaço vetorial normado e completo, as barreiras algébricas inerentes aos diagramas de persistência não-lineares são superadas. A existência de um Espaço de Hilbert é de suma importância para a modelagem estatística, pois assegura a formulação rigorosa de um produto interno $\langle \lambda, \lambda' \rangle_{L^2}$. Consequentemente, a aplicabilidade do Teorema de Representação de Riesz fica matematicamente garantida, assegurando que qualquer funcional linear contínuo sobre este espaço funcional possa ser perfeitamente representado através deste produto interno. É precisamente esta transição exata, da combinatória abstrata dos complexos simpliciais para a continuidade analítica em espaços de Hilbert, que legitima o uso do Teorema de Mercer. Ao garantir a existência de uma função de \textit{kernel} simétrica e definida positiva associada a esse produto interno, o espaço de Hilbert viabiliza a utilização do método das Máquinas de Vetores de Suporte (que irá ser abordado na subseção \ref{secao_svm}), provendo a base teórica para o cálculo do hiperplano ótimo de separação entre os estados dinâmicos da proteína.
+\ident O corolário analítico mais profundo advindo da formalização das Paisagens de Persistência reside no fato de que cada função $\lambda_k(t)$ constitui, por construção, um elemento do espaço integrável de Lebesgue $L^p(\mathbb{N} \times \mathbb{R})$. Dado que o espaço $L^p$ é dotado de uma estrutura de Espaço de Banach — caracterizando-se como um espaço vetorial normado e completo —, as limitações algébricas e métricas inerentes aos diagramas de persistência não lineares são superadas. Em particular, ao fixar $p = 2$, a emergência de um Espaço de Hilbert possibilita a definição rigorosa do produto interno $\langle \lambda, \lambda' \rangle_{L^2}$, assegurando pela aplicabilidade do Teorema de Representação de Riesz que qualquer funcional linear contínuo sobre este espaço funcional admita uma representação integral única. Essa transição da combinatória discreta dos complexos simpliciais para a continuidade analítica em espaços de Hilbert fundamenta a evocação do Teorema de Mercer, o qual garante a existência de um \textit{kernel} simétrico e definido positivo associado a esse produto interno. É precisamente essa imersão funcional em um espaço vetorial linearmente estruturado que pavimenta o caminho para a modelagem supervisionada via Máquinas de Vetores de Suporte (que será formalmente desenvolvida na Subseção \ref{secao_svm}), provendo o suporte matemático para o cálculo do hiperplano ótimo de separação entre os diferentes estados dinâmicos da proteína.
 
 \section{Inferência Estatística sobre Invariantes Topológicos}
 
@@ -1090,7 +1135,7 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     X = \sum_{k=1}^{\infty} \int_{\mathbb{R}} \lambda_k(t) \, dt
 \end{equation}
 
-\ident Ao integrarmos as funções de paisagem no domínio real, a variável $X$ corresponde à área total abrangida por todos os contornos $\lambda(k, t)$, $k \in \mathbb{N}$, de uma paisagem de persistência. \cite{Bubenik2015}. Como as flutuações atómicas oriundas do Modelo de Rede Anisotrópica (ANM) possuem natureza estocástica, a paisagem gerada por cada amostra proteica é, consequentemente, uma realização empírica de um processo estocástico. Assim, $X$ herda as propriedades de uma variável aleatória com uma distribuição de probabilidade subjacente (e desconhecida) com esperança matemática $\mu$ e variância $\sigma^2$ \cite{devore2012}.
+\ident Ao integrarmos as funções de paisagem no domínio real, a variável $X$ corresponde à área total abrangida por todos os contornos $\lambda(k, t)$, $k \in \mathbb{N}$, de uma paisagem de persistência. \cite{Bubenik2015}. Como as flutuações atômicas oriundas do Modelo de Rede Anisotrópica (ANM) possuem natureza estocástica, a paisagem gerada por cada amostra proteica é, consequentemente, uma realização empírica de um processo estocástico. Assim, $X$ herda as propriedades de uma variável aleatória com uma distribuição de probabilidade subjacente (e desconhecida) com esperança matemática $\mu$ e variância $\sigma^2$ \cite{devore2012}.
 
 \subsection{Formulação das Hipóteses}
 
@@ -1102,11 +1147,38 @@ Nesse caso, $\mathcal{I}$ é chamado de código de barras de persistência de $\
     H_a &: \mu_1 \neq \mu_2 \quad \left(\parbox{7.5cm}{A hipótese alternativa: as topologias médias diferem significativamente}\right)
 \end{align*}
 
-\ident Devido à estrutura do espaço de Banach, a variável $X$ satisfaz a Lei dos Grandes Números e o Teorema Central do Limite \cite{Bubenik2015}. Isso implica que, para uma amostra suficientemente grande ($n \to \infty$), a distribuição da média amostral $\overline{X}$ aproximar-se-ia de uma distribuição Normal. Contudo, em contextos biológicos e cristalográficos, o número de estruturas resolvidas com alta qualidade é frequentemente limitado. 
+\begin{theorem}[Teorema dos Grandes Números]
+    Seja $X_1, X_2, \cdots, X_n$ uma sequência de variáveis aleatórias independentes e identicamente distribuídas (i.i.d.), com média (valor esperado) finito $E(X_i) = \mu$. A média amostral é definida por: 
+    \[
+        \overline{X} = \frac{1}{n} \sum_{i=1}^{n}X_i.
+    \]
+\end{theorem}
+O teorema garante que, sob o limite de infinitas amostras ($n \rightarrow \infty $), a média amostral converge para o valor esperado real da população:
+\[
+\overline{X}_n\xrightarrow{n \rightarrow \infty} \mu.
+\]
+
+\begin{theorem}[Teorema Central do Limite]
+    Sejam $X_1, X_2, \cdots, X_n$  os elementos de uma amostra aleatória extraída de uma distribuição com média $\mu$ e e variância $\sigma^2$ finitas. Para quaisquer $n$:
+    \begin{enumerate}
+        \item O valor esperado da média amostral $\overline{X}$ é igual à média populacional: $E(\overline{X} = \mu)$
+        \item A variância da média amostral é reduzida pelo tamanho da amostra: $V(\overline{X})= \frac{\sigma^2}{n}$.
+    \end{enumerate}
+    À medida que $n$ cresce para o infinito ($n \rightarrow \infty$), a média amostral $\overline{X}$ converge em distribuição para uma normal:
+    \begin{align*}
+        \overline{X} \xrightarrow{d} N\left(\mu, \frac{\sigma^2}{n}\right).
+    \end{align*}
+    Dessa forma, a variável padronizada $Z$ se aproxima da distribuição normal padrão $N(0, 1)$:
+    \begin{align*}
+        Z = \frac{\overline{X}-\mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1).
+    \end{align*}
+\end{theorem}
+
+\ident Devido à estrutura do espaço de Banach, a variável $X$ satisfaz a Lei dos Grandes Números e o Teorema Central do Limite \cite{Bubenik2015} \cite{devore2012}. Isso implica que, para uma amostra suficientemente grande ($n \to \infty$), a distribuição da média amostral $\overline{X}$ aproximar-se-ia de uma distribuição Normal. Contudo, em contextos biológicos e cristalográficos, o número de estruturas resolvidas com alta qualidade é frequentemente limitado. 
 
 \subsection{O Teste de Permutação Não-Paramétrico}
 
-\ident No estudo de Kovacev-Nikolic, a amostra disponível continha apenas $n = 14$ estruturas de MBP (sendo sete na forma aberta e sete na fechada) \cite{kovacev2016}. Com amostras tão diminutas, a suposição de normalidade exigida por testes paramétricos clássicos (como o teste $t$ de Student) não pode ser garantida com rigor \cite{devore2012}.
+\ident No estudo de Kovacev-Nikolic, a amostra disponível continha apenas $n = 14$ estruturas de MBP (sendo sete na forma aberta e sete na fechada) \cite{kovacev2016}. Com amostras tão diminutas, a suposição de normalidade exigida por testes paramétricos clássicos não pode ser garantida com rigor \cite{devore2012}.
 
 \ident Para contornar esta limitação de forma matematicamente exata, emprega-se o Teste de Permutação. Este é um método de inferência não-paramétrico que não assume qualquer distribuição prévia (como a gaussiana) para os dados \cite{devore2012}. O procedimento lógico do teste baseia-se na combinatória dos rótulos das classes sob a validade da hipótese nula $H_0$.
 
@@ -1190,9 +1262,9 @@ linearmente separáveis. Seja $T$ um conjunto de treinamento com $n$ dados $x_i 
 \begin{equation}\label{eq: hiperplano}
     f(x) = w \cdot x + b = 0
 \end{equation}
-em que $w \cdot x$ é o produto escalar entre os vetores $w$ e $x, w \in X$ é o vetor normal ao hiperplano descrito e $\frac{b}{\lVert w\rVert}$ corresponde à distância do hiperplano em relação à origem, com $b \in \mathfrak{R}$.
+em que $w \cdot x$ é o produto escalar entre os vetores $w$ e $x, w \in X$ é o vetor normal ao hiperplano descrito e $\frac{b}{\lVert w\rVert}$ corresponde à distância do hiperplano em relação à origem, com $b \in \mathbb{R}$.
 
-\ident A equação \eqref{eq: hiperplano} divide o espaço dos dados $X$ em duas regiiões: $w \cdot x + b > 0$ e $w \cdot x + b < 0$.  Podemos definir a função sinal
+\ident O hiperplano divide o espaço dos dados $X$ em duas regiiões: $w \cdot x + b > 0$ e $w \cdot x + b < 0$.  Podemos definir a função sinal
 \begin{equation*}
     g(x) = \sgn (f(x)) = \begin{cases}
         +1 \quad \text{se} \,\, w \cdot x + b > 0 \\
@@ -1203,7 +1275,7 @@ que tem como finalidade a obtenção das classificações.
 
 
 
-\ident A partir de $f(x)$, é possível obter um número infinito de hiperplanos equivalentes, pela multiplicação de w e b por uma mesma constante. Define-se o hiperplano canônico em relação ao conjunto $T$ como aquele em que $w$ e $b$ são escalados de forma que os exemplos mais próximos ao hiperplano $w \cdot x + b = 0$ satisfaçam a equação
+\ident A partir de $f(x)$, é possível obter um número infinito de hiperplanos equivalentes, pela multiplicação de $w$ e $b$ por uma mesma constante. Define-se o hiperplano canônico em relação ao conjunto $T$ como aquele em que $w$ e $b$ são escalados de forma que os pontos mais próximos ao hiperplano $w \cdot x + b = 0$ satisfaçam a equação
 \begin{equation*}
     \left|w \cdot x_i + b\right| = 1
 \end{equation*}
@@ -1223,7 +1295,7 @@ perpendicular ao hiperplano separador $w \cdot x + b = 0$, é possível obter a 
     (x_1 - x_2)\left(\frac{w}{\lVert w \rVert} \cdot \frac{(x_1 - x_2)}{\lVert x_1 - x_2\rVert}\right).
 \end{equation*}
 
-\ident Tem-se que $w \cdots x_1 + b = +1$ e $w \cdots x_2 + b = -1$. A diferença entre essas equações fornece $w \cdot (x_1 - x_2) = 2$, logo, obtem-se:
+\ident Tem-se que $w \cdot x_1 + b = +1$ e $w \cdot x_2 + b = -1$. A diferença entre essas equações fornece $w \cdot (x_1 - x_2) = 2$, logo, obtem-se:
 \begin{equation*}
     \frac{2}{\lVert w \rVert} \cdot \frac{(x_1 - x_2)}{\lVert x_1 - x_2\rVert}
 \end{equation*}
@@ -1240,11 +1312,19 @@ Como deseja-se obter o comprimento do vetor projetado, toma-se que a distância 
     \min_{w,b} \quad  &\frac{1}{2} \|w\|^2 \\[0.5cm]
     \text{sujeito a} \quad  y_i(w \cdot x_i + b) &\geq 1, \quad \forall i = 1, \cdots, n.
 \end{align*}
-As restrições são impostas de maneira a assegurar que não haja dados de treinamento
+\ident As restrições são impostas de maneira a assegurar que não haja dados de treinamento
 entre as margens de separação das classes. Por esse motivo, a SVM obtida possui também a
 nomenclatura de SVM com margens rígidas.
 
-\ident Ao resolver o dual deste problema de programação quadrática através dos multiplicadores de Lagrange $\alpha_i$, que leva-se aos resultados:
+\ident O problema de otimização obtido é quadrático, cuja solução possui uma ampla e estabelecida teoria matemática \cite{lorena2007}. Como a função objetivo sendo minimizada é convexa e os pontos que satisfazem as restrições formam um conjunto convexo, esse problema possui um único mínimo global. Problemas desse tipo podem ser solucionados com a introdução de uma função Lagrangiana, que engloba as restrições à função objetivo, associadas a parâmetros denominados multiplicadores de Lagrange $\alpha_i$.
+\begin{align*}
+    L(w,b,\alpha) = \frac{1}{2} \lvert w\rvert^2 - \sum_{i=1}^{n} \alpha_i(y_i(w \cdot x_i + b)-1).
+\end{align*}
+\ident A função Lagrangiana deve ser minimizada, o que implica em maximizar as variáveis $\alpha_i$ e minimizar $w$ e $b$. Tem-se então um ponto de sela, no qual:
+\begin{align*}
+    \frac{\partial L}{\partial b} = 0 \quad \text{e} \quad \frac{\partial L}{\partial w} = 0.
+\end{align*}
+A resolução dessas equações leva aos resultados abaixo:
 \begin{align*}
     \sum_{i=1}^{n}\alpha_i y_i = 0 \quad \text{e} \quad w = \sum_{i=1}^{n}\alpha_i y_i x_i.
 \end{align*}
@@ -1258,21 +1338,47 @@ O problema dual obtido da-se por:
 \end{align*}
 É interessante observar também que o problema dual é formulado utilizando apenas os dados de treinamento e os seus rótulos.
 
-\ident Obtida a solução ótima do problema dual, representada pelo vetor de multiplicadores de Lagrange $\alpha^*$, as variáveis primais podem ser restabelecidas. O vetor de pesos $w^*$ é determinado por uma combinação linear ponderada dos dados de treinamento, sofrendo a influência direta apenas das observações cujos multiplicadores associados sejam estritamente positivos ($\alpha_i^* > 0$). Por meio das condições de folga complementar de Karush-Kuhn-Tucker (KKT), esses pontos específicos caracterizam-se geometricamente como os vetores de suporte, posicionados exatamente sobre as margens hiperplânicas. Para todas as demais observações do conjunto de dados, os multiplicadores colapsam para zero ($\alpha_i^* = 0$), tornando-as irrelevantes para a definição geométrica da fronteira de decisão. 
+\ident Obtida a solução ótima do problema dual, representada pelo vetor de multiplicadores de Lagrange $\alpha^*$, as variáveis primais podem ser restabelecidas. O vetor de pesos $w^*$ é determinado por uma combinação linear ponderada dos dados de treinamento, sofrendo a influência direta apenas das observações cujos multiplicadores associados sejam estritamente positivos ($\alpha_i^* > 0$).
+
+\ident Para que uma solução de um problema de programação não linear seja ótima, devemos definir as seguintes condições, chamadas de Condições de Karush-Kuhn-Tucker (KKT):
+
+\begin{enumerate}
+    \item \textbf{Estacionariedade (Anulação dos Gradientes):}
+    \begin{align*}
+    \nabla_w \mathcal{L} = w - \sum_{i=1}^{N} \alpha_i y_i x_i = 0 & \implies w^* = \sum_{i=1}^{N} \alpha_i^* y_i x_i, \\
+    \frac{\partial \mathcal{L}}{\partial b} = -\sum_{i=1}^{N} \alpha_i y_i = 0 & \implies \sum_{i=1}^{N} \alpha_i^* y_i = 0, \\
+    \frac{\partial \mathcal{L}}{\partial \xi_i} = C - \alpha_i - \mu_i = 0 & \implies 0 \le \alpha_i^* \le C.
+    \end{align*}
+    
+    \item \textbf{Viabilidade Primal:}
+    \begin{equation*}
+    y_i (w^* \cdot x_i + b^*) - 1 + \xi_i^* \ge 0 \quad \text{e} \quad \xi_i^* \ge 0, \quad \forall i.
+    \end{equation*}
+    
+    \item \textbf{Viabilidade Dual:}
+    \begin{equation*}
+    \alpha_i^* \ge 0 \quad \text{e} \quad \mu_i^* \ge 0, \quad \forall i.
+    \end{equation*}
+    
+    \item \textbf{Folga Complementar:}
+    \begin{align*}
+    \alpha_i^* \left[ y_i (w^* \cdot x_i + b^*) - 1 + \xi_i^* \right] = 0, \\
+    \mu_i^* \xi_i^* = (C - \alpha_i^*) \xi_i^* = 0.
+    \end{align*}
+\end{enumerate}
+
+\ident Por meio das condições de folga complementar de Karush-Kuhn-Tucker (KKT), esses pontos específicos caracterizam-se geometricamente como os vetores de suporte, posicionados exatamente sobre as margens hiperplânicas. Para todas as demais observações do conjunto de dados, os multiplicadores colapsam para zero ($\alpha_i^* = 0$), tornando-as irrelevantes para a definição geométrica da fronteira de decisão. 
 
 \ident O cálculo do viés ótimo $b^*$ consolida-se a partir do conjunto dos vetores de suporte, denotado por $\mathcal{S}$, computando-se a média aritmética das soluções locais para mitigar instabilidades numéricas, onde $n_{\mathcal{S}}$ representa a cardinalidade de $\mathcal{S}$:
 \begin{equation*}
     b^* = \frac{1}{n_{\mathcal{S}}} \sum_{j \in \mathcal{S}} \left( \frac{1}{y_j} - \sum_{i \in \mathcal{S}} \alpha_i^* y_i x_i \cdot x_j \right).
 \end{equation*}
 
-\ident Como resultado final deste processo de otimização, estabelece-se a função do classificador linear $g(x)$, a qual projeta novas instâncias e infere seus respectivos rótulos com base na função sinal:
+\ident Como resultado final deste processo de otimização, estabelece-se uma lei de decisão descontínua $g(x)$ e não linear definida pela aplicação do operador sinal ($\text{sgn}$) sobre o funcional afim $f(x)$:
 \begin{equation*}
     g(x) = \text{sgn}\left( \sum_{i \in \mathcal{S}} \alpha_i^* y_i x_i\cdot x + b^* \right).
 \end{equation*}
-
-Esta função linear representa o hiperplano que separa os dados com maior margem,
-considerado aquele com melhor capacidade de generalização.
-
+O hiperplano atua como a fronteira de transição contínua onde $f(x) = 0$, garantindo a separação das classes com margem máxima e ótima capacidade de generalização estatística.
 
 \subsubsection{SVM Linear com Margem Suave}
 
@@ -1304,48 +1410,31 @@ considerado aquele com melhor capacidade de generalização.
 
 \ident Por fim, o cálculo do viés ótimo $b^*$ preserva a estabilidade computacional ao mensurar a média aritmética sobre o subconjunto de vetores de suporte livres, ou seja, aqueles que satisfazem a condição $0 < \alpha_i^* < C$. A função de classificação resultante preserva a mesma lei de decisão linear estabelecida para o caso rígido, herdando as propriedades de convergência global promovidas pela otimização convexa.
 
-\subsubsection{SVM Não Linear}
+% \subsubsection{SVM Não Linear}
 
-\ident Embora as Máquinas de Vetores de Suporte lineares com margens suaves tolerem ruídos e sobreposições locais, problemas complexos do mundo real frequentemente exigem fronteiras de decisão estritamente não-lineares. Para estender o formalismo clássico a cenários linearmente não-separáveis, projeta-se o espaço de entradas original para um novo espaço de dimensão superior, denominado espaço de características. Esta estratégia é fundamentada pelo Teorema de Cover, o qual postula que um conjunto de dados não-linear pode ser transformado, com alta probabilidade, em um espaço onde os padrões sejam linearmente separáveis, desde que a transformação seja não-linear e a dimensionalidade do espaço de características seja suficientemente elevada.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Imagens/svm_nao_linear.png}
-    \caption{ (a) Conjunto de dados não linear expressado em 2 dimensões; (b) Fronteira não linear no espaço de entradas; (c)
-Fronteira linear no espaço de características representado em 3 dimenssões. Fonte: retirado de \cite{lorena2007}.}
-\end{figure}
+% \ident Embora as Máquinas de Vetores de Suporte lineares com margens suaves tolerem ruídos e sobreposições locais, problemas complexos do mundo real frequentemente exigem fronteiras de decisão estritamente não-lineares. Para estender o formalismo clássico a cenários linearmente não-separáveis, projeta-se o espaço de entradas original para um novo espaço de dimensão superior, denominado espaço de características. Esta estratégia é fundamentada pelo Teorema de Cover, o qual postula que um conjunto de dados não-linear pode ser transformado, com alta probabilidade, em um espaço onde os padrões sejam linearmente separáveis, desde que a transformação seja não-linear e a dimensionalidade do espaço de características seja suficientemente elevada.
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{Imagens/svm_nao_linear.png}
+%     \caption{ (a) Conjunto de dados não linear expressado em 2 dimensões; (b) Fronteira não linear no espaço de entradas; (c)
+% Fronteira linear no espaço de características representado em 3 dimenssões. Fonte: retirado de \cite{lorena2007}.}
+% \end{figure}
 
-\ident Ao aplicar um mapeamento não-linear $\Phi$ ao problema de otimização dual e à função de decisão do classificador, nota-se que as instâncias do conjunto de dados passam a interagir exclusivamente por meio do produto escalar de suas projeções. Sob esta óptica, a função objetivo a ser maximizada assume a forma:
+% \ident Ao aplicar um mapeamento não-linear $\Phi$ ao problema de otimização dual e à função de decisão do classificador, nota-se que as instâncias do conjunto de dados passam a interagir exclusivamente por meio do produto escalar de suas projeções. Sob esta óptica, a função objetivo a ser maximizada assume a forma:
+% \[
+%     \max_{\alpha} \quad \sum_{i=1}^{n} \alpha_i - \frac{1}{2} \sum_{i,j=1}^{n} \alpha_i \alpha_j y_i y_j \left( \Phi(x_i) \cdot \Phi(x_j) \right)
+% \]
+% \ident Como o espaço de características pode deter dimensionalidade infinita, o cálculo computacional direto de $\Phi$ torna-se inviável. Contudo, a estrutura matemática do problema revela que o conhecimento explícito do mapeamento é desnecessário, exigindo apenas o valor do produto escalar entre os pontos projetados. Esta propriedade viabiliza o uso de funções denominadas \textit{kernels}, as quais computam o produto interno no espaço de características operando unicamente com as coordenadas do espaço original, tal que
+% \begin{align*}
+%     K(x_i, x_j) = \Phi(x_i) \cdot \Phi(x_j) .
+% \end{align*}
+% Para garantir a convexidade da otimização quadrática e assegurar que a função de \textit{kernel} represente implicitamente um espaço de produto interno válido, exige-se o cumprimento do Teorema de Mercer, o qual dita que as matrizes de \textit{kernel} resultantes sejam simétricas e positivas semidefinidas.
+
+\ident É fundamental destacar que a própria construção das Paisagens de Persistência resolve a não-linearidade geométrica intrínseca às flutuações proteicas. Como demonstrado na Seção \ref{sec:paisagens_persitencia}, ao adotar o espaço integrável de Lebesgue com $p=2$, o domínio das paisagens assume a estrutura de um espaço de Hilbert funcional munido do produto interno $\langle\lambda,\lambda'\rangle_{L^2}$. Dessa forma, o pré-processamento topológico mapeia a complexidade combinatória e tridimensional da proteína em representações funcionais linearmente bem-comportadas. Consequentemente, a distinção entre as conformações \textit{Apo} e \textit{Holo} pode ser operada diretamente por uma Máquina de Vetores de Suporte Linear — empregando a formulação de margem suave para acomodar eventuais sobreposições e ruídos no espaço de atributos —, onde o hiperplano separador opera diretamente sobre o produto escalar vetorial. A regra de decisão final é expressa por:
 \[
-    \max_{\alpha} \quad \sum_{i=1}^{n} \alpha_i - \frac{1}{2} \sum_{i,j=1}^{n} \alpha_i \alpha_j y_i y_j \left( \Phi(x_i) \cdot \Phi(x_j) \right)
+    g(x) = \text{sgn}\left( w^* \cdot x + b^* \right) = \text{sgn}\left( \sum_{i \in \mathcal{S}} \alpha_i^* y_i (x_i \cdot x) + b^* \right),
 \]
-\ident Como o espaço de características pode deter dimensionalidade infinita, o cálculo computacional direto de $\Phi$ torna-se inviável. Contudo, a estrutura matemática do problema revela que o conhecimento explícito do mapeamento é desnecessário, exigindo apenas o valor do produto escalar entre os pontos projetados. Esta propriedade viabiliza o uso de funções denominadas \textit{kernels}, as quais computam o produto interno no espaço de características operando unicamente com as coordenadas do espaço original, tal que
-\begin{align*}
-    K(x_i, x_j) = \Phi(x_i) \cdot \Phi(x_j) .
-\end{align*}
-Para garantir a convexidade da otimização quadrática e assegurar que a função de \textit{kernel} represente implicitamente um espaço de produto interno válido, exige-se o cumprimento do Teorema de Mercer, o qual dita que as matrizes de \textit{kernel} resultantes sejam simétricas e positivas semidefinidas.
-
-\ident É crucial notar que a aparente necessidade de recorrer a mapeamentos
-não-lineares $\Phi$ e a funções de kernel, discutida na formulação geral do
-SVM não linear, já se encontra resolvida pela própria construção das
-Paisagens de Persistência. Como deduzido na Seção \ref{sec:paisagens_persitencia}, ao adotar o espaço
-integrável de Lebesgue com $p=2$, o domínio das paisagens assume
-rigorosamente a estrutura de um espaço de Hilbert funcional, munido de um
-produto interno $\langle\lambda,\lambda'\rangle_{L^2}$ associado à norma que
-define a distância topológica $\Lambda_2$. Por ser um produto interno
-genuíno, essa forma bilinear é automaticamente simétrica e semidefinida
-positiva, satisfazendo trivialmente as condições exigidas de um kernel de
-Mercer -- sem que seja necessário invocar o teorema em sua direção usual
-(kernel $\rightarrow$ espaço de Hilbert), já que o espaço de Hilbert e o
-mapeamento $\Phi$ (a própria paisagem $\lambda_k(t)$) foram construídos
-explicitamente de antemão. Assim, o pré-processamento topológico das
-flutuações elásticas desempenha o papel do mapeamento $\Phi$ oculto na
-formulação clássica do SVM não linear, transformando a complexidade
-combinatória tridimensional da proteína em contornos funcionais já
-linearmente separáveis no espaço de Hilbert, o que permite que a lei de
-decisão final seja operada de forma estável por um hiperplano linear.:
-\[
-    g(x) = \text{sgn}\left( \sum_{i \in \mathcal{S}} \alpha_i^* y_i K(x_i, x) + b^* \right).
-\]
+onde $\mathcal{S}$ representa o conjunto de índices associados aos vetores de suporte calculados no problema dual.
 
 \subsection{Validação Cruzada}
 
@@ -1357,7 +1446,7 @@ decisão final seja operada de forma estável por um hiperplano linear.:
 \begin{equation*}
     \mathcal{E}_{\text{LOO}} = \frac{1}{n} \sum_{i=1}^{n} I\left( g^{\setminus i}(x_i) \neq y_i \right)
 \end{equation*}
-onde $I(\cdot)$ assume o valor unitário se a classificação for incorreta e zero em caso de acerto. O Teorema de Luntz e Brailovsky demonstra que este procedimento fornece um estimador quase não-enviesado do erro de generalização real, conferindo estabilidade matemática e blindagem estatística à modelagem preditiva aplicada sobre espaços funcionais pontuais.
+onde $I(\cdot)$ assume o valor unitário se a classificação for incorreta e zero em caso de acerto. O Teorema de Luntz e Brailovsky demonstra que este procedimento fornece um estimador quase não-enviesado do erro de generalização real, conferindo estabilidade matemática e blindagem estatística à modelagem preditiva aplicada sobre espaços funcionais pontuais (Ver Apêndice \ref{apx:loocv}).
 
 \section{O Desvio Quadrático Médio (RMSD)}\label{sec:rmsd}
 
@@ -1365,7 +1454,7 @@ onde $I(\cdot)$ assume o valor unitário se a classificação for incorreta e ze
 geométrica entre duas conformações de uma mesma macromolécula é o Desvio
 Quadrático Médio (RMSD --- \emph{Root-Mean-Square Deviation}). Neste trabalho,
 o RMSD atua como métrica de base, fornecendo uma medida puramente estática e
-euclidiana da diferença entre as conformações Apo e Holo da MBP, e estabelecendo
+euclidiana da diferença entre as conformações \textit{Apo} e \textit{Holo} da MBP, e estabelecendo
 o referencial de comparação para as métricas topológicas exploradas nos
 resultados.
 
@@ -1478,10 +1567,9 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
 \caption{Fluxo Computacional para Extração da Matriz de Distância Dinâmica}
 \label{alg:anm_pipeline}
 \begin{algorithmic}[1]
-\Require Lista de identificadores $\mathcal{L} = \{id_1, id_2, \dots, id_M\}$, Categoria da proteína $c$ (Apo/Holo).
-\Ensure Salvamento das matrizes de distância em formato binário \texttt{.npy}.
+\Require Lista de identificadores $\mathcal{L} = \{id_1, id_2, \dots, id_M\}$, Categoria da proteína $c$ (\textit{Apo/Holo}).
+\Ensure Salvamento das matrizes de distância.
 
-\State $\text{Criar diretórios } \texttt{dataset/c} \text{ e } \texttt{matrizes/c}$
 \For{cada identificador $id \in \mathcal{L}$}
     \State \textbf{Etapa 1: Obtenção e Filtragem de Dados}
     \State $\text{arquivo\_cif} \leftarrow \text{ObterEstruturaPDB}(id, \text{formato}=\text{cif})$
@@ -1512,9 +1600,7 @@ estatística do RMSD encontra-se detalhada no Apêndice \ref{apx:rmsd}.
         \EndFor
     \EndFor
     
-    \State \textbf{Etapa 4: Armazenamento Computacional}
-    \State $\text{caminho} \leftarrow \text{Concatenar}(\texttt{matrizes/c}, id + \texttt{\_matriz.npy})$
-    \State $\text{SalvarBinario}(\text{caminho}, D)$
+    \State $\text{SalvarMatriz}(D)$
 \EndFor
 \end{algorithmic}
 \end{algorithm}
@@ -1912,7 +1998,7 @@ onde $k_B$ é a constante de Boltzmann e $T$ é a temperatura absoluta do sistem
 
 \ident No contexto analítico desta pesquisa metodológica, em conformidade com as práticas consolidadas na biologia estrutural, o somatório integral da Equação \ref{eq:cross_correlation} é truncado. Consideram-se exclusivamente as 20 primeiras frequências não-triviais de vibração ($k = 7$ a $26$). Essa aproximação fundamenta-se no princípio de que os autovalores de menor magnitude dominam exponencialmente a fração da equação, governando assim as grandes transições funcionais globais da proteína — como a transição \textit{Apo}-\textit{Holo} da Proteína de Ligação à Maltose —, enquanto filtram com eficiência o ruído térmico aleatório intrínseco aos modos de alta frequência.
 
-\section{Topologia}
+\section{Topologia} \label{apx:topologia}
 \subsection{Topologia Geral}
 \begin{definition}
 Um espaço topológico é um par $(X, \mathcal{T})$ onde $X$ é um conjunto e $\mathcal{T}$ é uma coleção de subconjuntos de $X$ tal que:
@@ -2022,6 +2108,28 @@ Seja $(X, \mathcal{T})$ um espaço topológico e $Y \subset X$ um subconjunto, m
 
 Uma retração por deformação é uma homotopia $F: X \times [0,1] \to Y$ entre a aplicação identidade $\mathrm{id}: X \to X$ e uma retração $r: X \to X$.
 \end{definition}
+
+\section{Estabilidade Estatística} \label{apx:loocv}
+
+\ident A validação cruzada \textit{Leave-One-Out} (LOOCV) fornece um estimador não viesado do erro de generalização. O Teorema de Luntz e Brailovsky estabelece um limite superior analítico para a esperança do erro do LOOCV baseado unicamente na cardinalidade esperada do conjunto de vetores de suporte.
+
+\begin{theorem}
+Seja $D_N = \{(x_1, y_1), \dots, (x_N, y_N)\}$ um conjunto de dados de treinamento sorteado de forma independente e identicamente distribuída (i.i.d.). Considere o classificador SVM treinado sobre subconjuntos de tamanho $N-1$. A esperança do erro do estimador \textit{Leave-One-Out}, $\mathbb{E}[R_{\text{LOO}}(N)]$, satisfaz rigorosamente:
+\begin{equation*}
+\mathbb{E}\left[ R_{\text{LOO}}(N) \right] = \frac{\mathbb{E}\left[ |\mathcal{S}_{N-1}| \right]}{N},
+\end{equation*}
+em que $|\mathcal{S}_{N-1}|$ representa o número de vetores de suporte produzidos pelo modelo ao ser treinado em um conjunto reduzido de $N-1$ amostras.
+\end{theorem}
+
+\begin{proof}
+Seja $g_{D \setminus \{i\}}$ o classificador obtido ao remover a $i$-ésima amostra do conjunto $D_N$. O erro do LOOCV é expresso por 
+\[
+R_{\text{LOO}}(N) = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}\left( g_{D \setminus \{i\}}(x_i) \neq y_i \right)
+\]
+em que $\mathbb{I}$ é a função indicadora. 
+
+Se uma amostra $(x_i, y_i)$ reanalisada não for um vetor de suporte no treinamento completo, ela estaria estritamente no interior da margem correta; logo, a sua remoção não altera o hiperplano de separação, implicando $g_{D \setminus \{i\}}(x_i) = y_i$ e erro nulo. Um erro de classificação em $x_i$ só pode ocorrer se $x_i \in \mathcal{S}_N$. Tomando a esperança matemática em ambos os lados e aplicando a simetria da distribuição i.i.d., obtém-se o limite proposto.
+\end{proof}
 
 
 \section{O Problema de Kabsch e a Significância Estatística do RMSD}
